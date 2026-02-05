@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UO Rewards — Verify Email</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --uo-black: #1a1a1a;
+            --uo-white: #ffffff;
+            --uo-cream: #f5f3ef;
+            --uo-lime: #c8e84b;
+            --font-display: 'Space Mono', monospace;
+            --font-body: Helvetica, Arial, sans-serif;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            background: var(--uo-white);
+            color: var(--uo-black);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .auth-container {
+            width: 100%;
+            max-width: 480px;
+            background: var(--uo-white);
+            border: 2px solid var(--uo-black);
+            border-radius: 24px;
+            padding: 48px;
+        }
+        
+        .auth-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        
+        .auth-header h1 {
+            font-family: var(--font-display);
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .auth-header p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+        
+        .auth-header .email-display {
+            font-weight: 600;
+            color: var(--uo-black);
+            font-size: 16px;
+        }
+        
+        .form-group {
+            margin-bottom: 24px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-family: var(--font-display);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        
+        .verification-input {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+        
+        .verification-input input {
+            width: 60px;
+            height: 60px;
+            text-align: center;
+            border: 2px solid var(--uo-black);
+            border-radius: 8px;
+            font-family: var(--font-display);
+            font-size: 24px;
+            font-weight: 700;
+            background: var(--uo-white);
+        }
+        
+        .verification-input input:focus {
+            outline: none;
+            border-color: var(--uo-lime);
+        }
+        
+        .btn-primary {
+            width: 100%;
+            padding: 16px;
+            background: var(--uo-black);
+            color: var(--uo-white);
+            font-family: var(--font-display);
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 2px solid var(--uo-black);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-primary:hover {
+            background: var(--uo-lime);
+            color: var(--uo-black);
+            border-color: var(--uo-lime);
+        }
+        
+        .btn-secondary {
+            width: 100%;
+            padding: 16px;
+            background: transparent;
+            color: var(--uo-black);
+            font-family: var(--font-display);
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 2px solid var(--uo-black);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 12px;
+        }
+        
+        .btn-secondary:hover {
+            background: var(--uo-black);
+            color: var(--uo-white);
+        }
+        
+        .error-message {
+            background: #ffebee;
+            color: #c62828;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            font-size: 14px;
+            display: none;
+        }
+        
+        .error-message.show {
+            display: block;
+        }
+        
+        .success-message {
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            font-size: 14px;
+            display: none;
+        }
+        
+        .success-message.show {
+            display: block;
+        }
+        
+        .resend-info {
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            margin-top: 16px;
+        }
+        
+        .resend-info a {
+            color: var(--uo-black);
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        
+        /* Verification Code Display (Testing Only) */
+        .verification-code-display {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--uo-lime);
+            border: 2px solid var(--uo-black);
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-family: var(--font-display);
+            font-size: 14px;
+            font-weight: 700;
+            z-index: 10000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: none;
+            max-width: 280px;
+        }
+        
+        .verification-code-display.show {
+            display: block;
+        }
+        
+        .verification-code-display .label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            opacity: 0.7;
+        }
+        
+        .verification-code-display .code {
+            font-size: 24px;
+            letter-spacing: 4px;
+            text-align: center;
+            background: var(--uo-white);
+            padding: 12px;
+            border-radius: 8px;
+            border: 2px solid var(--uo-black);
+        }
+    </style>
+</head>
+<body>
+    <!-- Verification Code Display (Testing Only) -->
+    <div class="verification-code-display" id="verificationCodeDisplay">
+        <div class="label">Verification Code (Testing)</div>
+        <div class="code" id="verificationCodeValue"></div>
+    </div>
+    <div class="auth-container">
+        <div class="auth-header">
+            <h1>Verify Your Email</h1>
+            <p>We've sent a verification code to:</p>
+            <p class="email-display" id="emailDisplay"></p>
+            <p style="font-size: 12px; margin-top: 16px;">Enter the 6-digit code below</p>
+        </div>
+        
+        <div class="error-message" id="errorMessage"></div>
+        <div class="success-message" id="successMessage"></div>
+        
+        <form id="verifyForm">
+            <div class="form-group">
+                <label for="code">Verification Code</label>
+                <div class="verification-input">
+                    <input type="text" id="code1" maxlength="1" pattern="[0-9]" required>
+                    <input type="text" id="code2" maxlength="1" pattern="[0-9]" required>
+                    <input type="text" id="code3" maxlength="1" pattern="[0-9]" required>
+                    <input type="text" id="code4" maxlength="1" pattern="[0-9]" required>
+                    <input type="text" id="code5" maxlength="1" pattern="[0-9]" required>
+                    <input type="text" id="code6" maxlength="1" pattern="[0-9]" required>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn-primary">Verify Email</button>
+            <button type="button" class="btn-secondary" id="resendBtn">Resend Code</button>
+        </form>
+        
+        <div class="resend-info">
+            <p>Didn't receive the code? <a id="resendLink">Resend</a></p>
+        </div>
+    </div>
+    
+    <script>
+        // Display email
+        const email = sessionStorage.getItem('pendingVerificationEmail');
+        if (!email) {
+            window.location.href = 'signup.html';
+        }
+        document.getElementById('emailDisplay').textContent = email;
+        
+        // Display verification code on screen (testing only)
+        const storedCode = sessionStorage.getItem('verificationCode');
+        if (storedCode) {
+            const codeDisplay = document.getElementById('verificationCodeDisplay');
+            const codeValue = document.getElementById('verificationCodeValue');
+            codeValue.textContent = storedCode;
+            codeDisplay.classList.add('show');
+        }
+        
+        // Auto-focus first input and handle navigation
+        const inputs = ['code1', 'code2', 'code3', 'code4', 'code5', 'code6'];
+        inputs.forEach((id, index) => {
+            const input = document.getElementById(id);
+            
+            input.addEventListener('input', function(e) {
+                if (this.value && index < inputs.length - 1) {
+                    document.getElementById(inputs[index + 1]).focus();
+                }
+            });
+            
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Backspace' && !this.value && index > 0) {
+                    document.getElementById(inputs[index - 1]).focus();
+                }
+            });
+        });
+        
+        document.getElementById('code1').focus();
+        
+        // Form submission
+        document.getElementById('verifyForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const code = inputs.map(id => document.getElementById(id).value).join('');
+            const storedCode = sessionStorage.getItem('verificationCode');
+            const errorMessage = document.getElementById('errorMessage');
+            const successMessage = document.getElementById('successMessage');
+            
+            errorMessage.classList.remove('show');
+            successMessage.classList.remove('show');
+            
+            if (code.length !== 6) {
+                errorMessage.textContent = 'Please enter the complete 6-digit code.';
+                errorMessage.classList.add('show');
+                return;
+            }
+            
+            if (code !== storedCode) {
+                errorMessage.textContent = 'Invalid verification code. Please try again.';
+                errorMessage.classList.add('show');
+                return;
+            }
+            
+            // Mark user as verified
+            const users = JSON.parse(localStorage.getItem('uoRewardsUsers') || '[]');
+            const userIndex = users.findIndex(u => u.email === email);
+            
+            if (userIndex !== -1) {
+                users[userIndex].verified = true;
+                users[userIndex].verifiedAt = new Date().toISOString();
+                localStorage.setItem('uoRewardsUsers', JSON.stringify(users));
+                
+                // Set authenticated user
+                localStorage.setItem('uoRewardsAuthenticatedUser', email);
+                
+                successMessage.textContent = 'Email verified! Redirecting to your dashboard...';
+                successMessage.classList.add('show');
+                
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1500);
+            }
+        });
+        
+        // Resend code
+        function resendCode() {
+            const newCode = Math.floor(100000 + Math.random() * 900000).toString();
+            sessionStorage.setItem('verificationCode', newCode);
+            
+            // Update stored user's verification code
+            const users = JSON.parse(localStorage.getItem('uoRewardsUsers') || '[]');
+            const userIndex = users.findIndex(u => u.email === email);
+            if (userIndex !== -1) {
+                users[userIndex].verificationCode = newCode;
+                localStorage.setItem('uoRewardsUsers', JSON.stringify(users));
+            }
+            
+            // Update verification code display
+            const codeDisplay = document.getElementById('verificationCodeDisplay');
+            const codeValue = document.getElementById('verificationCodeValue');
+            codeValue.textContent = newCode;
+            codeDisplay.classList.add('show');
+            
+            // Clear inputs
+            inputs.forEach(id => {
+                document.getElementById(id).value = '';
+            });
+            document.getElementById('code1').focus();
+            
+            const successMessage = document.getElementById('successMessage');
+            successMessage.textContent = 'New verification code sent!';
+            successMessage.classList.add('show');
+            
+            setTimeout(() => {
+                successMessage.classList.remove('show');
+            }, 3000);
+        }
+        
+        document.getElementById('resendBtn').addEventListener('click', resendCode);
+        document.getElementById('resendLink').addEventListener('click', resendCode);
+    </script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "name": "uo-rewards-redesign",
+  "version": "1.0.0",
+  "description": "UO Rewards members-only dashboard",
+  "scripts": {
+    "dev": "vercel dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

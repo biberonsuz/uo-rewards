@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UO Rewards — Sign Up</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --uo-black: #1a1a1a;
+            --uo-white: #ffffff;
+            --uo-cream: #f5f3ef;
+            --uo-lime: #c8e84b;
+            --font-display: 'Space Mono', monospace;
+            --font-body: Helvetica, Arial, sans-serif;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            background: var(--uo-white);
+            color: var(--uo-black);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .auth-container {
+            width: 100%;
+            max-width: 480px;
+            background: var(--uo-white);
+            border: 2px solid var(--uo-black);
+            border-radius: 24px;
+            padding: 48px;
+        }
+        
+        .auth-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        
+        .auth-header h1 {
+            font-family: var(--font-display);
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .auth-header p {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .form-group {
+            margin-bottom: 24px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-family: var(--font-display);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid var(--uo-black);
+            border-radius: 8px;
+            font-family: var(--font-body);
+            font-size: 16px;
+            background: var(--uo-white);
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--uo-lime);
+        }
+        
+        .btn-primary {
+            width: 100%;
+            padding: 16px;
+            background: var(--uo-black);
+            color: var(--uo-white);
+            font-family: var(--font-display);
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 2px solid var(--uo-black);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-primary:hover {
+            background: var(--uo-lime);
+            color: var(--uo-black);
+            border-color: var(--uo-lime);
+        }
+        
+        .auth-footer {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 14px;
+        }
+        
+        .auth-footer a {
+            color: var(--uo-black);
+            text-decoration: underline;
+        }
+        
+        .error-message {
+            background: #ffebee;
+            color: #c62828;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            font-size: 14px;
+            display: none;
+        }
+        
+        .error-message.show {
+            display: block;
+        }
+        
+        .success-message {
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            font-size: 14px;
+            display: none;
+        }
+        
+        .success-message.show {
+            display: block;
+        }
+        
+        /* Verification Code Display (Testing Only) */
+        .verification-code-display {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--uo-lime);
+            border: 2px solid var(--uo-black);
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-family: var(--font-display);
+            font-size: 14px;
+            font-weight: 700;
+            z-index: 10000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: none;
+            max-width: 280px;
+        }
+        
+        .verification-code-display.show {
+            display: block;
+        }
+        
+        .verification-code-display .label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            opacity: 0.7;
+        }
+        
+        .verification-code-display .code {
+            font-size: 24px;
+            letter-spacing: 4px;
+            text-align: center;
+            background: var(--uo-white);
+            padding: 12px;
+            border-radius: 8px;
+            border: 2px solid var(--uo-black);
+        }
+    </style>
+</head>
+<body>
+    <!-- Verification Code Display (Testing Only) -->
+    <div class="verification-code-display" id="verificationCodeDisplay">
+        <div class="label">Verification Code (Testing)</div>
+        <div class="code" id="verificationCodeValue"></div>
+    </div>
+    <div class="auth-container">
+        <div class="auth-header">
+            <h1>Join UO Rewards</h1>
+            <p>Sign up to access exclusive member benefits</p>
+        </div>
+        
+        <div class="error-message" id="errorMessage"></div>
+        <div class="success-message" id="successMessage"></div>
+        
+        <form id="signupForm">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required placeholder="your.email@example.com">
+            </div>
+            
+            <button type="submit" class="btn-primary">Sign Up</button>
+        </form>
+        
+        <div class="auth-footer">
+            <p>Already have an account? <a href="login.html">Sign in</a></p>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const errorMessage = document.getElementById('errorMessage');
+            const successMessage = document.getElementById('successMessage');
+            
+            // Hide previous messages
+            errorMessage.classList.remove('show');
+            successMessage.classList.remove('show');
+            
+            // Validate email format
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                errorMessage.textContent = 'Please enter a valid email address.';
+                errorMessage.classList.add('show');
+                return;
+            }
+            
+            // Check if user already exists
+            const existingUsers = JSON.parse(localStorage.getItem('uoRewardsUsers') || '[]');
+            const userExists = existingUsers.find(u => u.email === email);
+            
+            if (userExists) {
+                if (userExists.verified) {
+                    errorMessage.textContent = 'An account with this email already exists. Please sign in instead.';
+                    errorMessage.classList.add('show');
+                    setTimeout(() => {
+                        window.location.href = 'login.html';
+                    }, 2000);
+                    return;
+                } else {
+                    // User exists but not verified, resend code
+                    const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+                    userExists.verificationCode = verificationCode;
+                    const userIndex = existingUsers.findIndex(u => u.email === email);
+                    existingUsers[userIndex] = userExists;
+                    localStorage.setItem('uoRewardsUsers', JSON.stringify(existingUsers));
+                    
+                    sessionStorage.setItem('pendingVerificationEmail', email);
+                    sessionStorage.setItem('verificationCode', verificationCode);
+                    
+                    // Display verification code on screen (testing only)
+                    const codeDisplay = document.getElementById('verificationCodeDisplay');
+                    const codeValue = document.getElementById('verificationCodeValue');
+                    codeValue.textContent = verificationCode;
+                    codeDisplay.classList.add('show');
+                    
+                    successMessage.textContent = 'Verification code sent! Redirecting...';
+                    successMessage.classList.add('show');
+                    
+                    setTimeout(() => {
+                        window.location.href = 'verify.html';
+                    }, 1500);
+                    return;
+                }
+            }
+            
+            // Generate verification code
+            const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+            
+            // Store user data (no password needed)
+            const userData = {
+                email: email,
+                verified: false,
+                verificationCode: verificationCode,
+                createdAt: new Date().toISOString()
+            };
+            
+            existingUsers.push(userData);
+            localStorage.setItem('uoRewardsUsers', JSON.stringify(existingUsers));
+            
+            // Store email for verification page
+            sessionStorage.setItem('pendingVerificationEmail', email);
+            sessionStorage.setItem('verificationCode', verificationCode);
+            
+            // Display verification code on screen (testing only)
+            const codeDisplay = document.getElementById('verificationCodeDisplay');
+            const codeValue = document.getElementById('verificationCodeValue');
+            codeValue.textContent = verificationCode;
+            codeDisplay.classList.add('show');
+            
+            // Log verification code to console for testing
+            console.log('Verification code:', verificationCode);
+            
+            // Show success message
+            successMessage.textContent = 'Verification code sent! Redirecting...';
+            successMessage.classList.add('show');
+            
+            // Redirect to verification page
+            setTimeout(() => {
+                window.location.href = 'verify.html';
+            }, 1500);
+        });
+    </script>
+</body>
+</html>

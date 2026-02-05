@@ -1,0 +1,2463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UO Rewards — Join Now</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --uo-black: #1a1a1a;
+            --uo-white: #ffffff;
+            --uo-cream: #f5f3ef;
+            --uo-lime: #c8e84b;
+            --uo-pink: #ffb5c0;
+            --uo-blue: #a8d4e6;
+            --uo-orange: #ff6b35;
+            --uo-peach: #ffe5d9;
+            --font-display: 'Space Mono', monospace;
+            --font-body: Helvetica, Arial, sans-serif;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            background: var(--uo-white);
+            color: var(--uo-black);
+            min-height: 100vh;
+        }
+        
+        /* Header */
+        .header {
+            width: 100%;
+            display: none;
+            margin: 0;
+            padding: 0;
+            position: relative;
+        }
+        
+        .header.active {
+            display: block;
+        }
+        
+        .header-img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .logout-btn {
+            position: absolute;
+            top: 5px;
+            right: 20px;
+            background: rgb(245,245,245);
+            border: 1px solid var(--uo-black);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-family: var(--font-body);
+            font-size: 11px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            z-index: 100;
+        }
+        
+        .logout-btn:hover {
+            background: var(--uo-lime);
+            color: var(--uo-black);
+        }
+        
+        /* Dashboard Container */
+        .dashboard {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+        
+        /* Welcome Hero */
+        .welcome-hero {
+            background: linear-gradient(135deg, var(--uo-peach) 0%, var(--uo-pink) 50%, var(--uo-blue) 100%);
+            border: 2px solid var(--uo-black);
+            border-radius: 24px;
+            padding: 48px;
+            margin-bottom: 32px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .welcome-hero::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: var(--uo-lime);
+            border-radius: 50%;
+            opacity: 0.6;
+        }
+        
+        .welcome-hero::after {
+            content: 'UO';
+            position: absolute;
+            bottom: -20px;
+            right: 40px;
+            font-family: var(--font-display);
+            font-size: 180px;
+            font-weight: 700;
+            color: var(--uo-black);
+            opacity: 0.08;
+            line-height: 1;
+        }
+        
+        .welcome-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 40px;
+        }
+        
+        .welcome-text {
+            flex: 1;
+        }
+        
+        .qr-code-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .qr-code-label {
+            font-family: var(--font-display);
+            font-size: 14px;
+            font-weight: 700;
+            text-align: center;
+            color: var(--uo-black);
+        }
+        
+        .qr-code {
+            width: 150px;
+            height: 150px;
+            background: var(--uo-white);
+            border: 2px solid var(--uo-black);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+        }
+        
+        .qr-code img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .qr-code-placeholder {
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                45deg,
+                #f0f0f0,
+                #f0f0f0 10px,
+                #ffffff 10px,
+                #ffffff 20px
+            );
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-display);
+            font-size: 10px;
+            color: #999;
+            text-align: center;
+        }
+        
+        .welcome-label {
+            font-family: var(--font-display);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+            opacity: 0.7;
+        }
+        
+        .welcome-title {
+            font-family: var(--font-display);
+            font-size: 42px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+        
+        .welcome-subtitle {
+            font-size: 18px;
+            max-width: 500px;
+            line-height: 1.5;
+            opacity: 0.9;
+        }
+        
+        .member-since {
+            margin-top: 24px;
+            font-size: 13px;
+            opacity: 0.7;
+        }
+        
+        /* Main Grid */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+        
+        /* Card Base */
+        .card {
+            background: var(--uo-white);
+            border: 2px solid var(--uo-black);
+            border-radius: 16px;
+            padding: 32px;
+            position: relative;
+        }
+        
+        .card-label {
+            font-family: var(--font-display);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .card-label .dot {
+            width: 8px;
+            height: 8px;
+            background: var(--uo-lime);
+            border-radius: 50%;
+        }
+        
+        /* Stamp Progress Card */
+        .stamp-card {
+            grid-column: span 2;
+        }
+        
+        .stamp-progress {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+        
+        .stamps-container {
+            display: flex;
+            gap: 16px;
+            flex: 1;
+        }
+        
+        .stamp {
+            width: 100px;
+            height: 100px;
+            border: 3px solid var(--uo-black);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: var(--uo-cream);
+            transition: all 0.3s ease;
+        }
+        
+        .stamp.earned {
+            background: var(--uo-lime);
+            transform: rotate(-2deg);
+        }
+        
+        .stamp.earned::after {
+            content: '✓';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 28px;
+            height: 28px;
+            background: var(--uo-black);
+            color: var(--uo-white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+        }
+        
+        .stamp.current {
+            border-style: dashed;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(200, 232, 75, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(200, 232, 75, 0); }
+        }
+        
+        .stamp-number {
+            font-family: var(--font-display);
+            font-size: 32px;
+            font-weight: 700;
+        }
+        
+        .stamp-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+        
+        .reward-preview {
+            background: var(--uo-black);
+            color: var(--uo-white);
+            padding: 24px 32px;
+            border-radius: 16px;
+            text-align: center;
+            min-width: 180px;
+        }
+        
+        .reward-preview .amount {
+            font-family: var(--font-display);
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1;
+        }
+        
+        .reward-preview .label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 8px;
+            opacity: 0.8;
+        }
+        
+        .stamp-message {
+            background: var(--uo-peach);
+            padding: 16px 20px;
+            border-radius: 12px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .stamp-message .icon {
+            font-size: 24px;
+        }
+        
+        /* Welcome Offer Card */
+        .offer-card {
+            background: var(--uo-lime);
+            position: relative;
+        }
+        
+        .offer-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 150px;
+            height: 150px;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(0,0,0,0.05) 10px,
+                rgba(0,0,0,0.05) 20px
+            );
+        }
+        
+        .offer-badge {
+            display: inline-block;
+            background: var(--uo-black);
+            color: var(--uo-lime);
+            font-family: var(--font-display);
+            font-size: 11px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            margin-bottom: 16px;
+        }
+        
+        .offer-amount {
+            font-family: var(--font-display);
+            font-size: 72px;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+        
+        .offer-description {
+            font-size: 16px;
+            margin-bottom: 24px;
+            max-width: 200px;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--uo-black);
+            color: var(--uo-white);
+            font-family: var(--font-display);
+            font-size: 13px;
+            padding: 14px 24px;
+            border-radius: 30px;
+            text-decoration: none;
+            border: 2px solid var(--uo-black);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .btn:hover {
+            background: var(--uo-white);
+            color: var(--uo-black);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--uo-black);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--uo-black);
+            color: var(--uo-white);
+        }
+        
+        .offer-expiry {
+            margin-top: 20px;
+            font-size: 12px;
+            opacity: 0.7;
+        }
+        
+        /* Next Steps Card */
+        .steps-card {
+            background: var(--uo-white);
+        }
+        
+        .steps-list {
+            list-style: none;
+        }
+        
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 16px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .step-item:last-child {
+            border-bottom: none;
+        }
+        
+        .step-number-badge {
+            width: 32px;
+            height: 32px;
+            background: var(--uo-cream);
+            border: 2px solid var(--uo-black);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-display);
+            font-size: 14px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        
+        .step-item.completed .step-number-badge {
+            background: var(--uo-lime);
+        }
+        
+        .step-content h4 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .step-content p {
+            font-size: 13px;
+            color: #666;
+        }
+        
+        .step-action {
+            margin-left: auto;
+            font-family: var(--font-display);
+            font-size: 12px;
+            color: var(--uo-black);
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        
+        /* Competitions Section */
+        .competitions-section {
+            margin-bottom: 48px;
+        }
+        
+        .events-section {
+            margin-bottom: 32px;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .view-all {
+            font-family: var(--font-display);
+            font-size: 13px;
+            color: var(--uo-black);
+            text-decoration: underline;
+        }
+        
+        .competitions-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        
+        .competition-card {
+            background: var(--uo-white);
+            border: 2px solid var(--uo-black);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.2s ease;
+        }
+        
+        .competition-card:hover {
+            transform: translateY(-4px);
+        }
+        
+        .competition-image {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .competition-image.pink { background: linear-gradient(135deg, #ff9a9e, #fecfef); }
+        .competition-image.blue { background: linear-gradient(135deg, var(--uo-blue), #c2e9fb); }
+        .competition-image.lime { background: linear-gradient(135deg, var(--uo-lime), #96e6a1); }
+        
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        
+        .event-card {
+            background: var(--uo-white);
+            border: 2px solid var(--uo-black);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.2s ease;
+        }
+        
+        .event-card:hover {
+            transform: translateY(-4px);
+        }
+        
+        .event-image {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .event-image.orange { background: linear-gradient(135deg, var(--uo-orange), #ff8c69); }
+        .event-image.peach { background: linear-gradient(135deg, var(--uo-peach), #ffd4c4); }
+        .event-image.pink { background: linear-gradient(135deg, var(--uo-pink), #ffcbd4); }
+        
+        .event-badge {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            background: var(--uo-black);
+            color: var(--uo-white);
+            font-family: var(--font-display);
+            font-size: 10px;
+            padding: 6px 10px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .event-content {
+            padding: 20px;
+        }
+        
+        .event-title {
+            font-family: var(--font-display);
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+        
+        .event-date {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 16px;
+        }
+        
+        .event-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .event-location {
+            font-size: 12px;
+            color: var(--uo-black);
+            font-weight: 600;
+        }
+        
+        .competition-badge {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            background: var(--uo-black);
+            color: var(--uo-white);
+            font-family: var(--font-display);
+            font-size: 10px;
+            padding: 6px 10px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .competition-content {
+            padding: 20px;
+        }
+        
+        .competition-title {
+            font-family: var(--font-display);
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+        
+        .competition-prize {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 16px;
+        }
+        
+        .competition-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .competition-timer {
+            font-size: 12px;
+            color: var(--uo-orange);
+            font-weight: 600;
+        }
+        
+        .enter-btn {
+            font-family: var(--font-display);
+            font-size: 11px;
+            padding: 8px 16px;
+            background: var(--uo-cream);
+            border: 2px solid var(--uo-black);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .enter-btn:hover {
+            background: var(--uo-black);
+            color: var(--uo-white);
+        }
+        
+        /* Quick Actions */
+        .quick-actions {
+            display: flex;
+            gap: 16px;
+        }
+        
+        .quick-action {
+            flex: 1;
+            background: var(--uo-white);
+            border: 2px solid var(--uo-black);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .quick-action:hover {
+            background: var(--uo-cream);
+        }
+        
+        .quick-action-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--uo-cream);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        
+        .quick-action-text h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .quick-action-text p {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        /* Annotations for presentation */
+        .annotation {
+            position: absolute;
+            background: #ff6b35;
+            color: white;
+            font-family: var(--font-display);
+            font-size: 10px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            z-index: 10;
+        }
+        
+        .stamp-card .annotation {
+            top: -12px;
+            left: 24px;
+        }
+        
+        .offer-card .annotation {
+            top: -12px;
+            left: 24px;
+            z-index: 10;
+        }
+        
+        .steps-card .annotation {
+            top: -12px;
+            left: 24px;
+        }
+        
+        .competitions-section .annotation {
+            position: relative;
+            display: inline-block;
+            margin-left: 16px;
+            top: auto;
+            left: auto;
+        }
+        
+        .events-section .annotation {
+            position: relative;
+            display: inline-block;
+            margin-left: 16px;
+            top: auto;
+            left: auto;
+        }
+        
+        /* Landing Page Styles */
+        .landing-page {
+            display: none;
+            min-height: 100vh;
+        }
+        
+        .landing-page.active {
+            display: block;
+        }
+        
+        .landing-header {
+            display: block !important;
+        }
+        
+        .landing-main {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .landing-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 80px;
+        }
+        
+        .join-banner {
+            background: var(--uo-lime);
+            border: 2px solid var(--uo-black);
+            border-radius: 24px;
+            padding: 60px 40px;
+            margin: 0 auto;
+            max-width: 1200px;
+            width: 100%;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .join-banner:hover {
+            background: var(--uo-white);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        }
+        
+        .join-banner h1 {
+            font-family: var(--font-display);
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        
+        .join-banner p {
+            font-size: 18px;
+            margin-bottom: 32px;
+            color: #333;
+        }
+        
+        /* Member Perks Section */
+        .member-perks-section {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .member-perks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+        
+        .perk-item {
+            text-align: center;
+            padding: 24px;
+        }
+        
+        .perk-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            display: block;
+        }
+        
+        .perk-title {
+            font-family: var(--font-display);
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--uo-black);
+        }
+        
+        .perk-description {
+            font-family: var(--font-body);
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        .join-btn {
+            display: inline-block;
+            padding: 16px 48px;
+            background: var(--uo-black);
+            color: var(--uo-white);
+            font-family: var(--font-display);
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 2px solid var(--uo-black);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .join-btn:hover {
+            background: var(--uo-lime);
+            color: var(--uo-black);
+            border-color: var(--uo-lime);
+        }
+        
+        /* Modal Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+        }
+        
+        .modal {
+            background: var(--uo-white);
+            border: 2px solid var(--uo-black);
+            border-radius: 24px;
+            padding: 48px;
+            max-width: 480px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 32px;
+            cursor: pointer;
+            color: var(--uo-black);
+            line-height: 1;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+        }
+        
+        .modal-close:hover {
+            color: var(--uo-orange);
+        }
+        
+        .modal-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        
+        .modal-header h2 {
+            font-family: var(--font-display);
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .modal-header p {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .form-group {
+            margin-bottom: 24px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-family: var(--font-display);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid var(--uo-black);
+            border-radius: 8px;
+            font-family: var(--font-body);
+            font-size: 16px;
+            background: var(--uo-white);
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--uo-lime);
+        }
+        
+        .form-group select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid var(--uo-black);
+            border-radius: 8px;
+            font-family: var(--font-body);
+            font-size: 16px;
+            background: var(--uo-white);
+            cursor: pointer;
+        }
+        
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--uo-lime);
+        }
+        
+        .btn-primary {
+            width: 100%;
+            padding: 16px;
+            background: var(--uo-black);
+            color: var(--uo-white);
+            font-family: var(--font-display);
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 2px solid var(--uo-black);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-primary:hover {
+            background: var(--uo-lime);
+            color: var(--uo-black);
+            border-color: var(--uo-lime);
+        }
+        
+        .error-message {
+            background: #ffebee;
+            color: #c62828;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            font-size: 14px;
+            display: none;
+        }
+        
+        .error-message.show {
+            display: block;
+        }
+        
+        .success-message {
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            font-size: 14px;
+            display: none;
+        }
+        
+        .success-message.show {
+            display: block;
+        }
+        
+        .auth-footer {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 14px;
+        }
+        
+        .auth-footer a {
+            color: var(--uo-black);
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        
+        /* Verification Code Display (Testing Only) */
+        .verification-code-display {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--uo-lime);
+            border: 2px solid var(--uo-black);
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-family: var(--font-display);
+            font-size: 14px;
+            font-weight: 700;
+            z-index: 10001;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: none;
+            max-width: 280px;
+        }
+        
+        .verification-code-display.show {
+            display: block;
+        }
+        
+        .verification-code-display .label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            opacity: 0.7;
+        }
+        
+        .verification-code-display .code {
+            font-size: 24px;
+            letter-spacing: 4px;
+            text-align: center;
+            background: var(--uo-white);
+            padding: 12px;
+            border-radius: 8px;
+            border: 2px solid var(--uo-black);
+        }
+        
+        /* Landing Page Events Section */
+        .landing-events-section {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .landing-events-section .section-header {
+            margin-bottom: 24px;
+        }
+        
+        .landing-events-section .section-title {
+            font-family: var(--font-display);
+            font-size: 32px;
+            font-weight: 700;
+            text-align: center;
+        }
+        
+        .landing-events-section .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .landing-events-section .event-card {
+            cursor: pointer;
+        }
+        
+        .landing-events-section .enter-btn {
+            background: var(--uo-black);
+            color: var(--uo-white);
+            border: 2px solid var(--uo-black);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-family: var(--font-display);
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .landing-events-section .enter-btn:hover {
+            background: var(--uo-lime);
+            color: var(--uo-black);
+            border-color: var(--uo-lime);
+        }
+        
+        /* Landing Page Competitions Section */
+        .landing-competitions-section {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .landing-competitions-section .section-header {
+            margin-bottom: 24px;
+        }
+        
+        .landing-competitions-section .section-title {
+            font-family: var(--font-display);
+            font-size: 32px;
+            font-weight: 700;
+            text-align: center;
+        }
+        
+        .landing-competitions-section .competitions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .landing-competitions-section .competition-card {
+            cursor: pointer;
+        }
+        
+        .landing-competitions-section .enter-btn {
+            background: var(--uo-black);
+            color: var(--uo-white);
+            border: 2px solid var(--uo-black);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-family: var(--font-display);
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .landing-competitions-section .enter-btn:hover {
+            background: var(--uo-lime);
+            color: var(--uo-black);
+            border-color: var(--uo-lime);
+        }
+        
+        /* FAQ Section Styles */
+        .faq-section {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .faq-title {
+            font-family: var(--font-display);
+            font-size: 36px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .faq-item {
+            border: 1px solid var(--uo-black);
+            border-radius: 12px;
+            margin-bottom: 16px;
+            overflow: hidden;
+            background: var(--uo-white);
+            transition: all 0.2s ease;
+        }
+        
+        .faq-item:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .faq-question {
+            padding: 20px 24px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--font-body);
+            font-size: 16px;
+            font-weight: 600;
+            user-select: none;
+        }
+        
+        .faq-question:hover {
+            background: var(--uo-cream);
+        }
+        
+        .faq-toggle {
+            font-size: 24px;
+            font-weight: 300;
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+            margin-left: 16px;
+        }
+        
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            padding: 0 24px;
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            padding: 0 24px 20px 24px;
+        }
+        
+        .faq-answer p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+        }
+        
+        /* Hide dashboard when showing landing page */
+        .dashboard {
+            display: none;
+        }
+        
+        .dashboard.active {
+            display: block;
+        }
+        
+        /* Hide dashboard header when landing page is active */
+        .landing-page.active ~ header.header {
+            display: none !important;
+        }
+        
+        .landing-page.active ~ main.dashboard {
+            display: none !important;
+        }
+        
+        /* Hide landing page when dashboard is active */
+        .dashboard.active ~ .landing-page {
+            display: none !important;
+        }
+        
+        /* When landing page is active, ensure it's visible */
+        .landing-page.active {
+            display: block !important;
+        }
+    </style>
+    <script type="text/javascript">
+        (function (f, b) { if (!b.__SV) { var e, g, i, h; window.mixpanel = b; b._i = []; b.init = function (e, f, c) { function g(a, d) { var b = d.split("."); 2 == b.length && ((a = a[b[0]]), (d = b[1])); a[d] = function () { a.push([d].concat(Array.prototype.slice.call(arguments, 0))); }; } var a = b; "undefined" !== typeof c ? (a = b[c] = []) : (c = "mixpanel"); a.people = a.people || []; a.toString = function (a) { var d = "mixpanel"; "mixpanel" !== c && (d += "." + c); a || (d += " (stub)"); return d; }; a.people.toString = function () { return a.toString(1) + ".people (stub)"; }; i = "disable time_event track track_pageview track_links track_forms track_with_groups add_group set_group remove_group register register_once alias unregister identify name_tag set_config reset opt_in_tracking opt_out_tracking has_opted_in_tracking has_opted_out_tracking clear_opt_in_out_tracking start_batch_senders people.set people.set_once people.unset people.increment people.append people.union people.track_charge people.clear_charges people.delete_user people.remove".split( " "); for (h = 0; h < i.length; h++) g(a, i[h]); var j = "set set_once union unset remove delete".split(" "); a.get_group = function () { function b(c) { d[c] = function () { call2_args = arguments; call2 = [c].concat(Array.prototype.slice.call(call2_args, 0)); a.push([e, call2]); }; } for ( var d = {}, e = ["get_group"].concat( Array.prototype.slice.call(arguments, 0)), c = 0; c < j.length; c++) b(j[c]); return d; }; b._i.push([e, f, c]); }; b.__SV = 1.2; e = f.createElement("script"); e.type = "text/javascript"; e.async = !0; e.src = "undefined" !== typeof MIXPANEL_CUSTOM_LIB_URL ? MIXPANEL_CUSTOM_LIB_URL : "file:" === f.location.protocol && "//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//) ? "https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js" : "//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js"; g = f.getElementsByTagName("script")[0]; g.parentNode.insertBefore(e, g); }         })(document, window.mixpanel || []);
+      </script>
+      <script type="text/javascript">
+        mixpanel.init('c72a1992c58f234317c996058fae9082');
+      </script>
+</head>
+<body>
+    <!-- Verification Code Display (Testing Only) -->
+    <div class="verification-code-display" id="verificationCodeDisplay">
+        <div class="label">Verification Code (Testing)</div>
+        <div class="code" id="verificationCodeValue"></div>
+    </div>
+    
+    <!-- Landing Page (shown when not authenticated) -->
+    <div class="landing-page" id="landingPage">
+        <header class="header landing-header">
+            <img src="header.png" alt="Urban Outfitters Header" class="header-img">
+        </header>
+        <main class="landing-main">
+            <div class="landing-content">
+                <div class="join-banner">
+                    <h1>Join UO Rewards</h1>
+                    <p>Sign up to access exclusive member benefits, earn stamps, and unlock rewards</p>
+                    <button class="join-btn" onclick="openSignupModal()">Join Now</button>
+                </div>
+                
+                <!-- Member Perks Section -->
+                <section class="member-perks-section">
+                    <div class="member-perks-grid">
+                        <div class="perk-item">
+                            <span class="perk-icon">⭐</span>
+                            <h3 class="perk-title">Welcome Offer</h3>
+                            <p class="perk-description">Enjoy 10% off your first order when you join UO Rewards.</p>
+                        </div>
+                        <div class="perk-item">
+                            <span class="perk-icon">🎟️</span>
+                            <h3 class="perk-title">Earn Stamps</h3>
+                            <p class="perk-description">Get a stamp for every £20 you spend. Collect 3 stamps to unlock a £5 reward.</p>
+                        </div>
+                        <div class="perk-item">
+                            <span class="perk-icon">🎁</span>
+                            <h3 class="perk-title">Unlock Rewards</h3>
+                            <p class="perk-description">Redeem your rewards online or in-store. Rewards never expire.</p>
+                        </div>
+                        <div class="perk-item">
+                            <span class="perk-icon">🎉</span>
+                            <h3 class="perk-title">Member Events</h3>
+                            <p class="perk-description">Get priority access to exclusive member-only events and previews.</p>
+                        </div>
+                        <div class="perk-item">
+                            <span class="perk-icon">🏆</span>
+                            <h3 class="perk-title">Win Competitions</h3>
+                            <p class="perk-description">Enter member-exclusive competitions to win prizes worth up to £180.</p>
+                        </div>
+                        <div class="perk-item">
+                            <span class="perk-icon">🎂</span>
+                            <h3 class="perk-title">Birthday Reward</h3>
+                            <p class="perk-description">Get a special surprise on your birthday as a UO Rewards member.</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Events Section -->
+                <section class="landing-events-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Events</h2>
+                    </div>
+                    <div class="events-grid">
+                        <div class="event-card" onclick="openSignupModal()">
+                            <div class="event-image" style="background-image: url('uo-event-1.jpg');">
+                                <span class="event-badge">Member Exclusive</span>
+                            </div>
+                            <div class="event-content">
+                                <h3 class="event-title">UO Rewards Member Night</h3>
+                                <p class="event-date">📅 March 15, 2026 • 6:00 PM</p>
+                                <div class="event-footer">
+                                    <span class="event-location">📍 London Brick Lane Store</span>
+                                    <button class="enter-btn" onclick="event.stopPropagation(); openSignupModal();">Join to RSVP</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="event-card" onclick="openSignupModal()">
+                            <div class="event-image" style="background-image: url('uo-event-2.jpg');">
+                                <span class="event-badge">Member Exclusive</span>
+                            </div>
+                            <div class="event-content">
+                                <h3 class="event-title">Spring Collection Preview</h3>
+                                <p class="event-date">📅 March 22, 2026 • 7:00 PM</p>
+                                <div class="event-footer">
+                                    <span class="event-location">📍 London Oxford Circus Store</span>
+                                    <button class="enter-btn" onclick="event.stopPropagation(); openSignupModal();">Join to RSVP</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="event-card" onclick="openSignupModal()">
+                            <div class="event-image" style="background-image: url('uo-events-3.jpg');">
+                                <span class="event-badge">Member Exclusive</span>
+                            </div>
+                            <div class="event-content">
+                                <h3 class="event-title">DJ Night & Shopping</h3>
+                                <p class="event-date">📅 March 28, 2026 • 8:00 PM</p>
+                                <div class="event-footer">
+                                    <span class="event-location">📍 Birmingham Store</span>
+                                    <button class="enter-btn" onclick="event.stopPropagation(); openSignupModal();">Join to RSVP</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Competitions Section -->
+                <section class="landing-competitions-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Member Competitions</h2>
+                    </div>
+                    <div class="competitions-grid">
+                        <div class="competition-card" onclick="openSignupModal()">
+                            <div class="competition-image pink">
+                                <span class="competition-badge">Member Exclusive</span>
+                            </div>
+                            <div class="competition-content">
+                                <h3 class="competition-title">WIN a pick from our Valentine's Day Edit!</h3>
+                                <p class="competition-prize">Worth up to £150</p>
+                                <div class="competition-footer">
+                                    <span class="competition-timer">⏰ 24 days left</span>
+                                    <button class="enter-btn" onclick="event.stopPropagation(); openSignupModal();">Join to Enter</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="competition-card" onclick="openSignupModal()">
+                            <div class="competition-image blue">
+                                <span class="competition-badge">Member Exclusive</span>
+                            </div>
+                            <div class="competition-content">
+                                <h3 class="competition-title">WIN an item from No Problemo</h3>
+                                <p class="competition-prize">Worth up to £150</p>
+                                <div class="competition-footer">
+                                    <span class="competition-timer">⏰ 24 days left</span>
+                                    <button class="enter-btn" onclick="event.stopPropagation(); openSignupModal();">Join to Enter</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="competition-card" onclick="openSignupModal()">
+                            <div class="competition-image lime">
+                                <span class="competition-badge">Member Exclusive</span>
+                            </div>
+                            <div class="competition-content">
+                                <h3 class="competition-title">WIN a pair of new in Vibram shoes!</h3>
+                                <p class="competition-prize">Worth up to £180</p>
+                                <div class="competition-footer">
+                                    <span class="competition-timer">⏰ 23 days left</span>
+                                    <button class="enter-btn" onclick="event.stopPropagation(); openSignupModal();">Join to Enter</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- FAQ Section -->
+                <section class="faq-section">
+                    <h2 class="faq-title">FAQs</h2>
+                    <div class="faq-list">
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFaq(this)">
+                                <span>How do I earn stamps?</span>
+                                <span class="faq-toggle">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Earn stamps by making qualifying purchases of £20 or more. Each stamp brings you closer to unlocking rewards. You can also earn stamps through special member events and promotions.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFaq(this)">
+                                <span>What rewards can I unlock?</span>
+                                <span class="faq-toggle">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>As a UO Rewards member, you can unlock exclusive discounts, early access to sales, member-only events, birthday rewards, and special perks throughout the year.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFaq(this)">
+                                <span>Is membership free?</span>
+                                <span class="faq-toggle">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Yes! UO Rewards membership is completely free. Simply sign up with your email address to start earning stamps and unlocking rewards.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFaq(this)">
+                                <span>How do I track my stamp progress?</span>
+                                <span class="faq-toggle">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Once you're a member, you can view your stamp progress in your dashboard. You'll see how many stamps you've earned and how many you need to unlock your next reward.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFaq(this)">
+                                <span>Do stamps expire?</span>
+                                <span class="faq-toggle">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Stamps don't expire, so you can take your time earning them. However, some rewards and offers may have expiration dates, so be sure to check your dashboard regularly.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question" onclick="toggleFaq(this)">
+                                <span>Can I use rewards online and in-store?</span>
+                                <span class="faq-toggle">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Yes! Your rewards can be used both online and in-store. When shopping online, your rewards will be automatically applied at checkout. In-store, simply show your membership details at the register.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Signup Modal -->
+    <div class="modal-overlay" id="signupModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeSignupModal()">&times;</button>
+            <div class="modal-header">
+                <h2>Join UO Rewards</h2>
+                <p>Sign up to access exclusive member benefits</p>
+            </div>
+            
+            <div class="error-message" id="errorMessage"></div>
+            <div class="success-message" id="successMessage"></div>
+            
+            <form id="signupForm">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required placeholder="your.email@example.com">
+                </div>
+                
+                <button type="submit" class="btn-primary">Sign Up</button>
+            </form>
+            
+            <div class="auth-footer">
+                <p>Already have an account? <a onclick="openLoginModal()">Sign in</a></p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Birthday Modal -->
+    <div class="modal-overlay" id="birthdayModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeBirthdayModal()">&times;</button>
+            <div class="modal-header">
+                <h2>Enter Your Birthday</h2>
+                <p>A lil something for your birthday</p>
+            </div>
+            
+            <div class="error-message" id="birthdayErrorMessage"></div>
+            <div class="success-message" id="birthdaySuccessMessage"></div>
+            
+            <form id="birthdayForm">
+                <div class="form-group">
+                    <label for="birthdate">Birthday</label>
+                    <input type="date" id="birthdate" name="birthdate" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="stylePreference">Style Preference</label>
+                    <select id="stylePreference" name="stylePreference" required>
+                        <option value="">Select your style preference</option>
+                        <option value="womens">Women's</option>
+                        <option value="mens">Men's</option>
+                        <option value="no-preference">No preference</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Mobile Number Modal -->
+    <div class="modal-overlay" id="mobileModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeMobileModal()">&times;</button>
+            <div class="modal-header">
+                <h2>Enter Your Mobile Number</h2>
+                <p>Get 10% off your next order</p>
+            </div>
+            
+            <div class="error-message" id="mobileErrorMessage"></div>
+            <div class="success-message" id="mobileSuccessMessage"></div>
+            
+            <form id="mobileForm">
+                <div class="form-group">
+                    <label for="mobileNumber">Mobile Number</label>
+                    <input type="tel" id="mobileNumber" name="mobileNumber" required placeholder="+44 7XXX XXXXXX" pattern="[+]?[0-9\s-]+">
+                </div>
+                
+                <button type="submit" class="btn-primary">Continue</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Mobile Verification Modal -->
+    <div class="modal-overlay" id="mobileVerifyModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeMobileVerifyModal()">&times;</button>
+            <div class="modal-header">
+                <h2>Verify Your Mobile Number</h2>
+                <p>We've sent a verification code to:</p>
+                <p class="email-display" id="mobileNumberDisplay" style="font-weight: 600; margin-top: 8px;"></p>
+                <p style="font-size: 12px; margin-top: 16px;">Enter the 6-digit code below</p>
+            </div>
+            
+            <div class="error-message" id="mobileVerifyErrorMessage"></div>
+            <div class="success-message" id="mobileVerifySuccessMessage"></div>
+            
+            <form id="mobileVerifyForm">
+                <div class="form-group">
+                    <label for="mobileVerifyCode">Verification Code</label>
+                    <input type="text" id="mobileVerifyCode" name="mobileVerifyCode" required placeholder="000000" maxlength="6" pattern="[0-9]{6}">
+                </div>
+                
+                <button type="submit" class="btn-primary">Verify</button>
+            </form>
+            
+            <div class="auth-footer">
+                <p>Didn't receive the code? <a href="#" onclick="event.preventDefault(); resendMobileCode();">Resend code</a></p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Authentication check and page state management
+        document.addEventListener('DOMContentLoaded', function() {
+            const authenticatedUser = localStorage.getItem('uoRewardsAuthenticatedUser');
+            const landingPage = document.getElementById('landingPage');
+            const dashboard = document.querySelector('main.dashboard');
+            const dashboardHeader = document.querySelector('header.header:not(.landing-header)');
+            
+            if (!authenticatedUser) {
+                // Show landing page, hide dashboard
+                if (landingPage) {
+                    landingPage.classList.add('active');
+                }
+                if (dashboard) {
+                    dashboard.classList.remove('active');
+                }
+                if (dashboardHeader) {
+                    dashboardHeader.classList.remove('active');
+                }
+                return;
+            }
+            
+            // Check if user is verified
+            const users = JSON.parse(localStorage.getItem('uoRewardsUsers') || '[]');
+            const user = users.find(u => u.email === authenticatedUser);
+            
+            if (!user || !user.verified) {
+                // User not found or not verified, show landing page
+                localStorage.removeItem('uoRewardsAuthenticatedUser');
+                if (landingPage) {
+                    landingPage.classList.add('active');
+                }
+                if (dashboard) {
+                    dashboard.classList.remove('active');
+                }
+                if (dashboardHeader) {
+                    dashboardHeader.classList.remove('active');
+                }
+                return;
+            }
+            
+            // User is authenticated and verified, show dashboard, hide landing page
+            if (landingPage) {
+                landingPage.classList.remove('active');
+            }
+            if (dashboardHeader) {
+                dashboardHeader.classList.add('active');
+            }
+            if (dashboard) {
+                dashboard.classList.add('active');
+            }
+            window.uoRewardsUser = {
+                email: authenticatedUser,
+                logout: function() {
+                    localStorage.removeItem('uoRewardsAuthenticatedUser');
+                    location.reload();
+                }
+            };
+        });
+        
+        // Modal functions - make them globally accessible
+        window.openSignupModal = function() {
+            const modal = document.getElementById('signupModal');
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            }
+        };
+        
+        window.closeSignupModal = function() {
+            const modal = document.getElementById('signupModal');
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = ''; // Restore scrolling
+            }
+            const errorMessage = document.getElementById('errorMessage');
+            const successMessage = document.getElementById('successMessage');
+            const signupForm = document.getElementById('signupForm');
+            if (errorMessage) errorMessage.classList.remove('show');
+            if (successMessage) successMessage.classList.remove('show');
+            if (signupForm) signupForm.reset();
+        };
+        
+        window.openLoginModal = function() {
+            closeSignupModal();
+            window.location.href = 'login.html';
+        };
+        
+        // FAQ accordion functionality
+        window.toggleFaq = function(element) {
+            const faqItem = element.closest('.faq-item');
+            const isActive = faqItem.classList.contains('active');
+            
+            // Close all other FAQ items
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Toggle current item
+            if (!isActive) {
+                faqItem.classList.add('active');
+            }
+        };
+        
+        // Scroll to competitions section
+        window.scrollToCompetitions = function() {
+            const competitionsSection = document.getElementById('competitionsSection');
+            if (competitionsSection) {
+                competitionsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        };
+        
+        // Birthday Modal functions
+        window.openBirthdayModal = function() {
+            const modal = document.getElementById('birthdayModal');
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            }
+        };
+        
+        window.closeBirthdayModal = function() {
+            const modal = document.getElementById('birthdayModal');
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = ''; // Restore scrolling
+            }
+            const errorMessage = document.getElementById('birthdayErrorMessage');
+            const successMessage = document.getElementById('birthdaySuccessMessage');
+            const birthdayForm = document.getElementById('birthdayForm');
+            if (errorMessage) errorMessage.classList.remove('show');
+            if (successMessage) successMessage.classList.remove('show');
+            if (birthdayForm) birthdayForm.reset();
+        };
+        
+        // Close birthday modal when clicking outside
+        document.addEventListener('DOMContentLoaded', function() {
+            const birthdayModal = document.getElementById('birthdayModal');
+            if (birthdayModal) {
+                birthdayModal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        closeBirthdayModal();
+                    }
+                });
+            }
+            
+            // Birthday form handler
+            const birthdayForm = document.getElementById('birthdayForm');
+            if (birthdayForm) {
+                birthdayForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const birthdate = document.getElementById('birthdate').value;
+                    const stylePreference = document.getElementById('stylePreference').value;
+                    const errorMessage = document.getElementById('birthdayErrorMessage');
+                    const successMessage = document.getElementById('birthdaySuccessMessage');
+                    
+                    // Hide previous messages
+                    if (errorMessage) errorMessage.classList.remove('show');
+                    if (successMessage) successMessage.classList.remove('show');
+                    
+                    // Validate form
+                    if (!birthdate || !stylePreference) {
+                        if (errorMessage) {
+                            errorMessage.textContent = 'Please fill in all fields.';
+                            errorMessage.classList.add('show');
+                        }
+                        return;
+                    }
+                    
+                    // Get current user
+                    const authenticatedUser = localStorage.getItem('uoRewardsAuthenticatedUser');
+                    if (authenticatedUser) {
+                        const users = JSON.parse(localStorage.getItem('uoRewardsUsers') || '[]');
+                        const userIndex = users.findIndex(u => u.email === authenticatedUser);
+                        
+                        if (userIndex !== -1) {
+                            // Update user with birthday and style preference
+                            users[userIndex].birthdate = birthdate;
+                            users[userIndex].stylePreference = stylePreference;
+                            localStorage.setItem('uoRewardsUsers', JSON.stringify(users));
+                            
+                            // Show success message
+                            if (successMessage) {
+                                successMessage.textContent = 'Birthday and style preference saved! You\'ll receive a special gift on your birthday.';
+                                successMessage.classList.add('show');
+                            }
+                            
+                            // Mark step as completed
+                            const birthdayStep = document.querySelector('.step-item:nth-child(3)');
+                            if (birthdayStep) {
+                                birthdayStep.classList.add('completed');
+                                const stepBadge = birthdayStep.querySelector('.step-number-badge');
+                                if (stepBadge) {
+                                    stepBadge.textContent = '✓';
+                                }
+                                const stepAction = birthdayStep.querySelector('.step-action');
+                                if (stepAction) {
+                                    stepAction.style.display = 'none';
+                                }
+                            }
+                            
+                            // Close modal after a delay
+                            setTimeout(() => {
+                                closeBirthdayModal();
+                            }, 2000);
+                        }
+                    }
+                });
+            }
+            
+            // Mobile Modal functions
+            window.openMobileModal = function() {
+                const modal = document.getElementById('mobileModal');
+                if (modal) {
+                    modal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            };
+            
+            window.closeMobileModal = function() {
+                const modal = document.getElementById('mobileModal');
+                if (modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+                const errorMessage = document.getElementById('mobileErrorMessage');
+                const successMessage = document.getElementById('mobileSuccessMessage');
+                const mobileForm = document.getElementById('mobileForm');
+                if (errorMessage) errorMessage.classList.remove('show');
+                if (successMessage) successMessage.classList.remove('show');
+                if (mobileForm) mobileForm.reset();
+            };
+            
+            window.openMobileVerifyModal = function(mobileNumber) {
+                const modal = document.getElementById('mobileVerifyModal');
+                const display = document.getElementById('mobileNumberDisplay');
+                if (modal) {
+                    if (display && mobileNumber) {
+                        display.textContent = mobileNumber;
+                    }
+                    modal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            };
+            
+            window.closeMobileVerifyModal = function() {
+                const modal = document.getElementById('mobileVerifyModal');
+                if (modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+                const errorMessage = document.getElementById('mobileVerifyErrorMessage');
+                const successMessage = document.getElementById('mobileVerifySuccessMessage');
+                const verifyForm = document.getElementById('mobileVerifyForm');
+                if (errorMessage) errorMessage.classList.remove('show');
+                if (successMessage) successMessage.classList.remove('show');
+                if (verifyForm) verifyForm.reset();
+            };
+            
+            window.resendMobileCode = function() {
+                const mobileNumber = sessionStorage.getItem('pendingMobileNumber');
+                if (mobileNumber) {
+                    // Generate new code
+                    const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+                    sessionStorage.setItem('mobileVerificationCode', verificationCode);
+                    
+                    // Display code (testing only)
+                    console.log('Mobile verification code:', verificationCode);
+                    
+                    // Show success message
+                    const successMessage = document.getElementById('mobileVerifySuccessMessage');
+                    if (successMessage) {
+                        successMessage.textContent = 'Verification code resent!';
+                        successMessage.classList.add('show');
+                        setTimeout(() => {
+                            successMessage.classList.remove('show');
+                        }, 3000);
+                    }
+                }
+            };
+            
+            // Close mobile modal when clicking outside
+            const mobileModal = document.getElementById('mobileModal');
+            if (mobileModal) {
+                mobileModal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        closeMobileModal();
+                    }
+                });
+            }
+            
+            // Close mobile verify modal when clicking outside
+            const mobileVerifyModal = document.getElementById('mobileVerifyModal');
+            if (mobileVerifyModal) {
+                mobileVerifyModal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        closeMobileVerifyModal();
+                    }
+                });
+            }
+            
+            // Mobile form handler
+            const mobileForm = document.getElementById('mobileForm');
+            if (mobileForm) {
+                mobileForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const mobileNumber = document.getElementById('mobileNumber').value;
+                    const errorMessage = document.getElementById('mobileErrorMessage');
+                    const successMessage = document.getElementById('mobileSuccessMessage');
+                    
+                    // Hide previous messages
+                    if (errorMessage) errorMessage.classList.remove('show');
+                    if (successMessage) successMessage.classList.remove('show');
+                    
+                    // Basic validation
+                    if (!mobileNumber || mobileNumber.trim().length < 10) {
+                        if (errorMessage) {
+                            errorMessage.textContent = 'Please enter a valid mobile number.';
+                            errorMessage.classList.add('show');
+                        }
+                        return;
+                    }
+                    
+                    // Generate verification code
+                    const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+                    
+                    // Store mobile number and code for verification
+                    sessionStorage.setItem('pendingMobileNumber', mobileNumber);
+                    sessionStorage.setItem('mobileVerificationCode', verificationCode);
+                    
+                    // Display code (testing only)
+                    console.log('Mobile verification code:', verificationCode);
+                    
+                    // Close mobile modal and open verification modal
+                    closeMobileModal();
+                    setTimeout(() => {
+                        openMobileVerifyModal(mobileNumber);
+                    }, 300);
+                });
+            }
+            
+            // Mobile verification form handler
+            const mobileVerifyForm = document.getElementById('mobileVerifyForm');
+            if (mobileVerifyForm) {
+                mobileVerifyForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const enteredCode = document.getElementById('mobileVerifyCode').value;
+                    const storedCode = sessionStorage.getItem('mobileVerificationCode');
+                    const mobileNumber = sessionStorage.getItem('pendingMobileNumber');
+                    const errorMessage = document.getElementById('mobileVerifyErrorMessage');
+                    const successMessage = document.getElementById('mobileVerifySuccessMessage');
+                    
+                    // Hide previous messages
+                    if (errorMessage) errorMessage.classList.remove('show');
+                    if (successMessage) successMessage.classList.remove('show');
+                    
+                    // Validate code
+                    if (!enteredCode || enteredCode.length !== 6) {
+                        if (errorMessage) {
+                            errorMessage.textContent = 'Please enter a valid 6-digit code.';
+                            errorMessage.classList.add('show');
+                        }
+                        return;
+                    }
+                    
+                    if (enteredCode !== storedCode) {
+                        if (errorMessage) {
+                            errorMessage.textContent = 'Invalid verification code. Please try again.';
+                            errorMessage.classList.add('show');
+                        }
+                        return;
+                    }
+                    
+                    // Code is correct - save mobile number
+                    const authenticatedUser = localStorage.getItem('uoRewardsAuthenticatedUser');
+                    if (authenticatedUser) {
+                        const users = JSON.parse(localStorage.getItem('uoRewardsUsers') || '[]');
+                        const userIndex = users.findIndex(u => u.email === authenticatedUser);
+                        
+                        if (userIndex !== -1) {
+                            // Update user with mobile number
+                            users[userIndex].mobileNumber = mobileNumber;
+                            users[userIndex].mobileVerified = true;
+                            localStorage.setItem('uoRewardsUsers', JSON.stringify(users));
+                            
+                            // Clear session storage
+                            sessionStorage.removeItem('pendingMobileNumber');
+                            sessionStorage.removeItem('mobileVerificationCode');
+                            
+                            // Show success message
+                            if (successMessage) {
+                                successMessage.textContent = 'Mobile number verified! You\'ve unlocked 10% off.';
+                                successMessage.classList.add('show');
+                            }
+                            
+                            // Mark step as completed
+                            const mobileStep = document.querySelector('.step-item:nth-child(2)');
+                            if (mobileStep) {
+                                mobileStep.classList.add('completed');
+                                const stepBadge = mobileStep.querySelector('.step-number-badge');
+                                if (stepBadge) {
+                                    stepBadge.textContent = '✓';
+                                }
+                                const stepAction = mobileStep.querySelector('.step-action');
+                                if (stepAction) {
+                                    stepAction.style.display = 'none';
+                                }
+                            }
+                            
+                            // Close modal after a delay
+                            setTimeout(() => {
+                                closeMobileVerifyModal();
+                            }, 2000);
+                        }
+                    }
+                });
+            }
+        });
+        
+        // Close modal when clicking outside
+        document.addEventListener('DOMContentLoaded', function() {
+            const signupModal = document.getElementById('signupModal');
+            if (signupModal) {
+                signupModal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        closeSignupModal();
+                    }
+                });
+            }
+            
+            // Also add click handler to join button for extra reliability
+            const joinBtn = document.querySelector('.join-btn');
+            if (joinBtn) {
+                joinBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    openSignupModal();
+                });
+            }
+            
+            // Add click handler to join banner as well
+            const joinBanner = document.querySelector('.join-banner');
+            if (joinBanner) {
+                joinBanner.addEventListener('click', function(e) {
+                    // Only open modal if clicking on the banner itself, not on the button (to avoid double trigger)
+                    if (e.target === joinBanner || e.target.tagName === 'H1' || e.target.tagName === 'P') {
+                        openSignupModal();
+                    }
+                });
+            }
+        });
+        
+        // Signup form handler
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const errorMessage = document.getElementById('errorMessage');
+            const successMessage = document.getElementById('successMessage');
+            
+            // Hide previous messages
+            errorMessage.classList.remove('show');
+            successMessage.classList.remove('show');
+            
+            // Validate email format
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                errorMessage.textContent = 'Please enter a valid email address.';
+                errorMessage.classList.add('show');
+                return;
+            }
+            
+            // Check if user already exists
+            const existingUsers = JSON.parse(localStorage.getItem('uoRewardsUsers') || '[]');
+            const userExists = existingUsers.find(u => u.email === email);
+            
+            if (userExists) {
+                if (userExists.verified) {
+                    errorMessage.textContent = 'An account with this email already exists. Please sign in instead.';
+                    errorMessage.classList.add('show');
+                    setTimeout(() => {
+                        window.location.href = 'login.html';
+                    }, 2000);
+                    return;
+                } else {
+                    // User exists but not verified, resend code
+                    const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+                    userExists.verificationCode = verificationCode;
+                    const userIndex = existingUsers.findIndex(u => u.email === email);
+                    existingUsers[userIndex] = userExists;
+                    localStorage.setItem('uoRewardsUsers', JSON.stringify(existingUsers));
+                    
+                    sessionStorage.setItem('pendingVerificationEmail', email);
+                    sessionStorage.setItem('verificationCode', verificationCode);
+                    
+                    // Display verification code on screen (testing only)
+                    const codeDisplay = document.getElementById('verificationCodeDisplay');
+                    const codeValue = document.getElementById('verificationCodeValue');
+                    codeValue.textContent = verificationCode;
+                    codeDisplay.classList.add('show');
+                    
+                    successMessage.textContent = 'Verification code sent! Redirecting...';
+                    successMessage.classList.add('show');
+                    
+                    setTimeout(() => {
+                        window.location.href = 'verify.html';
+                    }, 1500);
+                    return;
+                }
+            }
+            
+            // Generate verification code
+            const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+            
+            // Store user data
+            const userData = {
+                email: email,
+                verified: false,
+                verificationCode: verificationCode,
+                createdAt: new Date().toISOString()
+            };
+            
+            existingUsers.push(userData);
+            localStorage.setItem('uoRewardsUsers', JSON.stringify(existingUsers));
+            
+            // Store email for verification page
+            sessionStorage.setItem('pendingVerificationEmail', email);
+            sessionStorage.setItem('verificationCode', verificationCode);
+            
+            // Display verification code on screen (testing only)
+            const codeDisplay = document.getElementById('verificationCodeDisplay');
+            const codeValue = document.getElementById('verificationCodeValue');
+            codeValue.textContent = verificationCode;
+            codeDisplay.classList.add('show');
+            
+            // Log verification code to console for testing
+            console.log('Verification code:', verificationCode);
+            
+            // Show success message
+            successMessage.textContent = 'Verification code sent! Redirecting...';
+            successMessage.classList.add('show');
+            
+            // Redirect to verification page
+            setTimeout(() => {
+                window.location.href = 'verify.html';
+            }, 1500);
+        });
+    </script>
+    <!-- Dashboard (shown when authenticated) -->
+    <header class="header">
+        <img src="header.png" alt="Urban Outfitters Header" class="header-img">
+        <button class="logout-btn" onclick="window.uoRewardsUser && window.uoRewardsUser.logout()">Sign Out</button>
+    </header>
+    
+    <!-- Dashboard -->
+    <main class="dashboard">
+        <!-- Welcome Hero -->
+        <section class="welcome-hero">
+            <div class="welcome-content">
+                <div class="welcome-text">
+                    <div class="welcome-label">Welcome back</div>
+                    <h1 class="welcome-title">Hey Pinar!</h1>
+                    <p class="welcome-subtitle">You're a UO Rewards member. Start earning stamps and unlock exclusive perks.</p>
+                    <p class="member-since">Member since February 2025</p>
+                </div>
+                <div class="qr-code-section">
+                    <p class="qr-code-label">Scan me at the <br>till for rewards!</p>
+                    <div class="qr-code">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.urbanoutfitters.com/en-gb/uo-rewards" alt="QR Code for UO Rewards" />
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Main Grid -->
+        <div class="main-grid">
+            <!-- Welcome Offer -->
+            <div class="card offer-card">
+                <div class="offer-header">
+                    <span class="annotation">Welcome Offer</span>
+                    <div class="offer-badge">★ New Member Perk</div>
+                </div>
+                <div class="offer-amount">10%</div>
+                <div class="offer-description">off your first order as a UO Rewards member</div>
+                <a href="#" class="btn">Claim Now →</a>
+                <p class="offer-expiry">Expires in 14 days</p>
+            </div>
+            
+            <!-- Next Steps -->
+            <div class="card steps-card">
+                <span class="annotation">Next Steps</span>
+                <div class="card-label"><span class="dot"></span> Getting Started</div>
+                <ul class="steps-list">
+                    <li class="step-item completed">
+                        <span class="step-number-badge">✓</span>
+                        <div class="step-content">
+                            <h4>Create your account</h4>
+                            <p>Welcome to UO Rewards!</p>
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number-badge">2</span>
+                        <div class="step-content">
+                            <h4>Enter your mobile number for 10% off</h4>
+                            <p>Claim 10% off for entering your mobile number</p>
+                        </div>
+                        <span class="step-action" onclick="openMobileModal()">Claim</span>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number-badge">3</span>
+                        <div class="step-content">
+                            <h4>Enter your birthday for a birthday gift</h4>
+                            <p>A lil something for your birthday</p>
+                        </div>
+                        <span class="step-action" onclick="openBirthdayModal()">Claim</span>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number-badge">4</span>
+                        <div class="step-content">
+                            <h4>Make your first qualifying order</h4>
+                            <p>Spend £20+ to earn your first stamp</p>
+                        </div>
+                        <span class="step-action" onclick="window.location.href='https://www.urbanoutfitters.com/en-gb/?ar=uo-us,uo-uk'">Shop</span>
+                    </li>
+                    <li class="step-item">
+                        <span class="step-number-badge">5</span>
+                        <div class="step-content">
+                            <h4>Enter a member competition</h4>
+                            <p>Win exclusive prizes</p>
+                        </div>
+                        <span class="step-action" onclick="scrollToCompetitions()">View</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Stamp Progress -->
+            <div class="card stamp-card">
+                <span class="annotation">Stamp Progress</span>
+                <div class="card-label"><span class="dot"></span> Your Progress</div>
+                <div class="stamp-progress">
+                    <div class="stamps-container">
+                        <div class="stamp earned">
+                            <span class="stamp-number">1</span>
+                            <span class="stamp-label">Earned</span>
+                        </div>
+                        <div class="stamp current">
+                            <span class="stamp-number">2</span>
+                            <span class="stamp-label">Next</span>
+                        </div>
+                        <div class="stamp">
+                            <span class="stamp-number">3</span>
+                            <span class="stamp-label">Final</span>
+                        </div>
+                    </div>
+                    <div class="reward-preview">
+                        <div class="amount">£5</div>
+                        <div class="label">Reward</div>
+                    </div>
+                </div>
+                <div class="stamp-message">
+                    <span><strong>2 more orders to go!</strong> Spend £20+ per order to earn your next stamp.</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Events Section -->
+        <section class="events-section">
+            <div class="section-header">
+                <h2 class="section-title">Events <span class="annotation">Events</span></h2>
+                <a href="#" class="view-all">View all →</a>
+            </div>
+            <div class="events-grid">
+                <div class="event-card">
+                    <div class="event-image" style="background-image: url('uo-event-1.jpg');">
+                        <span class="event-badge">Member Exclusive</span>
+                    </div>
+                    <div class="event-content">
+                        <h3 class="event-title">UO Rewards Member Night</h3>
+                        <p class="event-date">📅 March 15, 2026 • 6:00 PM</p>
+                        <div class="event-footer">
+                            <span class="event-location">📍 London Brick Lane Store</span>
+                            <button class="enter-btn">RSVP</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="event-card">
+                    <div class="event-image" style="background-image: url('uo-event-2.jpg');">
+                        <span class="event-badge">Member Exclusive</span>
+                    </div>
+                    <div class="event-content">
+                        <h3 class="event-title">Spring Collection Preview</h3>
+                        <p class="event-date">📅 March 22, 2026 • 7:00 PM</p>
+                        <div class="event-footer">
+                            <span class="event-location">📍 London Oxford Circus Store</span>
+                            <button class="enter-btn">RSVP</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="event-card">
+                    <div class="event-image" style="background-image: url('uo-events-3.jpg');">
+                        <span class="event-badge">Member Exclusive</span>
+                    </div>
+                    <div class="event-content">
+                        <h3 class="event-title">DJ Night & Shopping</h3>
+                        <p class="event-date">📅 March 28, 2026 • 8:00 PM</p>
+                        <div class="event-footer">
+                            <span class="event-location">📍 Birmingham Store</span>
+                            <button class="enter-btn">RSVP</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Competitions Section -->
+        <section class="competitions-section" id="competitionsSection">
+            <div class="section-header">
+                <h2 class="section-title">Member Competitions <span class="annotation">Competitions</span></h2>
+                <a href="#" class="view-all">View all →</a>
+            </div>
+            <div class="competitions-grid">
+                <div class="competition-card">
+                    <div class="competition-image pink">
+                        <span class="competition-badge">Member Exclusive</span>
+                    </div>
+                    <div class="competition-content">
+                        <h3 class="competition-title">WIN a pick from our Valentine's Day Edit!</h3>
+                        <p class="competition-prize">Worth up to £150</p>
+                        <div class="competition-footer">
+                            <span class="competition-timer">⏰ 24 days left</span>
+                            <button class="enter-btn">Enter</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="competition-card">
+                    <div class="competition-image blue">
+                        <span class="competition-badge">Member Exclusive</span>
+                    </div>
+                    <div class="competition-content">
+                        <h3 class="competition-title">WIN an item from No Problemo</h3>
+                        <p class="competition-prize">Worth up to £150</p>
+                        <div class="competition-footer">
+                            <span class="competition-timer">⏰ 24 days left</span>
+                            <button class="enter-btn">Enter</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="competition-card">
+                    <div class="competition-image lime">
+                        <span class="competition-badge">Member Exclusive</span>
+                    </div>
+                    <div class="competition-content">
+                        <h3 class="competition-title">WIN a pair of new in Vibram shoes!</h3>
+                        <p class="competition-prize">Worth up to £180</p>
+                        <div class="competition-footer">
+                            <span class="competition-timer">⏰ 23 days left</span>
+                            <button class="enter-btn">Enter</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Quick Actions -->
+        <section class="quick-actions">
+            <div class="quick-action">
+                <div class="quick-action-icon">📅</div>
+                <div class="quick-action-text">
+                    <h4>Birthday Reward</h4>
+                    <p>Add your birthday to get a surprise</p>
+                </div>
+            </div>
+            <div class="quick-action">
+                <div class="quick-action-icon">📱</div>
+                <div class="quick-action-text">
+                    <h4>Download the App</h4>
+                    <p>Scan in-store to earn stamps</p>
+                </div>
+            </div>
+            <div class="quick-action">
+                <div class="quick-action-icon">🎟️</div>
+                <div class="quick-action-text">
+                    <h4>My Rewards Locker</h4>
+                    <p>View your available rewards</p>
+                </div>
+            </div>
+            <div class="quick-action">
+                <div class="quick-action-icon">📍</div>
+                <div class="quick-action-text">
+                    <h4>IRL Events</h4>
+                    <p>Get priority access to events</p>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
