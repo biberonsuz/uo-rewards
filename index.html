@@ -2047,18 +2047,21 @@
                         const currentYear = new Date().getFullYear();
                         const birthYear = birthDateObj.getFullYear();
                         const age = currentYear - birthYear;
-                        
-                        mixpanel.track('Birthday Entered', {
+                        const eventData = {
                             birth_year: birthYear,
                             age_range: age < 18 ? 'under_18' : age < 25 ? '18-24' : age < 35 ? '25-34' : age < 45 ? '35-44' : '45+'
-                        });
+                        };
+                        console.log('[Mixpanel] Firing event: Birthday Entered', eventData);
+                        mixpanel.track('Birthday Entered', eventData);
                     }
                     
                     // Track style preference added event
                     if (typeof mixpanel !== 'undefined') {
-                        mixpanel.track('Style Preference Added', {
+                        const eventData = {
                             style_preference: stylePreference
-                        });
+                        };
+                        console.log('[Mixpanel] Firing event: Style Preference Added', eventData);
+                        mixpanel.track('Style Preference Added', eventData);
                     }
                     
                     // Get current user
@@ -2218,9 +2221,11 @@
                     
                     // Track mobile number entered event
                     if (typeof mixpanel !== 'undefined') {
-                        mixpanel.track('Mobile Number Entered', {
+                        const eventData = {
                             mobile_number_length: mobileNumber.trim().length
-                        });
+                        };
+                        console.log('[Mixpanel] Firing event: Mobile Number Entered', eventData);
+                        mixpanel.track('Mobile Number Entered', eventData);
                     }
                     
                     // Generate verification code
@@ -2288,10 +2293,12 @@
                             
                             // Track mobile number verified event
                             if (typeof mixpanel !== 'undefined') {
-                                mixpanel.track('Mobile Number Verified', {
+                                const eventData = {
                                     email: authenticatedUser,
                                     mobile_number_length: mobileNumber ? mobileNumber.length : 0
-                                });
+                                };
+                                console.log('[Mixpanel] Firing event: Mobile Number Verified', eventData);
+                                mixpanel.track('Mobile Number Verified', eventData);
                             }
                             
                             // Clear session storage
@@ -2383,10 +2390,12 @@
             
             // Track email entered event
             if (typeof mixpanel !== 'undefined') {
-                mixpanel.track('Email Entered', {
+                const eventData = {
                     source: 'signup',
                     email_domain: email.split('@')[1]
-                });
+                };
+                console.log('[Mixpanel] Firing event: Email Entered (signup)', eventData);
+                mixpanel.track('Email Entered', eventData);
             }
             
             // Check if user already exists
@@ -2446,10 +2455,12 @@
             
             // Track signup successful event
             if (typeof mixpanel !== 'undefined') {
-                mixpanel.track('Signup Successful', {
+                const eventData = {
                     email: email,
                     email_domain: email.split('@')[1]
-                });
+                };
+                console.log('[Mixpanel] Firing event: Signup Successful', eventData);
+                mixpanel.track('Signup Successful', eventData);
             }
             
             // Store email for verification page
@@ -2502,10 +2513,12 @@
                     
                     // Track email entered event
                     if (typeof mixpanel !== 'undefined') {
-                        mixpanel.track('Email Entered', {
+                        const eventData = {
                             source: 'login',
                             email_domain: email.split('@')[1]
-                        });
+                        };
+                        console.log('[Mixpanel] Firing event: Email Entered (login)', eventData);
+                        mixpanel.track('Email Entered', eventData);
                     }
                     
                     // Get users from localStorage
@@ -2562,9 +2575,11 @@
                     
                     // Track successful login
                     if (typeof mixpanel !== 'undefined') {
-                        mixpanel.track('Login Successful', {
+                        const eventData = {
                             email: email
-                        });
+                        };
+                        console.log('[Mixpanel] Firing event: Login Successful', eventData);
+                        mixpanel.track('Login Successful', eventData);
                         mixpanel.identify(email);
                     }
                     
@@ -2631,11 +2646,13 @@
                     
                     // Track verification code entered event
                     if (typeof mixpanel !== 'undefined') {
-                        mixpanel.track('Verification Code Entered', {
+                        const eventData = {
                             email: email || 'unknown',
                             code_length: code.length,
                             is_correct: code === storedCode
-                        });
+                        };
+                        console.log('[Mixpanel] Firing event: Verification Code Entered', eventData);
+                        mixpanel.track('Verification Code Entered', eventData);
                     }
                     
                     if (code !== storedCode) {
@@ -2661,9 +2678,11 @@
                             
                             // Track successful verification
                             if (typeof mixpanel !== 'undefined') {
-                                mixpanel.track('Email Verified', {
+                                const eventData = {
                                     email: email
-                                });
+                                };
+                                console.log('[Mixpanel] Firing event: Email Verified', eventData);
+                                mixpanel.track('Email Verified', eventData);
                                 mixpanel.identify(email);
                             }
                             
@@ -2765,7 +2784,7 @@
                         <p class="welcome-subtitle">You're a UO Rewards member. Start earning stamps and unlock exclusive perks.</p>
                     </div>
                         <div class="stamp-progress">
-                            <div class="stamps-container">
+                            <div class="stamps-container" onclick="window.location.href='https://www.urbanoutfitters.com/en-gb/?ar=uo-us,uo-uk'" style="cursor: pointer;">
                                 <div class="stamp earned">
                                     <span class="stamp-number">1</span>
                                     <span class="stamp-label">Earned</span>
@@ -2779,12 +2798,12 @@
                                     <span class="stamp-label">Final</span>
                                 </div>
                             </div>
-                            <div class="reward-preview">
+                            <div class="reward-preview" onclick="window.location.href='https://www.urbanoutfitters.com/en-gb/?ar=uo-us,uo-uk'" style="cursor: pointer;">
                                 <div class="amount">£5</div>
                                 <div class="label">Reward</div>
                             </div>
                         </div>
-                        <div class="stamp-message">
+                        <div class="stamp-message" onclick="window.location.href='https://www.urbanoutfitters.com/en-gb/?ar=uo-us,uo-uk'" style="cursor: pointer;">
                             <span><strong>2 more orders to go!</strong> Spend £20+ per order to earn your next stamp.</span>
                         </div>
                 </div>
