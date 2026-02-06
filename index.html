@@ -6,7 +6,7 @@
     <title>UO Rewards — Join Now</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=League+Gothic&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -23,12 +23,13 @@
             --uo-blue: #a8d4e6;
             --uo-orange: #ff6b35;
             --uo-peach: #ffe5d9;
-            --font-display: 'Space Mono', monospace;
+            --font-display: 'League Gothic', sans-serif;
             --font-body: Helvetica, Arial, sans-serif;
         }
         
         body {
             font-family: var(--font-body);
+            font-variation-settings:"wdth" 100;
             background: var(--uo-white);
             color: var(--uo-black);
             min-height: 100vh;
@@ -84,7 +85,7 @@
         /* Welcome Hero */
         .welcome-hero {
             background: linear-gradient(135deg, var(--uo-peach) 0%, var(--uo-pink) 50%, var(--uo-blue) 100%);
-            border: 2px solid var(--uo-black);
+            border: 1px solid var(--uo-black);
             border-radius: 24px;
             padding: 48px;
             margin-bottom: 32px;
@@ -122,7 +123,6 @@
             z-index: 1;
             display: flex;
             justify-content: space-between;
-            align-items: center;
             gap: 40px;
         }
         
@@ -138,7 +138,7 @@
         }
         
         .qr-code-label {
-            font-family: var(--font-display);
+            font-family: var(--font-body);
             font-size: 14px;
             font-weight: 700;
             text-align: center;
@@ -149,7 +149,7 @@
             width: 150px;
             height: 150px;
             background: var(--uo-white);
-            border: 2px solid var(--uo-black);
+            border: 1px solid var(--uo-black);
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -193,14 +193,14 @@
         
         .welcome-title {
             font-family: var(--font-display);
-            font-size: 42px;
+            font-size: 26px;
             font-weight: 700;
             line-height: 1.1;
             margin-bottom: 16px;
         }
         
         .welcome-subtitle {
-            font-size: 18px;
+            font-size: 13px;
             max-width: 500px;
             line-height: 1.5;
             opacity: 0.9;
@@ -223,7 +223,7 @@
         /* Card Base */
         .card {
             background: var(--uo-white);
-            border: 2px solid var(--uo-black);
+            border: 1px solid var(--uo-black);
             border-radius: 16px;
             padding: 32px;
             position: relative;
@@ -256,7 +256,7 @@
             display: flex;
             align-items: center;
             gap: 24px;
-            margin-bottom: 24px;
+            margin: 24px 0;
         }
         
         .stamps-container {
@@ -388,7 +388,7 @@
             display: inline-block;
             background: var(--uo-black);
             color: var(--uo-lime);
-            font-family: var(--font-display);
+            font-family: var(--font-body);
             font-size: 11px;
             padding: 6px 12px;
             border-radius: 20px;
@@ -397,7 +397,7 @@
         
         .offer-amount {
             font-family: var(--font-display);
-            font-size: 72px;
+            font-size: 128px;
             font-weight: 700;
             line-height: 1;
             margin-bottom: 8px;
@@ -415,12 +415,12 @@
             gap: 8px;
             background: var(--uo-black);
             color: var(--uo-white);
-            font-family: var(--font-display);
+            font-family: var(--font-body);
             font-size: 13px;
             padding: 14px 24px;
             border-radius: 30px;
             text-decoration: none;
-            border: 2px solid var(--uo-black);
+            border: 1px solid var(--uo-black);
             cursor: pointer;
             transition: all 0.2s ease;
         }
@@ -471,7 +471,7 @@
             width: 32px;
             height: 32px;
             background: var(--uo-cream);
-            border: 2px solid var(--uo-black);
+            border: 1px solid var(--uo-black);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -499,7 +499,7 @@
         
         .step-action {
             margin-left: auto;
-            font-family: var(--font-display);
+            font-family: var(--font-body);
             font-size: 12px;
             color: var(--uo-black);
             text-decoration: underline;
@@ -524,12 +524,13 @@
         
         .section-title {
             font-family: var(--font-display);
-            font-size: 24px;
+            font-size: 48px;
             font-weight: 700;
+            text-transform: uppercase;
         }
         
         .view-all {
-            font-family: var(--font-display);
+            font-family: var(--font-body);
             font-size: 13px;
             color: var(--uo-black);
             text-decoration: underline;
@@ -543,7 +544,7 @@
         
         .competition-card {
             background: var(--uo-white);
-            border: 2px solid var(--uo-black);
+            border: 1px solid var(--uo-black);
             border-radius: 16px;
             overflow: hidden;
             transition: transform 0.2s ease;
@@ -572,7 +573,7 @@
         
         .event-card {
             background: var(--uo-white);
-            border: 2px solid var(--uo-black);
+            border: 1px solid var(--uo-black);
             border-radius: 16px;
             overflow: hidden;
             transition: transform 0.2s ease;
@@ -612,7 +613,7 @@
         }
         
         .event-title {
-            font-family: var(--font-display);
+            font-family: var(--font-body);
             font-size: 14px;
             font-weight: 700;
             margin-bottom: 8px;
@@ -656,7 +657,7 @@
         }
         
         .competition-title {
-            font-family: var(--font-display);
+            font-family: var(--font-body);
             font-size: 14px;
             font-weight: 700;
             margin-bottom: 8px;
@@ -686,7 +687,7 @@
             font-size: 11px;
             padding: 8px 16px;
             background: var(--uo-cream);
-            border: 2px solid var(--uo-black);
+            border: 1px solid var(--uo-black);
             border-radius: 20px;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -706,7 +707,7 @@
         .quick-action {
             flex: 1;
             background: var(--uo-white);
-            border: 2px solid var(--uo-black);
+            border: 1px solid var(--uo-black);
             border-radius: 12px;
             padding: 20px;
             display: flex;
@@ -748,7 +749,7 @@
             background: #ff6b35;
             color: white;
             font-family: var(--font-display);
-            font-size: 10px;
+            font-size: 18px;
             padding: 4px 8px;
             border-radius: 4px;
             text-transform: uppercase;
@@ -817,7 +818,7 @@
         
         .join-banner {
             background: var(--uo-lime);
-            border: 2px solid var(--uo-black);
+            border: 1px solid var(--uo-black);
             border-radius: 24px;
             padding: 60px 40px;
             margin: 0 auto;
@@ -836,9 +837,10 @@
         
         .join-banner h1 {
             font-family: var(--font-display);
-            font-size: 48px;
+            font-size: 72px;
             font-weight: 700;
             margin-bottom: 16px;
+            text-transform: uppercase;
         }
         
         .join-banner p {
@@ -872,7 +874,7 @@
         }
         
         .perk-title {
-            font-family: var(--font-display);
+            font-family: var(--font-body);
             font-size: 16px;
             font-weight: 700;
             margin-bottom: 8px;
@@ -891,12 +893,12 @@
             padding: 16px 48px;
             background: var(--uo-black);
             color: var(--uo-white);
-            font-family: var(--font-display);
+            font-family: var(--font-body);
             font-size: 16px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
-            border: 2px solid var(--uo-black);
+            border: 1px solid var(--uo-black);
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -928,7 +930,7 @@
         
         .modal {
             background: var(--uo-white);
-            border: 2px solid var(--uo-black);
+            border: 1px solid var(--uo-black);
             border-radius: 24px;
             padding: 48px;
             max-width: 480px;
@@ -990,7 +992,7 @@
         .form-group input {
             width: 100%;
             padding: 14px 16px;
-            border: 2px solid var(--uo-black);
+            border: 1px solid var(--uo-black);
             border-radius: 8px;
             font-family: var(--font-body);
             font-size: 16px;
@@ -1005,7 +1007,7 @@
         .form-group select {
             width: 100%;
             padding: 14px 16px;
-            border: 2px solid var(--uo-black);
+            border: 1px solid var(--uo-black);
             border-radius: 8px;
             font-family: var(--font-body);
             font-size: 16px;
@@ -1028,7 +1030,7 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
-            border: 2px solid var(--uo-black);
+            border: 1px solid var(--uo-black);
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -1086,7 +1088,7 @@
             top: 20px;
             right: 20px;
             background: var(--uo-lime);
-            border: 2px solid var(--uo-black);
+            border: 1px solid var(--uo-black);
             border-radius: 12px;
             padding: 16px 20px;
             font-family: var(--font-display);
@@ -1117,7 +1119,7 @@
             background: var(--uo-white);
             padding: 12px;
             border-radius: 8px;
-            border: 2px solid var(--uo-black);
+            border: 1px solid var(--uo-black);
         }
         
         /* Landing Page Events Section */
@@ -1133,9 +1135,10 @@
         
         .landing-events-section .section-title {
             font-family: var(--font-display);
-            font-size: 32px;
+            font-size: 48px;
             font-weight: 700;
             text-align: center;
+            text-transform: uppercase;
         }
         
         .landing-events-section .events-grid {
@@ -1151,10 +1154,10 @@
         .landing-events-section .enter-btn {
             background: var(--uo-black);
             color: var(--uo-white);
-            border: 2px solid var(--uo-black);
+            border: 1px solid var(--uo-black);
             padding: 10px 20px;
             border-radius: 8px;
-            font-family: var(--font-display);
+            font-family: var(--font-body);
             font-size: 12px;
             font-weight: 700;
             text-transform: uppercase;
@@ -1182,9 +1185,10 @@
         
         .landing-competitions-section .section-title {
             font-family: var(--font-display);
-            font-size: 32px;
+            font-size: 48px;
             font-weight: 700;
             text-align: center;
+            text-transform: uppercase;
         }
         
         .landing-competitions-section .competitions-grid {
@@ -1200,10 +1204,10 @@
         .landing-competitions-section .enter-btn {
             background: var(--uo-black);
             color: var(--uo-white);
-            border: 2px solid var(--uo-black);
+            border: 1px solid var(--uo-black);
             padding: 10px 20px;
             border-radius: 8px;
-            font-family: var(--font-display);
+            font-family: var(--font-body);
             font-size: 12px;
             font-weight: 700;
             text-transform: uppercase;
@@ -1227,9 +1231,8 @@
         
         .faq-title {
             font-family: var(--font-display);
-            font-size: 36px;
+            font-size: 48px;
             font-weight: 700;
-            text-align: center;
             margin-bottom: 40px;
         }
         
@@ -1321,11 +1324,17 @@
             display: block !important;
         }
     </style>
+    
     <script type="text/javascript">
-        (function (f, b) { if (!b.__SV) { var e, g, i, h; window.mixpanel = b; b._i = []; b.init = function (e, f, c) { function g(a, d) { var b = d.split("."); 2 == b.length && ((a = a[b[0]]), (d = b[1])); a[d] = function () { a.push([d].concat(Array.prototype.slice.call(arguments, 0))); }; } var a = b; "undefined" !== typeof c ? (a = b[c] = []) : (c = "mixpanel"); a.people = a.people || []; a.toString = function (a) { var d = "mixpanel"; "mixpanel" !== c && (d += "." + c); a || (d += " (stub)"); return d; }; a.people.toString = function () { return a.toString(1) + ".people (stub)"; }; i = "disable time_event track track_pageview track_links track_forms track_with_groups add_group set_group remove_group register register_once alias unregister identify name_tag set_config reset opt_in_tracking opt_out_tracking has_opted_in_tracking has_opted_out_tracking clear_opt_in_out_tracking start_batch_senders people.set people.set_once people.unset people.increment people.append people.union people.track_charge people.clear_charges people.delete_user people.remove".split( " "); for (h = 0; h < i.length; h++) g(a, i[h]); var j = "set set_once union unset remove delete".split(" "); a.get_group = function () { function b(c) { d[c] = function () { call2_args = arguments; call2 = [c].concat(Array.prototype.slice.call(call2_args, 0)); a.push([e, call2]); }; } for ( var d = {}, e = ["get_group"].concat( Array.prototype.slice.call(arguments, 0)), c = 0; c < j.length; c++) b(j[c]); return d; }; b._i.push([e, f, c]); }; b.__SV = 1.2; e = f.createElement("script"); e.type = "text/javascript"; e.async = !0; e.src = "undefined" !== typeof MIXPANEL_CUSTOM_LIB_URL ? MIXPANEL_CUSTOM_LIB_URL : "file:" === f.location.protocol && "//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//) ? "https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js" : "//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js"; g = f.getElementsByTagName("script")[0]; g.parentNode.insertBefore(e, g); }         })(document, window.mixpanel || []);
-      </script>
-      <script type="text/javascript">
-        mixpanel.init('c72a1992c58f234317c996058fae9082');
+        (function(e,c){if(!c.__SV){var l,h;window.mixpanel=c;c._i=[];c.init=function(q,r,f){function t(d,a){var g=a.split(".");2==g.length&&(d=d[g[0]],a=g[1]);d[a]=function(){d.push([a].concat(Array.prototype.slice.call(arguments,0)))}}var b=c;"undefined"!==typeof f?b=c[f]=[]:f="mixpanel";b.people=b.people||[];b.toString=function(d){var a="mixpanel";"mixpanel"!==f&&(a+="."+f);d||(a+=" (stub)");return a};b.people.toString=function(){return b.toString(1)+".people (stub)"};l="disable time_event track track_pageview track_links track_forms track_with_groups add_group set_group remove_group register register_once alias unregister identify name_tag set_config reset opt_in_tracking opt_out_tracking has_opted_in_tracking has_opted_out_tracking clear_opt_in_out_tracking start_batch_senders start_session_recording stop_session_recording people.set people.set_once people.unset people.increment people.append people.union people.track_charge people.clear_charges people.delete_user people.remove".split(" ");
+        for(h=0;h<l.length;h++)t(b,l[h]);var n="set set_once union unset remove delete".split(" ");b.get_group=function(){function d(p){a[p]=function(){b.push([g,[p].concat(Array.prototype.slice.call(arguments,0))])}}for(var a={},g=["get_group"].concat(Array.prototype.slice.call(arguments,0)),m=0;m<n.length;m++)d(n[m]);return a};c._i.push([q,r,f])};c.__SV=1.2;var k=e.createElement("script");k.type="text/javascript";k.async=!0;k.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?MIXPANEL_CUSTOM_LIB_URL:"file:"===
+        e.location.protocol&&"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//)?"https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js":"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";e=e.getElementsByTagName("script")[0];e.parentNode.insertBefore(k,e)}})(document,window.mixpanel||[])
+      
+        mixpanel.init('c72a1992c58f234317c996058fae9082', {
+          autocapture: true,
+          record_sessions_percent: 100,
+          api_host: 'https://api-eu.mixpanel.com',
+        })
       </script>
 </head>
 <body>
@@ -1396,9 +1405,9 @@
                             </div>
                             <div class="event-content">
                                 <h3 class="event-title">UO Rewards Member Night</h3>
-                                <p class="event-date">📅 March 15, 2026 • 6:00 PM</p>
+                                <p class="event-date">March 15, 2026 • 6:00 PM</p>
                                 <div class="event-footer">
-                                    <span class="event-location">📍 London Brick Lane Store</span>
+                                    <span class="event-location">London Brick Lane Store</span>
                                     <button class="enter-btn" onclick="event.stopPropagation(); openSignupModal();">Join to RSVP</button>
                                 </div>
                             </div>
@@ -1409,9 +1418,9 @@
                             </div>
                             <div class="event-content">
                                 <h3 class="event-title">Spring Collection Preview</h3>
-                                <p class="event-date">📅 March 22, 2026 • 7:00 PM</p>
+                                <p class="event-date">March 22, 2026 • 7:00 PM</p>
                                 <div class="event-footer">
-                                    <span class="event-location">📍 London Oxford Circus Store</span>
+                                    <span class="event-location">London Oxford Circus Store</span>
                                     <button class="enter-btn" onclick="event.stopPropagation(); openSignupModal();">Join to RSVP</button>
                                 </div>
                             </div>
@@ -1422,9 +1431,9 @@
                             </div>
                             <div class="event-content">
                                 <h3 class="event-title">DJ Night & Shopping</h3>
-                                <p class="event-date">📅 March 28, 2026 • 8:00 PM</p>
+                                <p class="event-date">March 28, 2026 • 8:00 PM</p>
                                 <div class="event-footer">
-                                    <span class="event-location">📍 Birmingham Store</span>
+                                    <span class="event-location">Birmingham Store</span>
                                     <button class="enter-btn" onclick="event.stopPropagation(); openSignupModal();">Join to RSVP</button>
                                 </div>
                             </div>
@@ -1439,40 +1448,40 @@
                     </div>
                     <div class="competitions-grid">
                         <div class="competition-card" onclick="openSignupModal()">
-                            <div class="competition-image pink">
+                            <div class="competition-image" style="background-image: url('uo-competition-1.jpg');">
                                 <span class="competition-badge">Member Exclusive</span>
                             </div>
                             <div class="competition-content">
                                 <h3 class="competition-title">WIN a pick from our Valentine's Day Edit!</h3>
                                 <p class="competition-prize">Worth up to £150</p>
                                 <div class="competition-footer">
-                                    <span class="competition-timer">⏰ 24 days left</span>
+                                    <span class="competition-timer">24 days left</span>
                                     <button class="enter-btn" onclick="event.stopPropagation(); openSignupModal();">Join to Enter</button>
                                 </div>
                             </div>
                         </div>
                         <div class="competition-card" onclick="openSignupModal()">
-                            <div class="competition-image blue">
+                            <div class="competition-image" style="background-image: url('uo-competition-2.jpg');">
                                 <span class="competition-badge">Member Exclusive</span>
                             </div>
                             <div class="competition-content">
                                 <h3 class="competition-title">WIN an item from No Problemo</h3>
                                 <p class="competition-prize">Worth up to £150</p>
                                 <div class="competition-footer">
-                                    <span class="competition-timer">⏰ 24 days left</span>
+                                    <span class="competition-timer">24 days left</span>
                                     <button class="enter-btn" onclick="event.stopPropagation(); openSignupModal();">Join to Enter</button>
                                 </div>
                             </div>
                         </div>
                         <div class="competition-card" onclick="openSignupModal()">
-                            <div class="competition-image lime">
+                            <div class="competition-image" style="background-image: url('uo-competition-3.jpg');">
                                 <span class="competition-badge">Member Exclusive</span>
                             </div>
                             <div class="competition-content">
                                 <h3 class="competition-title">WIN a pair of new in Vibram shoes!</h3>
                                 <p class="competition-prize">Worth up to £180</p>
                                 <div class="competition-footer">
-                                    <span class="competition-timer">⏰ 23 days left</span>
+                                    <span class="competition-timer">23 days left</span>
                                     <button class="enter-btn" onclick="event.stopPropagation(); openSignupModal();">Join to Enter</button>
                                 </div>
                             </div>
@@ -2223,12 +2232,38 @@
         <!-- Welcome Hero -->
         <section class="welcome-hero">
             <div class="welcome-content">
-                <div class="welcome-text">
-                    <div class="welcome-label">Welcome back</div>
-                    <h1 class="welcome-title">Hey Pinar!</h1>
-                    <p class="welcome-subtitle">You're a UO Rewards member. Start earning stamps and unlock exclusive perks.</p>
-                    <p class="member-since">Member since February 2025</p>
+                <div class="welcome-left">
+                    <div class="welcome-text">
+                        <!-- <div class="card-label"><span class="dot"></span> Your Progress</div> -->
+                        <h1 class="welcome-title">Hey Pinar!</h1>
+                        <p class="welcome-subtitle">You're a UO Rewards member. Start earning stamps and unlock exclusive perks.</p>
+                    </div>
+                        <div class="stamp-progress">
+                            <div class="stamps-container">
+                                <div class="stamp earned">
+                                    <span class="stamp-number">1</span>
+                                    <span class="stamp-label">Earned</span>
+                                </div>
+                                <div class="stamp current">
+                                    <span class="stamp-number">2</span>
+                                    <span class="stamp-label">Next</span>
+                                </div>
+                                <div class="stamp">
+                                    <span class="stamp-number">3</span>
+                                    <span class="stamp-label">Final</span>
+                                </div>
+                            </div>
+                            <div class="reward-preview">
+                                <div class="amount">£5</div>
+                                <div class="label">Reward</div>
+                            </div>
+                        </div>
+                        <div class="stamp-message">
+                            <span><strong>2 more orders to go!</strong> Spend £20+ per order to earn your next stamp.</span>
+                        </div>
                 </div>
+                
+                
                 <div class="qr-code-section">
                     <p class="qr-code-label">Scan me at the <br>till for rewards!</p>
                     <div class="qr-code">
@@ -2300,9 +2335,8 @@
             </div>
             
             <!-- Stamp Progress -->
-            <div class="card stamp-card">
+            <!-- <div class="card stamp-card">
                 <span class="annotation">Stamp Progress</span>
-                <div class="card-label"><span class="dot"></span> Your Progress</div>
                 <div class="stamp-progress">
                     <div class="stamps-container">
                         <div class="stamp earned">
@@ -2326,7 +2360,7 @@
                 <div class="stamp-message">
                     <span><strong>2 more orders to go!</strong> Spend £20+ per order to earn your next stamp.</span>
                 </div>
-            </div>
+            </div> -->
         </div>
         
         <!-- Events Section -->
@@ -2386,7 +2420,7 @@
             </div>
             <div class="competitions-grid">
                 <div class="competition-card">
-                    <div class="competition-image pink">
+                    <div class="competition-image" style="background-image: url('uo-competition-1.jpg');">
                         <span class="competition-badge">Member Exclusive</span>
                     </div>
                     <div class="competition-content">
@@ -2399,7 +2433,7 @@
                     </div>
                 </div>
                 <div class="competition-card">
-                    <div class="competition-image blue">
+                    <div class="competition-image" style="background-image: url('uo-competition-2.jpg');">
                         <span class="competition-badge">Member Exclusive</span>
                     </div>
                     <div class="competition-content">
@@ -2412,7 +2446,7 @@
                     </div>
                 </div>
                 <div class="competition-card">
-                    <div class="competition-image lime">
+                    <div class="competition-image" style="background-image: url('uo-competition-3.jpg');">
                         <span class="competition-badge">Member Exclusive</span>
                     </div>
                     <div class="competition-content">
