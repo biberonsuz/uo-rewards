@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UO Rewards — Join Now</title>
+    <title>UO Rewards</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=League+Gothic&display=swap" rel="stylesheet">
@@ -603,7 +603,8 @@
             background: var(--uo-black);
             color: var(--uo-white);
             font-family: var(--font-display);
-            font-size: 14px;
+            font-weight: normal;
+            font-size: 16px;
             padding: 6px 10px;
             border-radius: 4px;
             text-transform: uppercase;
@@ -840,8 +841,8 @@
         
         .join-banner h1 {
             font-family: var(--font-display);
-            font-size: 72px;
-            font-weight: 700;
+            font-size: 128px;
+            font-weight: normal;
             margin-bottom: 16px;
             text-transform: uppercase;
         }
@@ -970,7 +971,7 @@
         .modal-header h2 {
             font-family: var(--font-display);
             font-size: 32px;
-            font-weight: 700;
+            font-weight: normal;
             margin-bottom: 8px;
         }
         
@@ -1096,7 +1097,7 @@
             padding: 16px 20px;
             font-family: var(--font-display);
             font-size: 14px;
-            font-weight: 700;
+            font-weight: normal;
             z-index: 10001;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             display: none;
@@ -1139,7 +1140,7 @@
         .landing-events-section .section-title {
             font-family: var(--font-display);
             font-size: 48px;
-            font-weight: 700;
+            font-weight: normal;
             text-align: center;
             text-transform: uppercase;
         }
@@ -1189,7 +1190,7 @@
         .landing-competitions-section .section-title {
             font-family: var(--font-display);
             font-size: 48px;
-            font-weight: 700;
+            font-weight: normal;
             text-align: center;
             text-transform: uppercase;
         }
@@ -1235,7 +1236,7 @@
         .faq-title {
             font-family: var(--font-display);
             font-size: 48px;
-            font-weight: 700;
+            font-weight: normal;
             margin-bottom: 40px;
         }
         
@@ -1314,6 +1315,20 @@
         }
         
         .landing-page.active ~ main.dashboard {
+            display: none !important;
+        }
+        
+        /* Hide dashboard footer when landing page is active */
+        #dashboardFooter {
+            display: none;
+        }
+        
+        .dashboard.active ~ #dashboardFooter {
+            display: block;
+        }
+        
+        /* Hide landing page footer when dashboard is active */
+        .dashboard.active ~ .landing-page #landingFooter {
             display: none !important;
         }
         
@@ -1468,7 +1483,7 @@
                     <div class="competitions-grid">
                         <div class="competition-card" onclick="openSignupModal()">
                             <div class="competition-image" style="background-image: url('assets/images/uo-competition-1.jpg');">
-                                <span class="competition-badge">Member Exclusive</span>
+                                <span class="member-badge">Member Exclusive</span>
                             </div>
                             <div class="competition-content">
                                 <h3 class="competition-title">WIN a pick from our Valentine's Day Edit!</h3>
@@ -1575,7 +1590,7 @@
                 </section>
             </div>
         </main>
-        <footer class="footer">
+        <footer class="footer" id="landingFooter">
             <img src="assets/images/footer.png" alt="Footer" class="footer-img">
         </footer>
     </div>
@@ -1702,6 +1717,7 @@
             
             if (!authenticatedUser) {
                 // Show landing page, hide dashboard
+                document.title = 'UO Rewards | Urban Outfitters UK';
                 if (landingPage) {
                     landingPage.classList.add('active');
                 }
@@ -1720,6 +1736,7 @@
             
             if (!user || !user.verified) {
                 // User not found or not verified, show landing page
+                document.title = 'UO Rewards | Urban Outfitters UK';
                 localStorage.removeItem('uoRewardsAuthenticatedUser');
                 if (landingPage) {
                     landingPage.classList.add('active');
@@ -1734,6 +1751,7 @@
             }
             
             // User is authenticated and verified, show dashboard, hide landing page
+            document.title = 'UO Rewards Dashboard | Urban Outfitters UK';
             if (landingPage) {
                 landingPage.classList.remove('active');
             }
@@ -2514,9 +2532,8 @@
                 </div>
             </div>
         </section>
-        
     </main>
-    <footer class="footer">
+    <footer class="footer" id="dashboardFooter">
         <img src="assets/images/footer.png" alt="Footer" class="footer-img">
     </footer>
 </body>
