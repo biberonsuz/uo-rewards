@@ -1389,6 +1389,7 @@
         mixpanel.init('c72a1992c58f234317c996058fae9082', {
           autocapture: true,
           record_sessions_percent: 100,
+          record_heatmap_data: true,
           api_host: 'https://api-eu.mixpanel.com',
         })
 
@@ -2040,6 +2041,26 @@
                         return;
                     }
                     
+                    // Track birthday entered event
+                    if (typeof mixpanel !== 'undefined') {
+                        const birthDateObj = new Date(birthdate);
+                        const currentYear = new Date().getFullYear();
+                        const birthYear = birthDateObj.getFullYear();
+                        const age = currentYear - birthYear;
+                        
+                        mixpanel.track('Birthday Entered', {
+                            birth_year: birthYear,
+                            age_range: age < 18 ? 'under_18' : age < 25 ? '18-24' : age < 35 ? '25-34' : age < 45 ? '35-44' : '45+'
+                        });
+                    }
+                    
+                    // Track style preference added event
+                    if (typeof mixpanel !== 'undefined') {
+                        mixpanel.track('Style Preference Added', {
+                            style_preference: stylePreference
+                        });
+                    }
+                    
                     // Get current user
                     const authenticatedUser = localStorage.getItem('uoRewardsAuthenticatedUser');
                     if (authenticatedUser) {
@@ -2195,6 +2216,13 @@
                         return;
                     }
                     
+                    // Track mobile number entered event
+                    if (typeof mixpanel !== 'undefined') {
+                        mixpanel.track('Mobile Number Entered', {
+                            mobile_number_length: mobileNumber.trim().length
+                        });
+                    }
+                    
                     // Generate verification code
                     const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
                     
@@ -2257,6 +2285,14 @@
                             users[userIndex].mobileNumber = mobileNumber;
                             users[userIndex].mobileVerified = true;
                             localStorage.setItem('uoRewardsUsers', JSON.stringify(users));
+                            
+                            // Track mobile number verified event
+                            if (typeof mixpanel !== 'undefined') {
+                                mixpanel.track('Mobile Number Verified', {
+                                    email: authenticatedUser,
+                                    mobile_number_length: mobileNumber ? mobileNumber.length : 0
+                                });
+                            }
                             
                             // Clear session storage
                             sessionStorage.removeItem('pendingMobileNumber');
@@ -2345,6 +2381,14 @@
                 return;
             }
             
+            // Track email entered event
+            if (typeof mixpanel !== 'undefined') {
+                mixpanel.track('Email Entered', {
+                    source: 'signup',
+                    email_domain: email.split('@')[1]
+                });
+            }
+            
             // Check if user already exists
             const existingUsers = JSON.parse(localStorage.getItem('uoRewardsUsers') || '[]');
             const userExists = existingUsers.find(u => u.email === email);
@@ -2400,6 +2444,14 @@
             existingUsers.push(userData);
             localStorage.setItem('uoRewardsUsers', JSON.stringify(existingUsers));
             
+            // Track signup successful event
+            if (typeof mixpanel !== 'undefined') {
+                mixpanel.track('Signup Successful', {
+                    email: email,
+                    email_domain: email.split('@')[1]
+                });
+            }
+            
             // Store email for verification page
             sessionStorage.setItem('pendingVerificationEmail', email);
             sessionStorage.setItem('verificationCode', verificationCode);
@@ -2446,6 +2498,14 @@
                             errorMessage.classList.add('show');
                         }
                         return;
+                    }
+                    
+                    // Track email entered event
+                    if (typeof mixpanel !== 'undefined') {
+                        mixpanel.track('Email Entered', {
+                            source: 'login',
+                            email_domain: email.split('@')[1]
+                        });
                     }
                     
                     // Get users from localStorage
@@ -2499,6 +2559,14 @@
                     
                     // User is verified, log them in
                     localStorage.setItem('uoRewardsAuthenticatedUser', email);
+                    
+                    // Track successful login
+                    if (typeof mixpanel !== 'undefined') {
+                        mixpanel.track('Login Successful', {
+                            email: email
+                        });
+                        mixpanel.identify(email);
+                    }
                     
                     if (successMessage) {
                         successMessage.textContent = 'Signing in...';
@@ -2561,6 +2629,15 @@
                         return;
                     }
                     
+                    // Track verification code entered event
+                    if (typeof mixpanel !== 'undefined') {
+                        mixpanel.track('Verification Code Entered', {
+                            email: email || 'unknown',
+                            code_length: code.length,
+                            is_correct: code === storedCode
+                        });
+                    }
+                    
                     if (code !== storedCode) {
                         if (errorMessage) {
                             errorMessage.textContent = 'Invalid verification code. Please try again.';
@@ -2581,6 +2658,14 @@
                             
                             // Set authenticated user
                             localStorage.setItem('uoRewardsAuthenticatedUser', email);
+                            
+                            // Track successful verification
+                            if (typeof mixpanel !== 'undefined') {
+                                mixpanel.track('Email Verified', {
+                                    email: email
+                                });
+                                mixpanel.identify(email);
+                            }
                             
                             if (successMessage) {
                                 successMessage.textContent = 'Email verified! Redirecting to your dashboard...';
