@@ -18,13 +18,12 @@ case $choice in
         python3 -m http.server 8000
         ;;
     2)
-        if command -v npx &> /dev/null; then
-            echo "Starting Node.js http-server on http://localhost:8080"
-            npx http-server -p 8080 -o
+        if command -v node &> /dev/null; then
+            echo "Starting Node.js server with SPA routing support on http://localhost:8080"
+            node server.js
         else
-            echo "http-server not found. Installing..."
-            npm install -g http-server
-            npx http-server -p 8080 -o
+            echo "Node.js not found. Please install Node.js or use option 3 (Vercel Dev)"
+            exit 1
         fi
         ;;
     3)

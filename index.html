@@ -41,7 +41,9 @@
             display: none;
             margin: 0;
             padding: 0;
-            position: relative;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
         
         .header.active {
@@ -77,9 +79,425 @@
         
         /* Dashboard Container */
         .dashboard {
-            max-width: 1200px;
+            display: flex;
+            gap: 40px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 40px;
+            padding: 40px 0;
+        }
+        
+        .dashboard-content {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        /* Page Views */
+        .page-view {
+            display: none;
+        }
+        
+        .page-view.active {
+            display: block;
+        }
+        
+        /* Profile View */
+        .profile-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            margin-bottom: 32px;
+        }
+        
+        .profile-right-column {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+        
+        .personal-information-section,
+        .email-preferences-section,
+        .qr-code-section-profile {
+            background: var(--uo-white);
+            border: 1px solid var(--uo-black);
+            border-radius: 24px;
+            padding: 48px;
+        }
+        
+        #addressesView .personal-information-section {
+            border: none;
+            padding: 0;
+        }
+        
+        .qr-code-section-profile {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+        }
+        
+        .qr-code-section-profile .profile-header {
+            margin-bottom: 24px;
+        }
+        
+        .qr-code-section-profile .profile-title {
+            margin-bottom: 0;
+            text-align: center;
+        }
+        
+        .qr-code-id {
+            font-family: var(--font-body);
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+            color: var(--uo-black);
+            margin-top: 16px;
+            text-transform: uppercase;
+            margin: 0 auto;
+            padding-top:12px;
+        }
+        
+        /* Address List */
+        .addresses-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 24px;
+        }
+        
+        .address-card {
+            background: var(--uo-white);
+            border: 1px solid var(--uo-black);
+            border-radius: 16px;
+            padding: 24px;
+        }
+        
+        .address-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+        
+        .address-name {
+            font-family: var(--font-body);
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--uo-black);
+            margin-bottom: 4px;
+        }
+        
+        .address-type {
+            font-family: var(--font-body);
+            font-size: 12px;
+            color: var(--uo-black);
+            opacity: 0.6;
+            text-transform: uppercase;
+        }
+        
+        .address-details {
+            font-family: var(--font-body);
+            font-size: 14px;
+            color: var(--uo-black);
+            line-height: 1.6;
+        }
+        
+        .address-line {
+            margin-bottom: 4px;
+        }
+        
+        .no-addresses-message {
+            font-family: var(--font-body);
+            font-size: 16px;
+            color: var(--uo-black);
+            opacity: 0.6;
+            text-align: center;
+            padding: 48px 24px;
+        }
+        
+        .profile-header {
+            margin-bottom: 32px;
+        }
+        
+        .profile-title {
+            font-family: var(--font-body);
+            font-size: 24px;
+            font-weight: normal;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        
+        .profile-subtitle {
+            font-family: var(--font-body);
+            font-size: 13px;
+            color: var(--uo-black);
+            opacity: 0.7;
+        }
+        
+        .profile-form {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .form-group-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+        
+        .form-label {
+            font-family: var(--font-body);
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--uo-black);
+        }
+        
+        .form-input,
+        .form-select {
+            font-family: var(--font-body);
+            font-size: 16px;
+            padding: 12px 16px;
+            border: 1px solid var(--uo-black);
+            border-radius: 8px;
+            background: var(--uo-white);
+            color: var(--uo-black);
+            width: 100%;
+        }
+        
+        .form-input:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: var(--uo-blue);
+        }
+        
+        .form-input:disabled {
+            background: var(--uo-cream);
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .form-input-display {
+            font-family: var(--font-body);
+            font-size: 16px;
+            padding: 12px 16px;
+            border: 1px solid var(--uo-black);
+            border-radius: 8px;
+            background: var(--uo-cream);
+            color: var(--uo-black);
+            width: 100%;
+            opacity: 0.7;
+            cursor: pointer;
+        }
+        
+        .form-input-display:hover {
+            opacity: 1;
+            background: var(--uo-white);
+        }
+        
+        .form-input-display.read-only {
+            cursor: default;
+            opacity: 1;
+        }
+        
+        .form-input-display.read-only:hover {
+            background: var(--uo-cream);
+        }
+        
+        .form-checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .form-checkbox {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        
+        .form-checkbox-label {
+            font-family: var(--font-body);
+            font-size: 16px;
+            color: var(--uo-black);
+            cursor: pointer;
+        }
+        
+        .profile-actions {
+            display: flex;
+            gap: 16px;
+            margin-top: 8px;
+        }
+        
+        .btn-primary,
+        .btn-secondary {
+            font-family: var(--font-body);
+            font-size: 16px;
+            font-weight: 600;
+            padding: 12px 24px;
+            border: 1px solid var(--uo-black);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+        }
+        
+        .btn-primary {
+            background: var(--uo-black);
+            color: var(--uo-white);
+        }
+        
+        .btn-primary:hover {
+            background: var(--uo-white);
+            color: var(--uo-black);
+        }
+        
+        .btn-secondary {
+            background: var(--uo-white);
+            color: var(--uo-black);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--uo-cream);
+        }
+        
+        .profile-save-message {
+            font-family: var(--font-body);
+            font-size: 14px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-top: 16px;
+            display: none;
+        }
+        
+        .profile-save-message.show {
+            display: block;
+        }
+        
+        .profile-save-message.success {
+            background: var(--uo-lime);
+            color: var(--uo-black);
+            border: 1px solid var(--uo-black);
+        }
+        
+        .profile-save-message.error {
+            background: var(--uo-pink);
+            color: var(--uo-black);
+            border: 1px solid var(--uo-black);
+        }
+        
+        /* Email Preferences Section */
+        .email-preferences-section .profile-header {
+            margin-bottom: 24px;
+        }
+        
+        .email-preferences-section .profile-title {
+            margin-bottom: 0;
+        }
+        
+        @media (max-width: 1024px) {
+            .profile-section {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .form-group-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .profile-section {
+                padding: 24px;
+            }
+            
+            .profile-title {
+                font-size: 36px;
+            }
+        }
+        
+        /* Sidebar Menu */
+        .sidebar {
+            width: auto;
+            flex-shrink: 0;
+            background: var(--uo-white);
+            /* border: 1px solid var(--uo-black); */
+            border-radius: 16px;
+            /* padding: 24px 0; */
+            height: fit-content;
+            /* position: sticky; */
+            top: 100px;
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .sidebar-menu-item {
+            margin: 0;
+        }
+        
+        .sidebar-menu-link {
+            display: block;
+            padding: 12px 12px;
+            font-family: var(--font-body);
+            font-size: 12px;
+            color: var(--uo-black);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+        }
+        
+        .sidebar-menu-link:hover {
+            background: var(--uo-cream);
+        }
+        
+        .sidebar-menu-link.active {
+            background: var(--uo-cream);
+            border-left-color: var(--uo-black);
+            font-weight: 600;
+        }
+        
+        @media (max-width: 1024px) {
+            .dashboard {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                position: relative;
+                top: 0;
+            }
+            
+            .sidebar-menu {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                padding: 0 16px;
+            }
+            
+            .sidebar-menu-item {
+                flex: 1;
+                min-width: 120px;
+            }
+            
+            .sidebar-menu-link {
+                border-left: none;
+                border-bottom: 3px solid transparent;
+                text-align: center;
+                border-radius: 8px;
+            }
+            
+            .sidebar-menu-link.active {
+                border-left: none;
+                border-bottom-color: var(--uo-black);
+            }
         }
         
         /* Welcome Hero */
@@ -155,6 +573,7 @@
             align-items: center;
             justify-content: center;
             padding: 12px;
+            margin:  0 auto;
         }
         
         .qr-code img {
@@ -218,6 +637,12 @@
             grid-template-columns: 1fr 1fr;
             gap: 24px;
             margin-bottom: 32px;
+        }
+        
+        .welcome-priority-container {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
         }
         
         /* Card Base */
@@ -402,12 +827,21 @@
             font-weight:normal;
             line-height: 1;
             margin-bottom: 8px;
+            display:inline-block;
         }
         
         .offer-description {
             font-size: 16px;
             margin-bottom: 24px;
+            margin-left:6px;
             max-width: 200px;
+            display:inline-block;
+        }
+        
+        .offer-card .btn {
+            display: block;
+            width: fit-content;
+            margin-top: 8px;
         }
         
         .btn {
@@ -443,7 +877,7 @@
         }
         
         .offer-expiry {
-            margin-top: 20px;
+            margin-top: 6px;
             font-size: 12px;
             opacity: 0.7;
         }
@@ -461,7 +895,7 @@
             display: flex;
             align-items: flex-start;
             gap: 16px;
-            padding: 16px 0;
+            padding: 24px 0;
             border-bottom: 1px solid #eee;
         }
         
@@ -515,6 +949,167 @@
         
         .events-section {
             margin-bottom: 32px;
+        }
+        
+        .rewards-locker-section {
+            margin-bottom: 48px;
+        }
+        
+        /* Priority Pass Section */
+        .priority-pass-section {
+            background: var(--uo-white);
+            border: 1px solid var(--uo-black);
+            border-radius: 24px;
+            padding: 48px;
+            position: relative;
+        }
+        
+        .priority-pass-section .annotation {
+            top: -12px;
+            left: 24px;
+            z-index: 10;
+        }
+        
+        .priority-pass-content {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        
+        .priority-pass-description {
+            font-family: var(--font-body);
+            font-size: 16px;
+            color: var(--uo-black);
+            line-height: 1.6;
+        }
+        
+        .priority-pass-learn-more {
+            color: var(--uo-black);
+            text-decoration: underline;
+        }
+        
+        .priority-pass-button {
+            font-family: var(--font-body);
+            font-size: 13px;
+            font-weight: bold;
+            padding: 14px 24px;
+            border: 1px solid var(--uo-black);
+            border-radius: 30px;
+            background: var(--uo-black);
+            color: var(--uo-white);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: fit-content;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+        
+        .priority-pass-button:hover {
+            background: var(--uo-white);
+            color: var(--uo-black);
+        }
+        
+        @media (max-width: 768px) {
+            .priority-pass-section {
+                padding: 24px;
+            }
+            
+            .priority-pass-title {
+                font-size: 36px;
+            }
+        }
+        
+        .rewards-locker-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .reward-item {
+            background: var(--uo-white);
+            border: 1px solid var(--uo-black);
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        
+        .reward-item.unlocked {
+            background: linear-gradient(135deg, var(--uo-peach) 0%, var(--uo-pink) 50%, var(--uo-blue) 100%);
+        }
+        
+        .reward-item.locked {
+            opacity: 0.5;
+        }
+        
+        .reward-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+        
+        .reward-title {
+            font-family: var(--font-body);
+            font-weight:bold;
+            font-size: 18px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+        
+        .reward-description {
+            font-family: var(--font-body);
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 16px;
+            flex-grow: 1;
+        }
+        
+        .reward-status {
+            font-family: var(--font-body);
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .reward-status.unlocked {
+            color: var(--uo-black);
+        }
+        
+        .reward-status.locked {
+            color: #999;
+        }
+        
+        .claim-link {
+            color: var(--uo-black);
+            text-decoration: underline;
+            font-family: var(--font-body);
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.2s ease;
+        }
+        
+        .claim-link:hover {
+            color: var(--uo-lime);
+        }
+        
+        .reward-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: var(--uo-lime);
+            color: var(--uo-black);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-family: var(--font-body);
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         
         .section-header {
@@ -981,7 +1576,7 @@
         }
         
         .form-group {
-            margin-bottom: 24px;
+            margin-bottom: 6px;
         }
         
         .form-group label {
@@ -1330,7 +1925,7 @@
         }
         
         .dashboard.active {
-            display: block;
+            display: flex;
         }
         
         /* Hide dashboard header when landing page is active */
@@ -1856,7 +2451,99 @@
                     location.reload();
                 }
             };
+            
+            // Populate rewards locker
+            populateRewardsLocker(user);
         });
+        
+        // Function to populate rewards locker
+        window.populateRewardsLocker = function(user) {
+            const rewardsLockerGrid = document.getElementById('rewardsLockerGrid');
+            if (!rewardsLockerGrid) return;
+            
+            const rewards = [];
+            
+            // Welcome Offer - Always available once signed up
+            rewards.push({
+                id: 'welcome-offer',
+                icon: '🎁',
+                title: 'Welcome Offer',
+                description: '10% off your first order',
+                unlocked: true,
+                badge: 'Unlocked'
+            });
+            
+            // Mobile Number Reward - Available if mobile number is verified
+            rewards.push({
+                id: 'mobile-reward',
+                icon: '📱',
+                title: 'Mobile Number Reward',
+                description: '10% off for adding your mobile number',
+                unlocked: user.mobileNumberVerified || user.mobileVerified || false,
+                badge: (user.mobileNumberVerified || user.mobileVerified) ? 'Unlocked' : 'Locked'
+            });
+            
+            // Birthday Gift - Available if birthday is entered
+            rewards.push({
+                id: 'birthday-gift',
+                icon: '🎂',
+                title: 'Birthday Gift',
+                description: 'A special surprise on your birthday',
+                unlocked: !!(user.birthdate && user.stylePreference),
+                badge: (user.birthdate && user.stylePreference) ? 'Unlocked' : 'Locked'
+            });
+            
+            // App Download Reward - Available if user has clicked app download link
+            rewards.push({
+                id: 'app-download',
+                icon: '📲',
+                title: 'App Download Reward',
+                description: '10% off for downloading the UO app',
+                unlocked: user.appDownloadClicked || false,
+                badge: user.appDownloadClicked ? 'Unlocked' : 'Locked'
+            });
+            
+            // Clear existing content
+            rewardsLockerGrid.innerHTML = '';
+            
+            // Populate rewards
+            rewards.forEach(reward => {
+                const rewardItem = document.createElement('div');
+                rewardItem.className = `reward-item ${reward.unlocked ? 'unlocked' : 'locked'}`;
+                
+                rewardItem.innerHTML = `
+                    <div class="reward-icon">${reward.icon}</div>
+                    <h3 class="reward-title">${reward.title}</h3>
+                    <p class="reward-description">${reward.description}</p>
+                    <div class="reward-status ${reward.unlocked ? 'unlocked' : 'locked'}">
+                        ${reward.unlocked ? '<a href="https://www.urbanoutfitters.com/en-gb/?ar=uo-us,uo-uk" class="claim-link">Claim</a>' : '🔒 Locked'}
+                    </div>
+                `;
+                
+                rewardsLockerGrid.appendChild(rewardItem);
+            });
+        };
+        
+        // Function to handle app download click
+        window.handleAppDownloadClick = function() {
+            const authenticatedUser = localStorage.getItem('uoRewardsAuthenticatedUser');
+            if (authenticatedUser) {
+                const users = JSON.parse(localStorage.getItem('uoRewardsUsers') || '[]');
+                const userIndex = users.findIndex(u => u.email === authenticatedUser);
+                
+                if (userIndex !== -1) {
+                    // Mark app download as clicked
+                    users[userIndex].appDownloadClicked = true;
+                    localStorage.setItem('uoRewardsUsers', JSON.stringify(users));
+                    
+                    // Refresh rewards locker
+                    populateRewardsLocker(users[userIndex]);
+                }
+            }
+            
+            // Redirect to app store
+            window.location.href = 'https://apps.apple.com/gb/app/urban-outfitters/id358821736';
+        };
         
         // Modal functions - make them globally accessible
         window.openSignupModal = function() {
@@ -2076,6 +2763,9 @@
                             users[userIndex].stylePreference = stylePreference;
                             localStorage.setItem('uoRewardsUsers', JSON.stringify(users));
                             
+                            // Refresh rewards locker
+                            populateRewardsLocker(users[userIndex]);
+                            
                             // Show success message
                             if (successMessage) {
                                 successMessage.textContent = 'Birthday and style preference saved! You\'ll receive a special gift on your birthday.';
@@ -2291,6 +2981,9 @@
                             users[userIndex].mobileVerified = true;
                             localStorage.setItem('uoRewardsUsers', JSON.stringify(users));
                             
+                            // Refresh rewards locker
+                            populateRewardsLocker(users[userIndex]);
+                            
                             // Track mobile number verified event
                             if (typeof mixpanel !== 'undefined') {
                                 const eventData = {
@@ -2325,10 +3018,24 @@
                                 }
                             }
                             
-                            // Close modal after a delay
+                            // Close modal and scroll to rewards locker
                             setTimeout(() => {
                                 closeMobileVerifyModal();
-                            }, 2000);
+                                // Scroll to rewards locker after modal closes
+                                setTimeout(() => {
+                                    const rewardsLockerSection = document.getElementById('rewardsLockerSection');
+                                    if (rewardsLockerSection) {
+                                        const offset = 100; // Offset for any fixed headers
+                                        const elementPosition = rewardsLockerSection.getBoundingClientRect().top;
+                                        const offsetPosition = elementPosition + window.pageYOffset - offset;
+                                        
+                                        window.scrollTo({
+                                            top: offsetPosition,
+                                            behavior: 'smooth'
+                                        });
+                                    }
+                                }, 500);
+                            }, 1500);
                         }
                     }
                 });
@@ -2765,6 +3472,448 @@
                 }
             });
         });
+        
+        // Sidebar Navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check URL on page load first, before any other initialization
+            const path = window.location.pathname;
+            let initialPage = 'dashboard';
+            
+            if (path === '/profile') {
+                initialPage = 'profile';
+            } else if (path.startsWith('/') && path !== '/') {
+                // Handle other paths if needed
+                const pathParts = path.split('/').filter(p => p);
+                if (pathParts.length > 0) {
+                    initialPage = pathParts[0];
+                }
+            }
+            
+            // Always navigate to the correct page based on URL (including dashboard)
+            navigateToPageWithoutHistory(initialPage);
+            // Update history without triggering navigation
+            window.history.replaceState({ page: initialPage }, '', path);
+            
+            const sidebarLinks = document.querySelectorAll('.sidebar-menu-link');
+            
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const page = this.getAttribute('data-page');
+                    if (page) {
+                        navigateToPage(page);
+                    }
+                });
+            });
+            
+            // Load data when page loads based on initial page
+            if (initialPage === 'profile') {
+                loadProfileData();
+            } else if (initialPage === 'addresses') {
+                loadAddressesData();
+            }
+        });
+        
+        // Navigation function
+        function navigateToPage(page) {
+            // Hide all page views
+            const pageViews = document.querySelectorAll('.page-view');
+            pageViews.forEach(view => {
+                view.classList.remove('active');
+            });
+            
+            // Remove active class from all sidebar links
+            const sidebarLinks = document.querySelectorAll('.sidebar-menu-link');
+            sidebarLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Show selected page view
+            const targetView = document.getElementById(page + 'View');
+            if (targetView) {
+                targetView.classList.add('active');
+            }
+            
+            // Add active class to selected sidebar link
+            const activeLink = document.querySelector(`.sidebar-menu-link[data-page="${page}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+            
+            // Update URL
+            const url = page === 'dashboard' ? '/' : `/${page}`;
+            window.history.pushState({ page: page }, '', url);
+            
+            // Load data based on page
+            if (page === 'profile') {
+                loadProfileData();
+            } else if (page === 'addresses') {
+                loadAddressesData();
+            }
+        }
+        
+        // Handle browser back/forward buttons
+        window.addEventListener('popstate', function(event) {
+            const page = event.state ? event.state.page : 'dashboard';
+            navigateToPageWithoutHistory(page);
+        });
+        
+        // Navigation without updating history (for popstate)
+        function navigateToPageWithoutHistory(page) {
+            // Hide all page views
+            const pageViews = document.querySelectorAll('.page-view');
+            pageViews.forEach(view => {
+                view.classList.remove('active');
+            });
+            
+            // Remove active class from all sidebar links
+            const sidebarLinks = document.querySelectorAll('.sidebar-menu-link');
+            sidebarLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Show selected page view
+            const targetView = document.getElementById(page + 'View');
+            if (targetView) {
+                targetView.classList.add('active');
+            }
+            
+            // Add active class to selected sidebar link
+            const activeLink = document.querySelector(`.sidebar-menu-link[data-page="${page}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+            
+            // Load data based on page
+            if (page === 'profile') {
+                loadProfileData();
+            } else if (page === 'addresses') {
+                loadAddressesData();
+            }
+        }
+        
+        
+        // Load profile data from localStorage
+        function loadProfileData() {
+            const authenticatedUser = localStorage.getItem('uoRewardsAuthenticatedUser');
+            if (!authenticatedUser) return;
+            
+            const users = JSON.parse(localStorage.getItem('uoRewardsUsers') || '[]');
+            const user = users.find(u => u.email === authenticatedUser);
+            
+            // Populate form fields
+            const emailDisplay = document.getElementById('emailDisplay');
+            const firstNameInput = document.getElementById('firstName');
+            const lastNameInput = document.getElementById('lastName');
+            const mobileNumberInput = document.getElementById('profileMobileNumber');
+            const birthdateInput = document.getElementById('birthdate');
+            const stylePreferenceSelect = document.getElementById('stylePreference');
+            
+            // Always set email from authenticatedUser (this is the email from signup)
+            if (emailDisplay) emailDisplay.textContent = authenticatedUser;
+            
+            // Set other fields if user exists
+            if (user) {
+                if (firstNameInput) firstNameInput.value = user.firstName || '';
+                if (lastNameInput) lastNameInput.value = user.lastName || '';
+                
+                // Handle mobile number display
+                const mobileNumberDisplay = document.getElementById('profileMobileNumberDisplay');
+                if (user.mobileNumber && user.mobileNumber.trim() !== '') {
+                    // Show input with value
+                    if (mobileNumberInput) {
+                        mobileNumberInput.value = user.mobileNumber;
+                        mobileNumberInput.style.display = 'block';
+                    }
+                    if (mobileNumberDisplay) {
+                        mobileNumberDisplay.style.display = 'none';
+                    }
+                } else {
+                    // Show "Not entered" text
+                    if (mobileNumberInput) {
+                        mobileNumberInput.style.display = 'none';
+                    }
+                    if (mobileNumberDisplay) {
+                        mobileNumberDisplay.style.display = 'block';
+                    }
+                }
+                
+                // Handle birthdate display
+                const birthdateDisplay = document.getElementById('birthdateDisplay');
+                if (user.birthdate) {
+                    // Show input with value
+                    if (birthdateInput) {
+                        birthdateInput.value = user.birthdate;
+                        birthdateInput.style.display = 'block';
+                    }
+                    if (birthdateDisplay) {
+                        birthdateDisplay.style.display = 'none';
+                    }
+                } else {
+                    // Show "Not entered" text
+                    if (birthdateInput) {
+                        birthdateInput.style.display = 'none';
+                    }
+                    if (birthdateDisplay) {
+                        birthdateDisplay.style.display = 'block';
+                    }
+                }
+                
+                // Handle style preference display
+                const stylePreferenceDisplay = document.getElementById('stylePreferenceDisplay');
+                if (user.stylePreference) {
+                    // Show select with value
+                    if (stylePreferenceSelect) {
+                        stylePreferenceSelect.value = user.stylePreference;
+                        stylePreferenceSelect.style.display = 'block';
+                    }
+                    if (stylePreferenceDisplay) {
+                        stylePreferenceDisplay.style.display = 'none';
+                    }
+                } else {
+                    // Show "Not entered" text
+                    if (stylePreferenceSelect) {
+                        stylePreferenceSelect.style.display = 'none';
+                    }
+                    if (stylePreferenceDisplay) {
+                        stylePreferenceDisplay.style.display = 'block';
+                    }
+                }
+            } else {
+                // No user data, show "Not entered" for all fields
+                const mobileNumberDisplay = document.getElementById('profileMobileNumberDisplay');
+                const birthdateDisplay = document.getElementById('birthdateDisplay');
+                const stylePreferenceDisplay = document.getElementById('stylePreferenceDisplay');
+                
+                if (mobileNumberInput) {
+                    mobileNumberInput.style.display = 'none';
+                }
+                if (mobileNumberDisplay) {
+                    mobileNumberDisplay.style.display = 'block';
+                }
+                
+                if (birthdateInput) {
+                    birthdateInput.style.display = 'none';
+                }
+                if (birthdateDisplay) {
+                    birthdateDisplay.style.display = 'block';
+                }
+                
+                if (stylePreferenceSelect) {
+                    stylePreferenceSelect.style.display = 'none';
+                }
+                if (stylePreferenceDisplay) {
+                    stylePreferenceDisplay.style.display = 'block';
+                }
+            }
+        }
+        
+        // Enable editing when clicking "Not entered" displays
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile number display click handler
+            const mobileNumberDisplay = document.getElementById('profileMobileNumberDisplay');
+            if (mobileNumberDisplay) {
+                mobileNumberDisplay.addEventListener('click', function() {
+                    const mobileNumberInput = document.getElementById('profileMobileNumber');
+                    if (mobileNumberInput) {
+                        mobileNumberInput.style.display = 'block';
+                        mobileNumberInput.focus();
+                        this.style.display = 'none';
+                    }
+                });
+            }
+            
+            // Birthdate display click handler
+            const birthdateDisplay = document.getElementById('birthdateDisplay');
+            if (birthdateDisplay) {
+                birthdateDisplay.addEventListener('click', function() {
+                    const birthdateInput = document.getElementById('birthdate');
+                    if (birthdateInput) {
+                        birthdateInput.style.display = 'block';
+                        birthdateInput.focus();
+                        this.style.display = 'none';
+                    }
+                });
+            }
+            
+            // Style preference display click handler
+            const stylePreferenceDisplay = document.getElementById('stylePreferenceDisplay');
+            if (stylePreferenceDisplay) {
+                stylePreferenceDisplay.addEventListener('click', function() {
+                    const stylePreferenceSelect = document.getElementById('stylePreference');
+                    if (stylePreferenceSelect) {
+                        stylePreferenceSelect.style.display = 'block';
+                        stylePreferenceSelect.focus();
+                        this.style.display = 'none';
+                    }
+                });
+            }
+        });
+        
+        // Save profile data
+        document.addEventListener('DOMContentLoaded', function() {
+            const profileForm = document.getElementById('profileForm');
+            if (profileForm) {
+                profileForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const authenticatedUser = localStorage.getItem('uoRewardsAuthenticatedUser');
+                    if (!authenticatedUser) return;
+                    
+                    const users = JSON.parse(localStorage.getItem('uoRewardsUsers') || '[]');
+                    const userIndex = users.findIndex(u => u.email === authenticatedUser);
+                    
+                    if (userIndex === -1) return;
+                    
+                    // Get form values (only from visible fields)
+                    const firstName = document.getElementById('firstName').value.trim();
+                    const lastName = document.getElementById('lastName').value.trim();
+                    const profileMobileNumberInput = document.getElementById('profileMobileNumber');
+                    const birthdateInput = document.getElementById('birthdate');
+                    const stylePreferenceSelect = document.getElementById('stylePreference');
+                    
+                    // Get values only if fields are visible
+                    const mobileNumber = profileMobileNumberInput && profileMobileNumberInput.style.display !== 'none' 
+                        ? profileMobileNumberInput.value.trim() 
+                        : '';
+                    const birthdate = birthdateInput && birthdateInput.style.display !== 'none' 
+                        ? birthdateInput.value 
+                        : '';
+                    const stylePreference = stylePreferenceSelect && stylePreferenceSelect.style.display !== 'none' 
+                        ? stylePreferenceSelect.value 
+                        : '';
+                    
+                    // Update user data
+                    users[userIndex].firstName = firstName;
+                    users[userIndex].lastName = lastName;
+                    users[userIndex].mobileNumber = mobileNumber;
+                    users[userIndex].birthdate = birthdate;
+                    users[userIndex].stylePreference = stylePreference;
+                    
+                    // Save to localStorage
+                    localStorage.setItem('uoRewardsUsers', JSON.stringify(users));
+                    
+                    // Reload profile data to update display
+                    loadProfileData();
+                    
+                    // Show success message
+                    const saveMessage = document.getElementById('profileSaveMessage');
+                    if (saveMessage) {
+                        saveMessage.textContent = 'Profile updated successfully!';
+                        saveMessage.className = 'profile-save-message success show';
+                        setTimeout(() => {
+                            saveMessage.classList.remove('show');
+                        }, 3000);
+                    }
+                });
+            }
+        });
+        
+        // Load and display addresses from localStorage
+        function loadAddressesData() {
+            const authenticatedUser = localStorage.getItem('uoRewardsAuthenticatedUser');
+            if (!authenticatedUser) return;
+            
+            const users = JSON.parse(localStorage.getItem('uoRewardsUsers') || '[]');
+            const user = users.find(u => u.email === authenticatedUser);
+            const addressesList = document.getElementById('addressesList');
+            
+            if (!addressesList) return;
+            
+            // Clear existing addresses
+            addressesList.innerHTML = '';
+            
+            // Initialize addresses array if it doesn't exist or ensure both sample addresses are present
+            const userIndex = users.findIndex(u => u.email === authenticatedUser);
+            let addressesUpdated = false;
+            
+            if (!user.addresses || user.addresses.length === 0) {
+                // Add sample addresses
+                user.addresses = [
+                    {
+                        fullName: 'DEFAULT ADDRESS',
+                        addressLine1: '146 Brick Lane',
+                        addressLine2: 'Shoreditch',
+                        city: 'London',
+                        postcode: 'E1 6RU',
+                        country: 'United Kingdom'
+                    },
+                    {
+                        fullName: 'Address 2',
+                        addressLine1: 'Flat 1, 118A Brick Lane',
+                        addressLine2: 'Shoreditch',
+                        city: 'London',
+                        postcode: 'E1 6RL',
+                        country: 'United Kingdom'
+                    }
+                ];
+                addressesUpdated = true;
+            } else if (user.addresses.length === 1) {
+                // Add second address if only one exists
+                const secondAddress = {
+                    fullName: 'Address 2',
+                    addressLine1: 'Flat 1, 118A Brick Lane',
+                    addressLine2: 'Shoreditch',
+                    city: 'London',
+                    postcode: 'E1 6RL',
+                    country: 'United Kingdom'
+                };
+                // Check if second address already exists
+                const hasSecondAddress = user.addresses.some(addr => 
+                    addr.addressLine1 === secondAddress.addressLine1 && 
+                    addr.postcode === secondAddress.postcode
+                );
+                if (!hasSecondAddress) {
+                    user.addresses.push(secondAddress);
+                    addressesUpdated = true;
+                }
+            }
+            
+            // Save to localStorage if addresses were updated
+            if (addressesUpdated && userIndex !== -1) {
+                users[userIndex].addresses = user.addresses;
+                localStorage.setItem('uoRewardsUsers', JSON.stringify(users));
+            }
+            
+            // Display addresses
+            const addressesToDisplay = user && user.addresses && user.addresses.length > 0 ? user.addresses : [];
+            if (addressesToDisplay.length > 0) {
+                // Display each address as a card
+                addressesToDisplay.forEach((address, index) => {
+                    const addressCard = document.createElement('div');
+                    addressCard.className = 'address-card';
+                    
+                    // Build address lines
+                    const addressLines = [];
+                    if (address.addressLine1) addressLines.push(address.addressLine1);
+                    if (address.addressLine2) addressLines.push(address.addressLine2);
+                    if (address.city || address.postcode) {
+                        const cityPostcode = [address.city, address.postcode].filter(Boolean).join(', ');
+                        if (cityPostcode) addressLines.push(cityPostcode);
+                    }
+                    if (address.country) addressLines.push(address.country);
+                    
+                    addressCard.innerHTML = `
+                        <div class="address-card-header">
+                            <div>
+                                <div class="address-name">${index === 0 ? 'Default Address' : 'Address ' + (index + 1)}</div>
+                            </div>
+                        </div>
+                        <div class="address-details">
+                            ${addressLines.map(line => `<div class="address-line">${line}</div>`).join('')}
+                        </div>
+                    `;
+                    
+                    addressesList.appendChild(addressCard);
+                });
+            } else {
+                // Show message if no addresses
+                const noAddressesMsg = document.createElement('div');
+                noAddressesMsg.className = 'no-addresses-message';
+                noAddressesMsg.textContent = 'No addresses saved yet';
+                addressesList.appendChild(noAddressesMsg);
+            }
+        }
     </script>
     <!-- Dashboard (shown when authenticated) -->
     <header class="header">
@@ -2774,6 +3923,39 @@
     
     <!-- Dashboard -->
     <main class="dashboard">
+        <!-- Sidebar Menu -->
+        <aside class="sidebar">
+            <nav>
+                <ul class="sidebar-menu">
+                    <li class="sidebar-menu-item">
+                        <a href="#" class="sidebar-menu-link active" data-page="dashboard">UO Rewards Dashboard</a>
+                    </li>
+                    <li class="sidebar-menu-item">
+                        <a href="#" class="sidebar-menu-link" data-page="profile"> Profile</a>
+                    </li>
+                    <li class="sidebar-menu-item">
+                        <a href="#" class="sidebar-menu-link" data-page="addresses">Addresses</a>
+                    </li>
+                    <li class="sidebar-menu-item">
+                        <a href="#" class="sidebar-menu-link" data-page="payments">Payments</a>
+                    </li>
+                    <li class="sidebar-menu-item">
+                        <a href="#" class="sidebar-menu-link" data-page="orders">Order History</a>
+                    </li>
+                    <li class="sidebar-menu-item">
+                        <a href="#" class="sidebar-menu-link" data-page="wishlist">Wish List</a>
+                    </li>
+                    <li class="sidebar-menu-item">
+                        <a href="#" class="sidebar-menu-link" data-page="favourites">Favourites</a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+        
+        <!-- Dashboard Content -->
+        <div class="dashboard-content">
+        <!-- Dashboard View -->
+        <div class="page-view active" id="dashboardView">
         <!-- Welcome Hero -->
         <section class="welcome-hero">
             <div class="welcome-content">
@@ -2820,16 +4002,29 @@
         
         <!-- Main Grid -->
         <div class="main-grid">
-            <!-- Welcome Offer -->
-            <div class="card offer-card">
-                <div class="offer-header">
-                    <span class="annotation">Welcome Offer</span>
-                    <div class="offer-badge">★ New Member Perk</div>
+            <!-- Welcome Offer and Priority Pass Container -->
+            <div class="welcome-priority-container">
+                <!-- Welcome Offer -->
+                <div class="card offer-card">
+                    <div class="offer-header">
+                        <span class="annotation">Welcome Offer</span>
+                    </div>
+                    <div class="offer-amount">10%</div>
+                    <div class="offer-description">off your first order as a UO Rewards member</div>
+                    <a href="#" class="btn">Claim Now →</a>
+                    <p class="offer-expiry">Expires in 14 days</p>
                 </div>
-                <div class="offer-amount">10%</div>
-                <div class="offer-description">off your first order as a UO Rewards member</div>
-                <a href="#" class="btn">Claim Now →</a>
-                <p class="offer-expiry">Expires in 14 days</p>
+                
+                <!-- Priority Pass Section -->
+                <section class="priority-pass-section">
+                    <span class="annotation">Priority Pass</span>
+                    <div class="priority-pass-content">
+                        <p class="priority-pass-description">
+                            Enjoy Unlimited next day Delivery on all purchases for an entire year for just £12* <a href="#" class="priority-pass-learn-more">Learn More!</a>
+                        </p>
+                        <a href="https://www.urbanoutfitters.com/en-gb/delivery-pass-enrollment" class="priority-pass-button" target="_blank">Secure Your Pass</a>
+                    </div>
+                </section>
             </div>
             
             <!-- Next Steps -->
@@ -2874,7 +4069,7 @@
                             <h4>Download the UO app for an additional 10% off</h4>
                             <p>Collect stamps in the app to earn rewards</p>
                         </div>
-                        <span class="step-action" onclick="window.location.href='https://apps.apple.com/gb/app/urban-outfitters/id358821736'">View</span>
+                        <span class="step-action" onclick="handleAppDownloadClick()">View</span>
                     </li>
                 </ul>
             </div>
@@ -3006,8 +4201,18 @@
             </div>
         </section>
         
+        <!-- My Rewards Locker -->
+        <section class="rewards-locker-section" id="rewardsLockerSection">
+            <div class="section-header">
+                <h2 class="section-title">My Rewards Locker</h2>
+            </div>
+            <div class="rewards-locker-grid" id="rewardsLockerGrid">
+                <!-- Rewards will be dynamically populated here -->
+            </div>
+        </section>
+        
         <!-- Quick Actions -->
-        <section class="quick-actions">
+        <!-- <section class="quick-actions">
             <div class="quick-action">
                 <div class="quick-action-icon">📅</div>
                 <div class="quick-action-text">
@@ -3036,7 +4241,122 @@
                     <p>Get priority access to events</p>
                 </div>
             </div>
-        </section>
+        </section> -->
+        </div>
+        <!-- End Dashboard View -->
+        
+        <!-- Profile View -->
+        <div class="page-view" id="profileView">
+            <section class="profile-section">
+                <!-- Personal Information Section -->
+                <div class="personal-information-section">
+                    <div class="profile-header">
+                        <h1 class="profile-title">Personal Information</h1>
+                        <p class="profile-subtitle">Manage your personal information and preferences</p>
+                    </div>
+                    
+                    <form class="profile-form" id="profileForm">
+                    <div class="form-group-row">
+                        <div class="form-group">
+                            <label class="form-label" for="firstName">First Name</label>
+                            <input type="text" id="firstName" name="firstName" class="form-input" placeholder="Enter your first name">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="lastName">Last Name</label>
+                            <input type="text" id="lastName" name="lastName" class="form-input" placeholder="Enter your last name">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="email">Email</label>
+                        <div id="emailDisplay" class="form-input-display read-only"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="profileMobileNumber">Mobile Number</label>
+                        <div id="profileMobileNumberContainer">
+                            <input type="tel" id="profileMobileNumber" name="profileMobileNumber" class="form-input" placeholder="Enter your mobile number" style="display: none;">
+                            <div id="profileMobileNumberDisplay" class="form-input-display" style="display: none;">Not entered</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="birthdate">Birth Date</label>
+                        <div id="birthdateContainer">
+                            <input type="date" id="birthdate" name="birthdate" class="form-input" style="display: none;">
+                            <div id="birthdateDisplay" class="form-input-display" style="display: none;">Not entered</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="stylePreference">Style Preference</label>
+                        <div id="stylePreferenceContainer">
+                            <select id="stylePreference" name="stylePreference" class="form-select" style="display: none;">
+                                <option value="">Select a preference</option>
+                                <option value="Women's">Women's</option>
+                                <option value="Men's">Men's</option>
+                                <option value="No preference">No preference</option>
+                            </select>
+                            <div id="stylePreferenceDisplay" class="form-input-display" style="display: none;">Not entered</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Are you a student?</label>
+                        <div id="isStudentDisplay" class="form-input-display read-only">No</div>
+                    </div>
+                    
+                    <div class="profile-actions">
+                        <button type="submit" class="btn-primary">Save Changes</button>
+                    </div>
+                    
+                    <div class="profile-save-message" id="profileSaveMessage"></div>
+                    </form>
+                </div>
+                
+                <!-- Right Column -->
+                <div class="profile-right-column">
+                    <!-- QR Code Section -->
+                    <div class="qr-code-section-profile">
+                        <div class="profile-header">
+                            <h2 class="profile-title">UO Rewards QR Code</h2>
+                            <p class="profile-subtitle">Scan code at the till to collect rewards</p>
+                        </div>
+                        <div class="qr-code">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.urbanoutfitters.com/en-gb/uo-rewards" alt="QR Code for UO Rewards" />
+                        </div>
+                        <p class="qr-code-id">UO Rewards ID: <br> 00000000000</p>
+                    </div>
+                    
+                    <!-- Email Preferences Section -->
+                    <div class="email-preferences-section">
+                        <div class="profile-header">
+                            <h2 class="profile-title">Email Preferences</h2>
+                        </div>
+                        <button type="button" class="btn-primary" id="updateEmailPreferencesBtn">Update</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!-- End Profile View -->
+        
+        <!-- Addresses View -->
+        <div class="page-view" id="addressesView">
+            <section class="profile-section">
+                <div class="personal-information-section" style="grid-column: 1 / -1;">
+                    <div class="profile-header">
+                        <h1 class="profile-title">Addresses</h1>
+                        <p class="profile-subtitle">Manage your delivery addresses</p>
+                    </div>
+                    
+                    <div class="addresses-list" id="addressesList">
+                        <!-- Addresses will be dynamically populated here -->
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!-- End Addresses View -->
+        </div>
     </main>
     <footer class="footer" id="dashboardFooter">
         <img src="assets/images/footer.png" alt="Footer" class="footer-img">
