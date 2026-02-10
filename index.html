@@ -465,7 +465,7 @@
         }
         
         @media (max-width: 1024px) {
-            .dashboard {
+        .dashboard {
                 flex-direction: column;
             }
             
@@ -1122,6 +1122,13 @@
             margin-bottom: 12px;
         }
         
+        .reward-icon img {
+            display: block;
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+        }
+        
         .reward-title {
             font-family: var(--font-body);
             font-weight:bold;
@@ -1267,8 +1274,8 @@
             position: absolute;
             bottom: 12px;
             left: 12px;
-            background: var(--uo-black);
-            color: var(--uo-white);
+            color: var(--uo-black);
+            border: 1px solid var(--uo-black);
             font-family: var(--font-display);
             font-weight: normal;
             font-size: 16px;
@@ -1276,12 +1283,9 @@
             border-radius: 0;
             text-transform: uppercase;
             letter-spacing: 1px;
-        }
-        
-        .event-content .member-badge {
             position: static;
             display: inline-block;
-            margin-bottom: 8px;
+            margin-bottom: 16px;
         }
         
         .event-content {
@@ -1331,12 +1335,7 @@
         .competition-content {
             padding: 20px;
         }
-        
-        .competition-content .member-badge {
-            position: static;
-            display: inline-block;
-            margin-bottom: 8px;
-        }
+    
         
         .competition-title {
             font-family: var(--font-body);
@@ -1369,7 +1368,8 @@
             font-weight: bold;
             font-size: 11px;
             padding: 8px 16px;
-            background: var(--uo-cream);
+            background: var(--uo-black);
+            color: var(--uo-white);
             border: 1px solid var(--uo-black);
             border-radius: 0;
             cursor: pointer;
@@ -2087,7 +2087,7 @@
     <div class="verification-code-display" id="verificationCodeDisplay">
         <div class="label">Verification Code (Testing)</div>
         <div class="code" id="verificationCodeValue"></div>
-    </div>
+        </div>
     
     <!-- Landing Page (shown when not authenticated) -->
     <div class="landing-page" id="landingPage">
@@ -2100,7 +2100,7 @@
                     <h1>Join UO Rewards</h1>
                     <p>Sign up to access exclusive member benefits, earn stamps, and unlock rewards</p>
                     <button class="join-btn" onclick="openSignupModal()">Join Now</button>
-                </div>
+        </div>
                 
                 <!-- Member Perks Section -->
                 <section class="member-perks-section">
@@ -2150,12 +2150,24 @@
                     </div>
                 </section>
                 
-                <!-- Events Section -->
+                <!-- Member Exclusives Section (Events + Competitions) -->
                 <section class="landing-events-section">
                     <div class="section-header">
-                        <h2 class="section-title">Events</h2>
+                        <h2 class="section-title">Member Exclusives</h2>
                     </div>
                     <div class="events-grid">
+                        <div class="event-card">
+                            <div class="event-image" style="background-image: url('assets/images/uo-priority-pass.jpg');"></div>
+                            <div class="event-content">
+                                <span class="member-badge">Benefits</span>
+                                <h3 class="event-title">Next Day Delivery Pass</h3>
+                                <p class="event-date">Enjoy Unlimited next day Delivery on all purchases for an entire year for just £12* <a href="#" class="priority-pass-learn-more">Learn More!</a></p>
+                                <div class="event-footer">
+                                    <span class="event-location"></span>
+                                    <button class="enter-btn">Join to View</button>
+                                </div>
+                            </div>
+                        </div>
                         <div class="event-card" onclick="openSignupModal()">
                             <div class="event-image" style="background-image: url('assets/images/uo-event-1.jpg');"></div>
                             <div class="event-content">
@@ -2171,7 +2183,7 @@
                         <div class="event-card" onclick="openSignupModal()">
                             <div class="event-image" style="background-image: url('assets/images/uo-events-3.jpg');"></div>
                             <div class="event-content">
-                                <span class="member-badge">Member Exclusive</span>
+                                <span class="member-badge">Events</span>
                                 <h3 class="event-title">DJ Night & Shopping</h3>
                                 <p class="event-date">March 28, 2026 • 8:00 PM</p>
                                 <div class="event-footer">
@@ -2180,19 +2192,10 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </section>
-                
-                <!-- Competitions Section -->
-                <section class="landing-competitions-section">
-                    <div class="section-header">
-                        <h2 class="section-title">Member Competitions</h2>
-                    </div>
-                    <div class="competitions-grid">
                         <div class="competition-card" onclick="openSignupModal()">
                             <div class="competition-image" style="background-image: url('assets/images/uo-competition-1.jpg');"></div>
                             <div class="competition-content">
-                                <span class="member-badge">Member Exclusive</span>
+                                <span class="member-badge">Competitions</span>
                                 <h3 class="competition-title">WIN a pick from our Valentine's Day Edit!</h3>
                                 <p class="competition-prize">Worth up to £150</p>
                                 <div class="competition-footer">
@@ -2204,7 +2207,7 @@
                         <div class="competition-card" onclick="openSignupModal()">
                             <div class="competition-image" style="background-image: url('assets/images/uo-competition-2.jpg');"></div>
                             <div class="competition-content">
-                                <span class="member-badge">Member Exclusive</span>
+                                <span class="member-badge">Competitions</span>
                                 <h3 class="competition-title">WIN an item from No Problemo</h3>
                                 <p class="competition-prize">Worth up to £150</p>
                                 <div class="competition-footer">
@@ -2216,7 +2219,7 @@
                         <div class="competition-card" onclick="openSignupModal()">
                             <div class="competition-image" style="background-image: url('assets/images/uo-competition-3.jpg');"></div>
                             <div class="competition-content">
-                                <span class="member-badge">Member Exclusive</span>
+                                <span class="member-badge">Competitions</span>
                                 <h3 class="competition-title">WIN a pair of new in Vibram shoes!</h3>
                                 <p class="competition-prize">Worth up to £180</p>
                                 <div class="competition-footer">
@@ -2622,7 +2625,7 @@
             // Welcome Offer - Always available once signed up
             rewards.push({
                 id: 'welcome-offer',
-                icon: '🎁',
+                icon: '<img src="assets/images/icons/welcome-offer.png" alt="Welcome Offer">',
                 title: 'Welcome Offer',
                 description: '10% off your first order',
                 unlocked: true,
@@ -2634,7 +2637,7 @@
             // Birthday Gift - Available if birthday is entered
             rewards.push({
                 id: 'birthday-gift',
-                icon: '🎂',
+                icon: '<img src="assets/images/icons/birthday.png" alt="Birthday Gift">',
                 title: 'Birthday Gift',
                 description: 'A special surprise on your birthday',
                 unlocked: !!(user.birthdate && user.stylePreference),
@@ -2644,7 +2647,7 @@
             // App Download Reward - Available if user has clicked app download link
             rewards.push({
                 id: 'app-download',
-                icon: '📲',
+                icon: '<img src="assets/images/icons/UO-App-Icon.png" alt="App Download Reward">',
                 title: 'App Download Reward',
                 description: '10% off for downloading the UO app',
                 unlocked: user.appDownloadClicked || false,
@@ -4254,8 +4257,8 @@
                     <span><strong>2 more orders to go!</strong> Spend £20+ per order to earn your next stamp.</span>
                 </div>
             </div> -->
-        </div>
-        
+            </div>
+            
         <!-- Rewards & Benefits Section (Events + Competitions) -->
         <section class="rewards-benefits-section" id="rewardsBenefitsSection">
             <div class="section-header">
@@ -4273,8 +4276,8 @@
                             <span class="event-location"></span>
                             <button class="enter-btn">Secure Your Pass</button>
                         </div>
-                    </div>
-                </div>
+                        </div>
+                        </div>
                 <div class="event-card">
                     <div class="event-image" style="background-image: url('assets/images/uo-event-1.jpg');"></div>
                     <div class="event-content">
@@ -4285,8 +4288,8 @@
                             <span class="event-location">London Brick Lane Store</span>
                             <button class="enter-btn">RSVP</button>
                         </div>
-                    </div>
-                </div>
+            </div>
+        </div>
                 <div class="event-card">
                     <div class="event-image" style="background-image: url('assets/images/uo-events-3.jpg');"></div>
                     <div class="event-content">
@@ -4296,7 +4299,7 @@
                         <div class="event-footer">
                             <span class="event-location">Birmingham Store</span>
                             <button class="enter-btn">RSVP</button>
-                        </div>
+            </div>
                     </div>
                 </div>
                 <div class="competition-card">
@@ -4544,9 +4547,9 @@
                             <h2 class="profile-title">Email Preferences</h2>
                         </div>
                         <button type="button" class="btn-primary" id="updateEmailPreferencesBtn">Update</button>
-                    </div>
                 </div>
-            </section>
+            </div>
+        </section>
         </div>
         <!-- End Profile View -->
         
