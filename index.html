@@ -63,7 +63,6 @@
             background: rgb(245,245,245);
             border: 1px solid var(--uo-black);
             padding: 8px 16px;
-            border-radius: 8px;
             font-family: var(--font-body);
             font-size: 11px;
             letter-spacing: 1px;
@@ -1298,6 +1297,7 @@
             font-weight: 700;
             margin-bottom: 8px;
             line-height: 1.3;
+            text-transform: uppercase;
         }
         
         .event-date {
@@ -1343,6 +1343,7 @@
             font-weight: 700;
             margin-bottom: 8px;
             line-height: 1.3;
+            text-transform:uppercase;
         }
         
         .competition-prize {
@@ -3424,61 +3425,36 @@
                         return;
                     }
                     
-                    if (!user.verified) {
-                        // Generate new verification code
-                        const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
-                        user.verificationCode = verificationCode;
-                        const userIndex = users.findIndex(u => u.email === email);
-                        users[userIndex] = user;
-                        localStorage.setItem('uoRewardsUsers', JSON.stringify(users));
-                        
-                        sessionStorage.setItem('pendingVerificationEmail', email);
-                        sessionStorage.setItem('verificationCode', verificationCode);
-                        
-                        // Display verification code on screen (testing only)
-                        const codeDisplay = document.getElementById('verificationCodeDisplay');
-                        const codeValue = document.getElementById('verificationCodeValue');
-                        if (codeDisplay && codeValue) {
-                            codeValue.textContent = verificationCode;
-                            codeDisplay.classList.add('show');
-                        }
-                        
-                        console.log('Verification code:', verificationCode);
-                        
-                        if (successMessage) {
-                            successMessage.textContent = 'Please verify your email address.';
-                            successMessage.classList.add('show');
-                        }
-                        
-                        setTimeout(() => {
-                            closeLoginModal();
-                            openVerifyModal(email);
-                        }, 1500);
-                        return;
+                    // Always require verification code for sign-in
+                    // Generate new verification code
+                    const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+                    user.verificationCode = verificationCode;
+                    const userIndex = users.findIndex(u => u.email === email);
+                    users[userIndex] = user;
+                    localStorage.setItem('uoRewardsUsers', JSON.stringify(users));
+                    
+                    sessionStorage.setItem('pendingVerificationEmail', email);
+                    sessionStorage.setItem('verificationCode', verificationCode);
+                    
+                    // Display verification code on screen (testing only)
+                    const codeDisplay = document.getElementById('verificationCodeDisplay');
+                    const codeValue = document.getElementById('verificationCodeValue');
+                    if (codeDisplay && codeValue) {
+                        codeValue.textContent = verificationCode;
+                        codeDisplay.classList.add('show');
                     }
                     
-                    // User is verified, log them in
-                    localStorage.setItem('uoRewardsAuthenticatedUser', email);
-                    
-                    // Track successful login
-                    if (typeof mixpanel !== 'undefined') {
-                        const eventData = {
-                            email: email
-                        };
-                        console.log('[Mixpanel] Firing event: Login Successful', eventData);
-                        mixpanel.track('Login Successful', eventData);
-                        mixpanel.identify(email);
-                    }
+                    console.log('Verification code:', verificationCode);
                     
                     if (successMessage) {
-                        successMessage.textContent = 'Signing in...';
+                        successMessage.textContent = 'Please verify your email address to sign in.';
                         successMessage.classList.add('show');
                     }
                     
-                    // Reload page to show dashboard
                     setTimeout(() => {
-                        location.reload();
-                    }, 1000);
+                        closeLoginModal();
+                        openVerifyModal(email);
+                    }, 1500);
                 });
             }
             
@@ -3550,12 +3526,13 @@
                         return;
                     }
                     
-                    // Mark user as verified
+                    // Mark user as verified and log them in
                     if (email) {
                         const users = JSON.parse(localStorage.getItem('uoRewardsUsers') || '[]');
                         const userIndex = users.findIndex(u => u.email === email);
                         
                         if (userIndex !== -1) {
+                            const wasAlreadyVerified = users[userIndex].verified;
                             users[userIndex].verified = true;
                             users[userIndex].verifiedAt = new Date().toISOString();
                             localStorage.setItem('uoRewardsUsers', JSON.stringify(users));
@@ -3563,18 +3540,27 @@
                             // Set authenticated user
                             localStorage.setItem('uoRewardsAuthenticatedUser', email);
                             
-                            // Track successful verification
+                            // Track events
                             if (typeof mixpanel !== 'undefined') {
                                 const eventData = {
                                     email: email
                                 };
-                                console.log('[Mixpanel] Firing event: Email Verified', eventData);
-                                mixpanel.track('Email Verified', eventData);
+                                if (wasAlreadyVerified) {
+                                    // This is a login verification
+                                    console.log('[Mixpanel] Firing event: Login Successful', eventData);
+                                    mixpanel.track('Login Successful', eventData);
+                                } else {
+                                    // This is a signup verification
+                                    console.log('[Mixpanel] Firing event: Email Verified', eventData);
+                                    mixpanel.track('Email Verified', eventData);
+                                }
                                 mixpanel.identify(email);
                             }
                             
                             if (successMessage) {
-                                successMessage.textContent = 'Email verified! Redirecting to your dashboard...';
+                                successMessage.textContent = wasAlreadyVerified 
+                                    ? 'Signing in...' 
+                                    : 'Email verified! Redirecting to your dashboard...';
                                 successMessage.classList.add('show');
                             }
                             
