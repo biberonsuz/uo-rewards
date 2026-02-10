@@ -119,7 +119,7 @@
         .qr-code-section-profile {
             background: var(--uo-white);
             border: 1px solid var(--uo-black);
-            border-radius: 24px;
+            border-radius: 0;
             padding: 48px;
         }
         
@@ -166,7 +166,7 @@
         .address-card {
             background: var(--uo-white);
             border: 1px solid var(--uo-black);
-            border-radius: 16px;
+            border-radius: 0;
             padding: 24px;
         }
         
@@ -264,7 +264,7 @@
             font-size: 16px;
             padding: 12px 16px;
             border: 1px solid var(--uo-black);
-            border-radius: 8px;
+            border-radius: 0;
             background: var(--uo-white);
             color: var(--uo-black);
             width: 100%;
@@ -287,7 +287,7 @@
             font-size: 16px;
             padding: 12px 16px;
             border: 1px solid var(--uo-black);
-            border-radius: 8px;
+            border-radius: 0;
             background: var(--uo-cream);
             color: var(--uo-black);
             width: 100%;
@@ -504,7 +504,7 @@
         .welcome-hero {
             background: linear-gradient(135deg, var(--uo-peach) 0%, var(--uo-pink) 50%, var(--uo-blue) 100%);
             border: 1px solid var(--uo-black);
-            border-radius: 24px;
+            /* border-radius: 24px; */
             padding: 48px;
             margin-bottom: 32px;
             position: relative;
@@ -568,7 +568,7 @@
             height: 150px;
             background: var(--uo-white);
             border: 1px solid var(--uo-black);
-            border-radius: 12px;
+            /* border-radius: 12px; */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -634,7 +634,7 @@
         /* Main Grid */
         .main-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 2fr 3fr;
             gap: 24px;
             margin-bottom: 32px;
         }
@@ -649,7 +649,7 @@
         .card {
             background: var(--uo-white);
             border: 1px solid var(--uo-black);
-            border-radius: 16px;
+            border-radius: 0;
             padding: 32px;
             position: relative;
         }
@@ -694,8 +694,8 @@
         .stamp {
             width: 100px;
             height: 100px;
-            border: 3px solid var(--uo-black);
-            border-radius: 16px;
+            border: 1px solid var(--uo-black);
+            /* border-radius: 16px; */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -705,32 +705,35 @@
             transition: all 0.3s ease;
         }
         
-        .stamp.earned {
-            background: var(--uo-lime);
-            transform: rotate(-2deg);
-        }
-        
         .stamp.earned::after {
-            content: '✓';
+            content: '';
             position: absolute;
-            top: -10px;
-            right: -10px;
-            width: 28px;
-            height: 28px;
-            background: var(--uo-black);
-            color: var(--uo-white);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            font-weight: 700;
+            top: 15%;
+            left: -10%;
+            width: 95%;
+            height: 95%;
+            background-image: url('assets/images/UO-Stamp.png');
+            background-size: cover;
+            background-position: 55% 45%;
+            background-repeat: no-repeat;
+            transform: rotate(-5deg);
+            transform-origin: center;
+            mix-blend-mode: normal;
+            opacity: 0.95;
+            filter: brightness(0.8) contrast(1.5);
+            z-index: 3;
+            pointer-events: none;
         }
         
-        .stamp.current {
+        .stamp.earned .stamp-number {
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* .stamp.current {
             border-style: dashed;
             animation: pulse 2s infinite;
-        }
+        } */
         
         @keyframes pulse {
             0%, 100% { box-shadow: 0 0 0 0 rgba(200, 232, 75, 0.4); }
@@ -750,13 +753,67 @@
             margin-top: 4px;
         }
         
+        /* Specific overlay label for the third reward stamp */
+        .reward-stamp {
+            position: relative;
+        }
+        
+        .reward-stamp-label {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
+            z-index: 4;
+            pointer-events: none;
+        }
+        
+        .reward-stamp::after {
+            content: '';
+            position: absolute;
+            top: 55%;
+            left:35%;
+            width: 80%;
+            height: 80%;
+            transform: rotate(-5deg);
+            transform-origin: center;
+            background-image: url('assets/images/5-voucher.png');
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: 3;
+            pointer-events: none;
+        }
+        
         .reward-preview {
             background: var(--uo-black);
             color: var(--uo-white);
             padding: 24px 32px;
-            border-radius: 16px;
+            border-radius: 0;
             text-align: center;
             min-width: 180px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .reward-preview-fill {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0%;
+            background: var(--uo-lime);
+            transition: height 0.5s ease;
+            z-index: 0;
+        }
+        
+        .reward-preview .amount,
+        .reward-preview .label {
+            position: relative;
+            z-index: 1;
         }
         
         .reward-preview .amount {
@@ -777,8 +834,8 @@
         .stamp-message {
             background: var(--uo-peach);
             padding: 16px 20px;
-            border-radius: 12px;
-            font-size: 14px;
+            /* border-radius: 12px; */
+            font-size: 16px;
             display: flex;
             align-items: center;
             gap: 12px;
@@ -854,7 +911,7 @@
             font-weight: bold;
             font-size: 13px;
             padding: 14px 24px;
-            border-radius: 30px;
+            border-radius: 0;
             text-decoration: none;
             border: 1px solid var(--uo-black);
             cursor: pointer;
@@ -882,64 +939,68 @@
             opacity: 0.7;
         }
         
-        /* Next Steps Card */
+        /* Next Drop Card */
         .steps-card {
-            background: var(--uo-white);
+            position: relative;
+            background-image: url('assets/images/Drop-Urban-Renewal.jpeg');
+            background-size: cover;
+            background-position: center;
+            color: var(--uo-white);
+            overflow: visible;
+            display:flex;
+            justify-content: space-around;
+            flex-direction:column;
         }
         
-        .steps-list {
-            list-style: none;
+        .steps-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.35));
+            mix-blend-mode: multiply;
+            pointer-events: none;
         }
         
-        .step-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 16px;
-            padding: 24px 0;
-            border-bottom: 1px solid #eee;
+        .next-drop-header {
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 1;
         }
         
-        .step-item:last-child {
-            border-bottom: none;
+        .next-drop-title {
+            font-family: var(--font-display);
+            font-size: 56px;
+            font-weight: normal;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+            color: var(--uo-white);
         }
         
-        .step-number-badge {
-            width: 32px;
-            height: 32px;
-            background: var(--uo-cream);
-            border: 1px solid var(--uo-black);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .next-drop-subtitle {
             font-family: var(--font-body);
             font-size: 14px;
-            font-weight: bold;
-            flex-shrink: 0;
+            color: rgba(255, 255, 255, 0.85);
         }
         
-        .step-item.completed .step-number-badge {
-            background: var(--uo-lime);
+        .next-drop-countdown {
+            font-family: var(--font-display);
+            font-size: 128px;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
         }
         
-        .step-content h4 {
-            font-size: 15px;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-        
-        .step-content p {
-            font-size: 13px;
-            color: #666;
-        }
-        
-        .step-action {
-            margin-left: auto;
+        .next-drop-label {
             font-family: var(--font-body);
-            font-size: 12px;
-            color: var(--uo-black);
-            text-decoration: underline;
-            cursor: pointer;
+            font-size: 18px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.9);
+            position: relative;
+            z-index: 1;
         }
         
         /* Competitions Section */
@@ -947,7 +1008,7 @@
             margin-bottom: 48px;
         }
         
-        .events-section {
+        .rewards-benefits-section {
             margin-bottom: 32px;
         }
         
@@ -959,7 +1020,7 @@
         .priority-pass-section {
             background: var(--uo-white);
             border: 1px solid var(--uo-black);
-            border-radius: 24px;
+            border-radius: 0;
             padding: 48px;
             position: relative;
         }
@@ -994,7 +1055,7 @@
             font-weight: bold;
             padding: 14px 24px;
             border: 1px solid var(--uo-black);
-            border-radius: 30px;
+            border-radius: 0;
             background: var(--uo-black);
             color: var(--uo-white);
             cursor: pointer;
@@ -1004,6 +1065,17 @@
             align-items: center;
             gap: 8px;
             text-decoration: none;
+        }
+        
+        .download-app-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .download-app-buttons img {
+            display: block;
+            height: 40px;
         }
         
         .priority-pass-button:hover {
@@ -1030,7 +1102,7 @@
         .reward-item {
             background: var(--uo-white);
             border: 1px solid var(--uo-black);
-            border-radius: 16px;
+            border-radius: 0;
             padding: 24px;
             display: flex;
             flex-direction: column;
@@ -1104,7 +1176,7 @@
             background: var(--uo-lime);
             color: var(--uo-black);
             padding: 4px 12px;
-            border-radius: 12px;
+            border-radius: 0;
             font-family: var(--font-body);
             font-size: 10px;
             font-weight: 700;
@@ -1142,7 +1214,7 @@
         .competition-card {
             background: var(--uo-white);
             border: 1px solid var(--uo-black);
-            border-radius: 16px;
+            border-radius: 0;
             overflow: hidden;
             transition: transform 0.2s ease;
         }
@@ -1152,7 +1224,7 @@
         }
         
         .competition-image {
-            height: 180px;
+            height: 250px;
             background-size: cover;
             background-position: center;
             position: relative;
@@ -1171,7 +1243,7 @@
         .event-card {
             background: var(--uo-white);
             border: 1px solid var(--uo-black);
-            border-radius: 16px;
+            border-radius: 0;
             overflow: hidden;
             transition: transform 0.2s ease;
         }
@@ -1181,7 +1253,7 @@
         }
         
         .event-image {
-            height: 180px;
+            height: 250px;
             background-size: cover;
             background-position: center;
             position: relative;
@@ -1201,9 +1273,15 @@
             font-weight: normal;
             font-size: 16px;
             padding: 6px 10px;
-            border-radius: 4px;
+            border-radius: 0;
             text-transform: uppercase;
             letter-spacing: 1px;
+        }
+        
+        .event-content .member-badge {
+            position: static;
+            display: inline-block;
+            margin-bottom: 8px;
         }
         
         .event-content {
@@ -1254,6 +1332,12 @@
             padding: 20px;
         }
         
+        .competition-content .member-badge {
+            position: static;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+        
         .competition-title {
             font-family: var(--font-body);
             font-size: 14px;
@@ -1287,7 +1371,7 @@
             padding: 8px 16px;
             background: var(--uo-cream);
             border: 1px solid var(--uo-black);
-            border-radius: 20px;
+            border-radius: 0;
             cursor: pointer;
             transition: all 0.2s ease;
         }
@@ -1350,10 +1434,10 @@
             font-family: var(--font-display);
             font-size: 18px;
             padding: 4px 8px;
-            border-radius: 4px;
+            border-radius: 0;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            z-index: 10;
+            z-index: 15;
         }
         
         .stamp-card .annotation {
@@ -1380,7 +1464,7 @@
             left: auto;
         }
         
-        .events-section .annotation {
+        .rewards-benefits-section .annotation {
             position: relative;
             display: inline-block;
             margin-left: 16px;
@@ -1418,7 +1502,7 @@
         .join-banner {
             background: var(--uo-lime);
             border: 1px solid var(--uo-black);
-            border-radius: 24px;
+            /* border-radius: 24px; */
             padding: 60px 40px;
             margin: 0 auto;
             max-width: 1200px;
@@ -1457,19 +1541,27 @@
         
         .member-perks-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 24px;
         }
         
         .perk-item {
-            text-align: center;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
             padding: 24px;
         }
         
         .perk-icon {
-            font-size: 48px;
-            margin-bottom: 16px;
+            width: 48px;
+            height: 48px;
+            flex-shrink: 0;
+            object-fit: contain;
             display: block;
+        }
+        
+        .perk-text {
+            text-align: left;
         }
         
         .perk-title {
@@ -1498,7 +1590,7 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             border: 1px solid var(--uo-black);
-            border-radius: 8px;
+            border-radius: 0;
             cursor: pointer;
             transition: all 0.2s ease;
         }
@@ -1530,7 +1622,7 @@
         .modal {
             background: var(--uo-white);
             border: 1px solid var(--uo-black);
-            border-radius: 24px;
+            border-radius: 0;
             padding: 48px;
             max-width: 480px;
             width: 90%;
@@ -1576,7 +1668,7 @@
         }
         
         .form-group {
-            margin-bottom: 6px;
+            margin-bottom: 16px;
         }
         
         .form-group label {
@@ -1585,14 +1677,13 @@
             font-size: 12px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 8px;
         }
         
         .form-group input {
             width: 100%;
             padding: 14px 16px;
             border: 1px solid var(--uo-black);
-            border-radius: 8px;
+            border-radius: 0;
             font-family: var(--font-body);
             font-size: 16px;
             background: var(--uo-white);
@@ -1607,7 +1698,7 @@
             width: 100%;
             padding: 14px 16px;
             border: 1px solid var(--uo-black);
-            border-radius: 8px;
+            border-radius: 0;
             font-family: var(--font-body);
             font-size: 16px;
             background: var(--uo-white);
@@ -1630,7 +1721,7 @@
             height: 60px;
             text-align: center;
             border: 1px solid var(--uo-black);
-            border-radius: 8px;
+            border-radius: 0;
             font-family: var(--font-display);
             font-size: 36px;
             font-weight: normal;
@@ -1654,7 +1745,7 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             border: 1px solid var(--uo-black);
-            border-radius: 8px;
+            border-radius: 0;
             cursor: pointer;
             transition: all 0.2s ease;
         }
@@ -1779,7 +1870,7 @@
             color: var(--uo-white);
             border: 1px solid var(--uo-black);
             padding: 10px 20px;
-            border-radius: 8px;
+            /* border-radius: 8px; */
             font-family: var(--font-body);
             font-size: 12px;
             font-weight: bold;
@@ -1829,7 +1920,7 @@
             color: var(--uo-white);
             border: 1px solid var(--uo-black);
             padding: 10px 20px;
-            border-radius: 8px;
+            /* border-radius: 8px; */
             font-family: var(--font-body);
             font-size: 12px;
             font-weight: 700;
@@ -1861,7 +1952,7 @@
         
         .faq-item {
             border: 1px solid var(--uo-black);
-            border-radius: 12px;
+            /* border-radius: 12px; */
             margin-bottom: 16px;
             overflow: hidden;
             background: var(--uo-white);
@@ -2015,34 +2106,46 @@
                 <section class="member-perks-section">
                     <div class="member-perks-grid">
                         <div class="perk-item">
-                            <span class="perk-icon">⭐</span>
-                            <h3 class="perk-title">Welcome Offer</h3>
-                            <p class="perk-description">Enjoy 10% off your first order when you join UO Rewards.</p>
+                            <img class="perk-icon" src="assets/images/icons/welcome-offer.png" alt="Welcome Offer">
+                            <div class="perk-text">
+                                <h3 class="perk-title">Welcome Offer</h3>
+                                <p class="perk-description">Enjoy 10% off your next order when you join UO Rewards.</p>
+                            </div>
                         </div>
                         <div class="perk-item">
-                            <span class="perk-icon">🎟️</span>
-                            <h3 class="perk-title">Earn Stamps</h3>
-                            <p class="perk-description">Get a stamp for every £20 you spend. Collect 3 stamps to unlock a £5 reward.</p>
+                            <img class="perk-icon" src="assets/images/icons/reward-icon.png" alt="Earn Stamps">
+                            <div class="perk-text">
+                                <h3 class="perk-title">Earn Stamps</h3>
+                                <p class="perk-description">Get a stamp for every £20 you spend. Collect 3 stamps to unlock a £5 reward.</p>
+                            </div>
                         </div>
                         <div class="perk-item">
-                            <span class="perk-icon">🎁</span>
-                            <h3 class="perk-title">Unlock Rewards</h3>
-                            <p class="perk-description">Redeem your rewards online or in-store. Rewards never expire.</p>
+                            <img class="perk-icon" src="assets/images/icons/early-access.png" alt="Unlock Rewards">
+                            <div class="perk-text">
+                                <h3 class="perk-title">Unlock Rewards</h3>
+                                <p class="perk-description">Redeem your rewards online or in-store. Rewards never expire.</p>
+                            </div>
                         </div>
                         <div class="perk-item">
-                            <span class="perk-icon">🎉</span>
-                            <h3 class="perk-title">Member Events</h3>
-                            <p class="perk-description">Get priority access to exclusive member-only events and previews.</p>
+                            <img class="perk-icon" src="assets/images/icons/events.png" alt="Member Events">
+                            <div class="perk-text">
+                                <h3 class="perk-title">Member Events</h3>
+                                <p class="perk-description">Get priority access to exclusive member-only events and previews.</p>
+                            </div>
                         </div>
                         <div class="perk-item">
-                            <span class="perk-icon">🏆</span>
-                            <h3 class="perk-title">Win Competitions</h3>
-                            <p class="perk-description">Enter member-exclusive competitions to win prizes worth up to £180.</p>
+                            <img class="perk-icon" src="assets/images/icons/competitions.png" alt="Win Competitions">
+                            <div class="perk-text">
+                                <h3 class="perk-title">Win Competitions</h3>
+                                <p class="perk-description">Enter member-exclusive competitions to win prizes worth up to £180.</p>
+                            </div>
                         </div>
                         <div class="perk-item">
-                            <span class="perk-icon">🎂</span>
-                            <h3 class="perk-title">Birthday Reward</h3>
-                            <p class="perk-description">Get a special surprise on your birthday as a UO Rewards member.</p>
+                            <img class="perk-icon" src="assets/images/icons/birthday.png" alt="Birthday Reward">
+                            <div class="perk-text">
+                                <h3 class="perk-title">Birthday Reward</h3>
+                                <p class="perk-description">Get a special surprise on your birthday as a UO Rewards member.</p>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -2054,10 +2157,9 @@
                     </div>
                     <div class="events-grid">
                         <div class="event-card" onclick="openSignupModal()">
-                            <div class="event-image" style="background-image: url('assets/images/uo-event-1.jpg');">
-                                <span class="member-badge">Member Exclusive</span>
-                            </div>
+                            <div class="event-image" style="background-image: url('assets/images/uo-event-1.jpg');"></div>
                             <div class="event-content">
+                                <span class="member-badge">Events</span>
                                 <h3 class="event-title">UO Rewards Member Night</h3>
                                 <p class="event-date">March 15, 2026 • 6:00 PM</p>
                                 <div class="event-footer">
@@ -2067,23 +2169,9 @@
                             </div>
                         </div>
                         <div class="event-card" onclick="openSignupModal()">
-                            <div class="event-image" style="background-image: url('assets/images/uo-event-2.jpg');">
-                                <span class="member-badge">Member Exclusive</span>
-                            </div>
+                            <div class="event-image" style="background-image: url('assets/images/uo-events-3.jpg');"></div>
                             <div class="event-content">
-                                <h3 class="event-title">Spring Collection Preview</h3>
-                                <p class="event-date">March 22, 2026 • 7:00 PM</p>
-                                <div class="event-footer">
-                                    <span class="event-location">London Oxford Circus Store</span>
-                                    <button class="enter-btn" onclick="event.stopPropagation(); openSignupModal();">Join to RSVP</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="event-card" onclick="openSignupModal()">
-                            <div class="event-image" style="background-image: url('assets/images/uo-events-3.jpg');">
                                 <span class="member-badge">Member Exclusive</span>
-                            </div>
-                            <div class="event-content">
                                 <h3 class="event-title">DJ Night & Shopping</h3>
                                 <p class="event-date">March 28, 2026 • 8:00 PM</p>
                                 <div class="event-footer">
@@ -2102,10 +2190,9 @@
                     </div>
                     <div class="competitions-grid">
                         <div class="competition-card" onclick="openSignupModal()">
-                            <div class="competition-image" style="background-image: url('assets/images/uo-competition-1.jpg');">
-                                <span class="member-badge">Member Exclusive</span>
-                            </div>
+                            <div class="competition-image" style="background-image: url('assets/images/uo-competition-1.jpg');"></div>
                             <div class="competition-content">
+                                <span class="member-badge">Member Exclusive</span>
                                 <h3 class="competition-title">WIN a pick from our Valentine's Day Edit!</h3>
                                 <p class="competition-prize">Worth up to £150</p>
                                 <div class="competition-footer">
@@ -2115,10 +2202,9 @@
                             </div>
                         </div>
                         <div class="competition-card" onclick="openSignupModal()">
-                            <div class="competition-image" style="background-image: url('assets/images/uo-competition-2.jpg');">
-                                <span class="member-badge">Member Exclusive</span>
-                            </div>
+                            <div class="competition-image" style="background-image: url('assets/images/uo-competition-2.jpg');"></div>
                             <div class="competition-content">
+                                <span class="member-badge">Member Exclusive</span>
                                 <h3 class="competition-title">WIN an item from No Problemo</h3>
                                 <p class="competition-prize">Worth up to £150</p>
                                 <div class="competition-footer">
@@ -2128,10 +2214,9 @@
                             </div>
                         </div>
                         <div class="competition-card" onclick="openSignupModal()">
-                            <div class="competition-image" style="background-image: url('assets/images/uo-competition-3.jpg');">
-                                <span class="member-badge">Member Exclusive</span>
-                            </div>
+                            <div class="competition-image" style="background-image: url('assets/images/uo-competition-3.jpg');"></div>
                             <div class="competition-content">
+                                <span class="member-badge">Member Exclusive</span>
                                 <h3 class="competition-title">WIN a pair of new in Vibram shoes!</h3>
                                 <p class="competition-prize">Worth up to £180</p>
                                 <div class="competition-footer">
@@ -2233,6 +2318,26 @@
                     <input type="email" id="email" name="email" required placeholder="your.email@example.com">
                 </div>
                 
+                <div class="form-group">
+                    <label for="signupMobileNumber">Mobile Number</label>
+                    <input type="tel" id="signupMobileNumber" name="signupMobileNumber" required placeholder="+44 7XXX XXXXXX" pattern="[+]?[0-9\\s-]+">
+                </div>
+                
+                <div class="form-group">
+                    <label for="signupBirthdate">Birthday</label>
+                    <input type="date" id="signupBirthdate" name="signupBirthdate" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="signupStylePreference">Style Preference</label>
+                    <select id="signupStylePreference" name="signupStylePreference" class="form-select" required>
+                        <option value="">Select your style preference</option>
+                        <option value="womens">Women's</option>
+                        <option value="mens">Men's</option>
+                        <option value="no-preference">No preference</option>
+                    </select>
+                </div>
+                
                 <button type="submit" class="btn-primary">Sign Up</button>
             </form>
             
@@ -2262,7 +2367,7 @@
                 
                 <div class="form-group">
                     <label for="stylePreference">Style Preference</label>
-                    <select id="stylePreference" name="stylePreference" required>
+                    <select id="stylePreference" name="stylePreference" class="form-select" required>
                         <option value="">Select your style preference</option>
                         <option value="womens">Women's</option>
                         <option value="mens">Men's</option>
@@ -2392,8 +2497,28 @@
     
     <script>
         // Authentication check and page state management
+        // Function to update reward fill based on earned stamps
+        function updateRewardFill() {
+            const stampsContainers = document.querySelectorAll('.stamps-container');
+            const rewardFills = document.querySelectorAll('.reward-preview-fill');
+            
+            stampsContainers.forEach((stampsContainer, index) => {
+                const rewardFill = rewardFills[index];
+                if (stampsContainer && rewardFill) {
+                    const earnedStamps = stampsContainer.querySelectorAll('.stamp.earned').length;
+                    const totalStamps = 3;
+                    const fillPercentage = (earnedStamps / totalStamps) * 100;
+                    
+                    rewardFill.style.height = fillPercentage + '%';
+                }
+            });
+        }
+        
         document.addEventListener('DOMContentLoaded', function() {
             const authenticatedUser = localStorage.getItem('uoRewardsAuthenticatedUser');
+            
+            // Update reward fill on page load
+            updateRewardFill();
             const landingPage = document.getElementById('landingPage');
             const dashboard = document.querySelector('main.dashboard');
             const dashboardHeader = document.querySelector('header.header:not(.landing-header)');
@@ -2454,6 +2579,37 @@
             
             // Populate rewards locker
             populateRewardsLocker(user);
+            
+            // Update reward fill based on earned stamps
+            updateRewardFill();
+            
+            // Next Drop countdown (only on dashboard)
+            const nextDropCountdownEl = document.getElementById('nextDropCountdown');
+            if (nextDropCountdownEl) {
+                // Next drop: 12 March 4PM (local time)
+                const nextDropDate = new Date(2026, 1, 12, 16, 0, 0);
+                
+                function updateNextDropCountdown() {
+                    const now = new Date().getTime();
+                    const distance = nextDropDate.getTime() - now;
+                    
+                    if (distance <= 0) {
+                        nextDropCountdownEl.textContent = '00d 00h 00m 00s';
+                        return;
+                    }
+                    
+                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                    
+                    const pad = (n) => n.toString().padStart(2, '0');
+                    nextDropCountdownEl.textContent = `${pad(days)}d ${pad(hours)}h ${pad(minutes)}m ${pad(seconds)}s`;
+                }
+                
+                updateNextDropCountdown();
+                setInterval(updateNextDropCountdown, 1000);
+            }
         });
         
         // Function to populate rewards locker
@@ -2473,15 +2629,7 @@
                 badge: 'Unlocked'
             });
             
-            // Mobile Number Reward - Available if mobile number is verified
-            rewards.push({
-                id: 'mobile-reward',
-                icon: '📱',
-                title: 'Mobile Number Reward',
-                description: '10% off for adding your mobile number',
-                unlocked: user.mobileNumberVerified || user.mobileVerified || false,
-                badge: (user.mobileNumberVerified || user.mobileVerified) ? 'Unlocked' : 'Locked'
-            });
+            
             
             // Birthday Gift - Available if birthday is entered
             rewards.push({
@@ -3080,6 +3228,13 @@
             e.preventDefault();
             
             const email = document.getElementById('email').value;
+            const signupMobileInput = document.getElementById('signupMobileNumber');
+            const signupBirthdateInput = document.getElementById('signupBirthdate');
+            const signupStyleSelect = document.getElementById('signupStylePreference');
+            
+            const mobileNumber = signupMobileInput ? signupMobileInput.value.trim() : '';
+            const birthdate = signupBirthdateInput ? signupBirthdateInput.value : '';
+            const stylePreference = signupStyleSelect ? signupStyleSelect.value : '';
             const errorMessage = document.getElementById('errorMessage');
             const successMessage = document.getElementById('successMessage');
             
@@ -3091,6 +3246,25 @@
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(email)) {
                 errorMessage.textContent = 'Please enter a valid email address.';
+                errorMessage.classList.add('show');
+                return;
+            }
+            
+            // Validate required profile fields
+            if (!mobileNumber) {
+                errorMessage.textContent = 'Please enter your mobile number.';
+                errorMessage.classList.add('show');
+                return;
+            }
+            
+            if (!birthdate) {
+                errorMessage.textContent = 'Please enter your birthday.';
+                errorMessage.classList.add('show');
+                return;
+            }
+            
+            if (!stylePreference) {
+                errorMessage.textContent = 'Please select your style preference.';
                 errorMessage.classList.add('show');
                 return;
             }
@@ -3152,6 +3326,9 @@
             // Store user data
             const userData = {
                 email: email,
+                mobileNumber: mobileNumber || null,
+                birthdate: birthdate || null,
+                stylePreference: stylePreference || null,
                 verified: false,
                 verificationCode: verificationCode,
                 createdAt: new Date().toISOString()
@@ -3963,31 +4140,30 @@
                     <div class="welcome-text">
                         <!-- <div class="card-label"><span class="dot"></span> Your Progress</div> -->
                         <!-- <h1 class="welcome-title">Hey Pinar!</h1> -->
-                        <p class="welcome-subtitle">You're a UO Rewards member. Start earning stamps and unlock exclusive perks.</p>
+                        <!-- <p class="welcome-subtitle">You're a UO Rewards member. Start earning stamps and unlock exclusive perks.</p> -->
+                    </div>
+                    <div class="stamp-message" onclick="window.location.href='https://www.urbanoutfitters.com/en-gb/?ar=uo-us,uo-uk'" style="cursor: pointer;">
+                        <span><strong>2 more orders to go!</strong> Spend £20+ per order to earn your next stamp.</span>
                     </div>
                         <div class="stamp-progress">
                             <div class="stamps-container" onclick="window.location.href='https://www.urbanoutfitters.com/en-gb/?ar=uo-us,uo-uk'" style="cursor: pointer;">
                                 <div class="stamp earned">
                                     <span class="stamp-number">1</span>
-                                    <span class="stamp-label">Earned</span>
                                 </div>
                                 <div class="stamp current">
                                     <span class="stamp-number">2</span>
-                                    <span class="stamp-label">Next</span>
                                 </div>
-                                <div class="stamp">
+                                <div class="stamp reward-stamp">
                                     <span class="stamp-number">3</span>
-                                    <span class="stamp-label">Final</span>
                                 </div>
                             </div>
-                            <div class="reward-preview" onclick="window.location.href='https://www.urbanoutfitters.com/en-gb/?ar=uo-us,uo-uk'" style="cursor: pointer;">
+                            <!-- <div class="reward-preview" onclick="window.location.href='https://www.urbanoutfitters.com/en-gb/?ar=uo-us,uo-uk'" style="cursor: pointer;">
+                                <div class="reward-preview-fill" id="rewardFill"></div>
                                 <div class="amount">£5</div>
                                 <div class="label">Reward</div>
-                            </div>
+                            </div> -->
                         </div>
-                        <div class="stamp-message" onclick="window.location.href='https://www.urbanoutfitters.com/en-gb/?ar=uo-us,uo-uk'" style="cursor: pointer;">
-                            <span><strong>2 more orders to go!</strong> Spend £20+ per order to earn your next stamp.</span>
-                        </div>
+                        
                 </div>
                 
                 
@@ -4002,7 +4178,7 @@
         
         <!-- Main Grid -->
         <div class="main-grid">
-            <!-- Welcome Offer and Priority Pass Container -->
+            <!-- Welcome Offer and Download App Container -->
             <div class="welcome-priority-container">
                 <!-- Welcome Offer -->
                 <div class="card offer-card">
@@ -4015,63 +4191,39 @@
                     <p class="offer-expiry">Expires in 14 days</p>
                 </div>
                 
-                <!-- Priority Pass Section -->
+                <!-- Download App Section (replaces Priority Pass) -->
                 <section class="priority-pass-section">
-                    <span class="annotation">Priority Pass</span>
+                    <span class="annotation">Download the App</span>
                     <div class="priority-pass-content">
                         <p class="priority-pass-description">
-                            Enjoy Unlimited next day Delivery on all purchases for an entire year for just £12* <a href="#" class="priority-pass-learn-more">Learn More!</a>
+                            Download the UO app to shop new drops first, access member exclusives and manage your rewards on the go.
                         </p>
-                        <a href="https://www.urbanoutfitters.com/en-gb/delivery-pass-enrollment" class="priority-pass-button" target="_blank">Secure Your Pass</a>
+                        <div class="download-app-buttons">
+                            <a href="https://www.urbanoutfitters.com/en-gb/apps" target="_blank">
+                                <img src="assets/images/download-app-atore.svg" alt="Download on the App Store">
+                            </a>
+                            <a href="https://www.urbanoutfitters.com/en-gb/apps" target="_blank">
+                                <img src="assets/images/download-play-store.svg" alt="Get it on Google Play">
+                            </a>
+                        </div>
                     </div>
                 </section>
             </div>
             
-            <!-- Next Steps -->
+            <!-- Next Drop -->
             <div class="card steps-card">
-                <span class="annotation">Next Steps</span>
-                <div class="card-label"><span class="dot"></span> Getting Started</div>
-                <ul class="steps-list">
-                    <li class="step-item completed">
-                        <span class="step-number-badge">✓</span>
-                        <div class="step-content">
-                            <h4>Create your account</h4>
-                            <p>Welcome to UO Rewards!</p>
-                        </div>
-                    </li>
-                    <li class="step-item">
-                        <span class="step-number-badge">2</span>
-                        <div class="step-content">
-                            <h4>Enter your mobile number for 10% off</h4>
-                            <p>Claim 10% off for entering your mobile number</p>
-                        </div>
-                        <span class="step-action" onclick="openMobileModal()">Claim</span>
-                    </li>
-                    <li class="step-item">
-                        <span class="step-number-badge">3</span>
-                        <div class="step-content">
-                            <h4>Enter your birthday for a birthday gift</h4>
-                            <p>A lil something for your birthday</p>
-                        </div>
-                        <span class="step-action" onclick="openBirthdayModal()">Claim</span>
-                    </li>
-                    <li class="step-item">
-                        <span class="step-number-badge">4</span>
-                        <div class="step-content">
-                            <h4>Make your first qualifying order</h4>
-                            <p>Spend £20+ to earn your first stamp</p>
-                        </div>
-                        <span class="step-action" onclick="window.location.href='https://www.urbanoutfitters.com/en-gb/?ar=uo-us,uo-uk'">Shop</span>
-                    </li>
-                    <li class="step-item">
-                        <span class="step-number-badge">5</span>
-                        <div class="step-content">
-                            <h4>Download the UO app for an additional 10% off</h4>
-                            <p>Collect stamps in the app to earn rewards</p>
-                        </div>
-                        <span class="step-action" onclick="handleAppDownloadClick()">View</span>
-                    </li>
-                </ul>
+                <span class="annotation">Next Drop</span>
+                
+                <div>
+                    <div class="next-drop-countdown" id="nextDropCountdown">00d 00h 00m 00s</div>
+                    <div class="next-drop-label">Until the drop</div>
+                </div>
+                <div class="next-drop-header">
+                    <div class="next-drop-title">New In:Urban Renewal Drop</div>
+                    <p class="next-drop-subtitle">
+                        One-of-a-kind vintage and upcycled pieces, reimagined for now. Each item is sourced from around the world and reworked by hand — no two are alike. Once they're gone, they're gone.
+                    </p>
+                </div>
             </div>
             
             <!-- Stamp Progress -->
@@ -4093,6 +4245,7 @@
                         </div>
                     </div>
                     <div class="reward-preview">
+                        <div class="reward-preview-fill"></div>
                         <div class="amount">£5</div>
                         <div class="label">Reward</div>
                     </div>
@@ -4103,18 +4256,29 @@
             </div> -->
         </div>
         
-        <!-- Events Section -->
-        <section class="events-section">
+        <!-- Rewards & Benefits Section (Events + Competitions) -->
+        <section class="rewards-benefits-section" id="rewardsBenefitsSection">
             <div class="section-header">
-                <h2 class="section-title">Events <span class="annotation">Events</span></h2>
+                <h2 class="section-title">Member Exclusives</h2>
                 <a href="#" class="view-all">View all →</a>
             </div>
             <div class="events-grid">
                 <div class="event-card">
-                    <div class="event-image" style="background-image: url('assets/images/uo-event-1.jpg');">
-                        <span class="member-badge">Member Exclusive</span>
-                    </div>
+                    <div class="event-image" style="background-image: url('assets/images/uo-priority-pass.jpg');"></div>
                     <div class="event-content">
+                        <span class="member-badge">Benefits</span>
+                        <h3 class="event-title">Next Day Delivery Pass</h3>
+                        <p class="event-date">Enjoy Unlimited next day Delivery on all purchases for an entire year for just £12* <a href="#" class="priority-pass-learn-more">Learn More!</a></p>
+                        <div class="event-footer">
+                            <span class="event-location"></span>
+                            <button class="enter-btn">Secure Your Pass</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="event-card">
+                    <div class="event-image" style="background-image: url('assets/images/uo-event-1.jpg');"></div>
+                    <div class="event-content">
+                        <span class="member-badge">Events</span>
                         <h3 class="event-title">UO Rewards Member Night</h3>
                         <p class="event-date">March 15, 2026 • 6:00 PM</p>
                         <div class="event-footer">
@@ -4124,23 +4288,9 @@
                     </div>
                 </div>
                 <div class="event-card">
-                    <div class="event-image" style="background-image: url('assets/images/uo-event-2.jpg');">
-                        <span class="member-badge">Member Exclusive</span>
-                    </div>
+                    <div class="event-image" style="background-image: url('assets/images/uo-events-3.jpg');"></div>
                     <div class="event-content">
-                        <h3 class="event-title">Spring Collection Preview</h3>
-                        <p class="event-date">March 22, 2026 • 7:00 PM</p>
-                        <div class="event-footer">
-                            <span class="event-location">London Oxford Circus Store</span>
-                            <button class="enter-btn">RSVP</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="event-card">
-                    <div class="event-image" style="background-image: url('assets/images/uo-events-3.jpg');">
-                        <span class="member-badge">Member Exclusive</span>
-                    </div>
-                    <div class="event-content">
+                        <span class="member-badge">Events</span>
                         <h3 class="event-title">DJ Night & Shopping</h3>
                         <p class="event-date">March 28, 2026 • 8:00 PM</p>
                         <div class="event-footer">
@@ -4149,21 +4299,10 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-        
-        <!-- Competitions Section -->
-        <section class="competitions-section" id="competitionsSection">
-            <div class="section-header">
-                <h2 class="section-title">Member Competitions <span class="annotation">Competitions</span></h2>
-                <a href="#" class="view-all">View all →</a>
-            </div>
-            <div class="competitions-grid">
                 <div class="competition-card">
-                    <div class="competition-image" style="background-image: url('assets/images/uo-competition-1.jpg');">
-                        <span class="member-badge">Member Exclusive</span>
-                    </div>
+                    <div class="competition-image" style="background-image: url('assets/images/uo-competition-1.jpg');"></div>
                     <div class="competition-content">
+                        <span class="member-badge">Competitions</span>
                         <h3 class="competition-title">WIN a pick from our Valentine's Day Edit!</h3>
                         <p class="competition-prize">Worth up to £150</p>
                         <div class="competition-footer">
@@ -4173,10 +4312,9 @@
                     </div>
                 </div>
                 <div class="competition-card">
-                    <div class="competition-image" style="background-image: url('assets/images/uo-competition-2.jpg');">
-                        <span class="member-badge">Member Exclusive</span>
-                    </div>
+                    <div class="competition-image" style="background-image: url('assets/images/uo-competition-2.jpg');"></div>
                     <div class="competition-content">
+                        <span class="member-badge">Competitions</span>
                         <h3 class="competition-title">WIN an item from No Problemo</h3>
                         <p class="competition-prize">Worth up to £150</p>
                         <div class="competition-footer">
@@ -4186,10 +4324,9 @@
                     </div>
                 </div>
                 <div class="competition-card">
-                    <div class="competition-image" style="background-image: url('assets/images/uo-competition-3.jpg');">
-                        <span class="member-badge">Member Exclusive</span>
-                    </div>
+                    <div class="competition-image" style="background-image: url('assets/images/uo-competition-3.jpg');"></div>
                     <div class="competition-content">
+                        <span class="member-badge">Competitions</span>
                         <h3 class="competition-title">WIN a pair of new in Vibram shoes!</h3>
                         <p class="competition-prize">Worth up to £180</p>
                         <div class="competition-footer">
@@ -4199,6 +4336,13 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Competitions Section inside Rewards & Benefits -->
+            <section class="competitions-section" id="competitionsSection">
+                <div class="competitions-grid">
+                    
+                </div>
+            </section>
         </section>
         
         <!-- My Rewards Locker -->
@@ -4208,6 +4352,72 @@
             </div>
             <div class="rewards-locker-grid" id="rewardsLockerGrid">
                 <!-- Rewards will be dynamically populated here -->
+            </div>
+        </section>
+        
+        <!-- FAQ Section (Dashboard) -->
+        <section class="faq-section">
+            <h2 class="faq-title">FAQs</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>How do I earn stamps?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Earn stamps by making qualifying purchases of £20 or more. Each stamp brings you closer to unlocking rewards. You can also earn stamps through special member events and promotions.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>What rewards can I unlock?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>As a UO Rewards member, you can unlock exclusive discounts, early access to sales, member-only events, birthday rewards, and special perks throughout the year.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>Is membership free?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! UO Rewards membership is completely free. Simply sign up with your email address to start earning stamps and unlocking rewards.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>How do I track my stamp progress?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Once you're a member, you can view your stamp progress in your dashboard. You'll see how many stamps you've earned and how many you need to unlock your next reward.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>Do stamps expire?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Stamps don't expire, so you can take your time earning them. However, some rewards and offers may have expiration dates, so be sure to check your dashboard regularly.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>Can I use rewards online and in-store?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! Your rewards can be used both online and in-store. When shopping online, your rewards will be automatically applied at checkout. In-store, simply show your membership details at the register.</p>
+                    </div>
+                </div>
             </div>
         </section>
         
