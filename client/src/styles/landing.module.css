@@ -1,0 +1,34 @@
+/* Landing Main */
+.landingMain { padding: 60px 20px; max-width: 1200px; margin: 0 auto; }
+.landingContent { display: flex; flex-direction: column; align-items: center; gap: 80px; }
+
+/* Join Banner */
+.joinBanner {
+  background: var(--uo-lime); border: 1px solid var(--uo-black);
+  padding: 60px 40px; margin: 0 auto; max-width: 1200px; width: 100%;
+  text-align: center; cursor: pointer; transition: all 0.3s ease;
+}
+.joinBanner:hover { background: var(--uo-white); transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+.joinBanner h1 { font-family: var(--font-display); font-size: 128px; font-weight: normal; margin-bottom: 16px; text-transform: uppercase; }
+.joinBanner p { font-size: 18px; margin-bottom: 32px; color: #333; }
+.joinBtn {
+  display: inline-block; padding: 16px 48px; background: var(--uo-black); color: var(--uo-white);
+  font-family: var(--font-body); font-size: 16px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1px; border: 1px solid var(--uo-black); border-radius: 0; cursor: pointer;
+  transition: all 0.2s ease;
+}
+.joinBtn:hover { background: var(--uo-lime); color: var(--uo-black); border-color: var(--uo-lime); }
+
+/* Member Perks */
+.memberPerksSection { width: 100%; max-width: 1200px; margin: 0 auto; }
+.memberPerksGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.perkItem { display: flex; align-items: flex-start; gap: 16px; padding: 24px; }
+.perkIcon { width: 48px; height: 48px; flex-shrink: 0; object-fit: contain; display: block; }
+.perkTitle { font-family: var(--font-body); font-size: 16px; font-weight: 700; margin-bottom: 8px; color: var(--uo-black); }
+.perkDescription { font-family: var(--font-body); font-size: 14px; color: #666; line-height: 1.5; }
+
+/* Member Exclusives */
+.landingEventsSection { width: 100%; max-width: 1200px; margin: 0 auto; }
+.sectionHeader { margin-bottom: 24px; }
+.sectionTitle { font-family: var(--font-display); font-size: 48px; font-weight: normal; text-align: center; text-transform: uppercase; }
+.eventsGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }

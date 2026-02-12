@@ -1,11 +1,16 @@
 {
   "name": "uo-rewards-redesign",
-  "version": "1.0.0",
-  "description": "UO Rewards members-only dashboard",
+  "version": "2.0.0",
+  "private": true,
+  "description": "UO Rewards members-only dashboard - React + Express",
   "scripts": {
-    "dev": "vercel dev"
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:client": "npm --prefix client run dev",
+    "dev:server": "npm --prefix server run dev",
+    "build": "npm --prefix client run build",
+    "start": "npm --prefix server run start"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
 }

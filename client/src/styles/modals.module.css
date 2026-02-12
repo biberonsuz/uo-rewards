@@ -1,0 +1,92 @@
+/* Modal Overlay */
+.modalOverlay {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.7); z-index: 10000;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* Modal Container */
+.modal {
+  background: var(--uo-white); border: 1px solid var(--uo-black);
+  border-radius: 0; padding: 48px; max-width: 480px; width: 90%;
+  max-height: 90vh; overflow-y: auto; position: relative;
+}
+
+/* Close Button */
+.modalClose {
+  position: absolute; top: 20px; right: 20px; background: none;
+  border: none; font-size: 32px; cursor: pointer; color: var(--uo-black);
+  line-height: 1; padding: 0; width: 32px; height: 32px;
+}
+.modalClose:hover { color: var(--uo-orange); }
+
+/* Modal Header */
+.modalHeader { text-align: center; margin-bottom: 32px; }
+.modalHeader h2 {
+  font-family: var(--font-display); font-size: 56px; font-weight: normal;
+  margin-bottom: 8px; text-transform: uppercase;
+}
+.modalHeader p { font-size: 14px; color: #666; }
+
+/* Form Group */
+.formGroup { margin-bottom: 16px; }
+.formGroup label {
+  display: block; font-family: var(--font-body); font-size: 12px;
+  text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;
+}
+.formGroup input,
+.formGroup select {
+  width: 100%; padding: 14px 16px; border: 1px solid var(--uo-black);
+  border-radius: 0; font-family: var(--font-body); font-size: 16px;
+  background: var(--uo-white);
+}
+.formGroup input:focus,
+.formGroup select:focus { outline: none; border-color: var(--uo-lime); }
+
+/* Submit Button */
+.btnSubmit {
+  width: 100%; padding: 16px; background: var(--uo-black); color: var(--uo-white);
+  font-family: var(--font-body); font-size: 14px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1px;
+  border: 1px solid var(--uo-black); border-radius: 0; cursor: pointer;
+  transition: all 0.2s ease; margin-top: 8px;
+}
+.btnSubmit:hover { background: var(--uo-lime); color: var(--uo-black); border-color: var(--uo-lime); }
+.btnSubmit:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* Auth Footer */
+.authFooter { text-align: center; margin-top: 24px; font-size: 14px; }
+.authFooter a { color: var(--uo-black); text-decoration: underline; cursor: pointer; }
+
+/* Messages */
+.errorMessage {
+  background: #ffebee; color: #c62828; padding: 12px; border-radius: 8px;
+  margin-bottom: 16px; font-size: 14px;
+}
+.successMessage {
+  background: #e8f5e9; color: #2e7d32; padding: 12px; border-radius: 8px;
+  margin-bottom: 16px; font-size: 14px;
+}
+
+/* Verification Code Input */
+.verificationInput { display: flex; gap: 12px; justify-content: center; margin-bottom: 24px; }
+.verificationInput input {
+  width: 60px; height: 60px; text-align: center;
+  border: 1px solid var(--uo-black); border-radius: 0;
+  font-family: var(--font-display); font-size: 36px; font-weight: normal;
+  background: var(--uo-white); padding: 0;
+}
+.verificationInput input:focus { outline: none; border-color: var(--uo-lime); }
+
+/* Dev Code Display */
+.codeDisplay {
+  background: var(--uo-lime); border: 1px solid var(--uo-black); border-radius: 12px;
+  padding: 16px 20px; font-family: var(--font-body); font-size: 14px; font-weight: 700;
+  margin-bottom: 16px; max-width: 280px; margin-left: auto; margin-right: auto;
+}
+.codeDisplayLabel { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; opacity: 0.7; }
+.codeDisplayValue {
+  font-size: 24px; letter-spacing: 4px; text-align: center;
+  background: var(--uo-white); padding: 12px; border-radius: 8px;
+  border: 1px solid var(--uo-black);
+}
