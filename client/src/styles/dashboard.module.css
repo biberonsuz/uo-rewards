@@ -10,7 +10,7 @@
 }
 .welcomeHero::after {
   content: 'UO'; position: absolute; bottom: -20px; right: 40px;
-  font-family: var(--font-display); font-size: 180px; font-weight: normal;
+  font-family: var(--font-display); font-size: clamp(100px, 28vw, 180px); font-weight: normal;
   color: var(--uo-black); opacity: 0.08; line-height: 1;
 }
 .welcomeContent { position: relative; z-index: 1; display: flex; justify-content: space-between; gap: 40px; }
@@ -30,13 +30,14 @@
 
 /* Stamp Progress */
 .stampProgress { display: flex; align-items: center; gap: 24px; margin: 24px 0; }
-.stampsContainer { display: flex; gap: 16px; flex: 1; }
+.stampsContainer { display: flex; gap: 16px; flex: 1; min-width: 0; }
 .stamp {
-  width: 100px; height: 100px; border: 1px solid var(--uo-black); display: flex;
+  flex: 0 1 100px; width: 100px; aspect-ratio: 1; min-width: 0;
+  border: 1px solid var(--uo-black); display: flex;
   flex-direction: column; align-items: center; justify-content: center;
   position: relative; background: var(--uo-cream); transition: all 0.3s ease;
 }
-.stampNumber { font-family: var(--font-display); font-size: 48px; font-weight: normal; position: relative; z-index: 2; }
+.stampNumber { font-family: var(--font-display); font-size: clamp(32px, 11vw, 48px); font-weight: normal; position: relative; z-index: 2; }
 .stampLabel { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
 .stampMessage { background: var(--uo-peach); padding: 16px 20px; font-size: 16px; display: flex; align-items: center; gap: 12px; }
 
@@ -49,7 +50,7 @@
   position: absolute; bottom: 0; left: 0; width: 100%;
   background: var(--uo-lime); transition: height 0.5s ease; z-index: 0;
 }
-.rewardAmount { position: relative; z-index: 1; font-family: var(--font-display); font-size: 64px; font-weight: normal; line-height: 1; }
+.rewardAmount { position: relative; z-index: 1; font-family: var(--font-display); font-size: clamp(44px, 13vw, 64px); font-weight: normal; line-height: 1; }
 .rewardLabel { position: relative; z-index: 1; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-top: 8px; opacity: 0.8; }
 
 /* Main Grid */
@@ -63,7 +64,7 @@
   background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0,0,0,0.05) 10px, rgba(0,0,0,0.05) 20px);
 }
 .offerBadge { display: inline-block; background: var(--uo-black); color: var(--uo-lime); font-family: var(--font-body); font-size: 11px; padding: 6px 12px; border-radius: 20px; margin-bottom: 16px; }
-.offerAmount { font-family: var(--font-display); font-size: 128px; font-weight: normal; line-height: 1; margin-bottom: 8px; display: inline-block; }
+.offerAmount { font-family: var(--font-display); font-size: clamp(72px, 22vw, 128px); font-weight: normal; line-height: 1; margin-bottom: 8px; display: inline-block; }
 .offerDescription { font-size: 16px; margin-bottom: 24px; margin-left: 6px; max-width: 200px; display: inline-block; }
 
 /* Steps/Countdown Card */
@@ -79,10 +80,11 @@
   mix-blend-mode: multiply; pointer-events: none;
 }
 .nextDropHeader { margin-bottom: 16px; position: relative; z-index: 1; }
-.nextDropTitle { font-family: var(--font-display); font-size: 56px; font-weight: normal; text-transform: uppercase; margin-bottom: 4px; color: var(--uo-white); }
+.nextDropTitle { font-family: var(--font-display); font-size: clamp(36px, 10vw, 56px); font-weight: normal; text-transform: uppercase; margin-bottom: 4px; color: var(--uo-white); }
 .nextDropSubtitle { font-family: var(--font-body); font-size: 14px; color: rgba(255,255,255,0.85); }
-.nextDropCountdown { font-family: var(--font-display); font-size: 128px; letter-spacing: 1px; margin-bottom: 8px; text-align: center; position: relative; z-index: 1; }
-.nextDropLabel { font-family: var(--font-body); font-size: 18px; text-align: center; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.9); position: relative; z-index: 1; }
+/* Sized so the full d/h/m/s string stays on one line down to 375px */
+.nextDropCountdown { font-family: var(--font-display); font-size: clamp(44px, 13vw, 128px); letter-spacing: 1px; margin-bottom: 8px; text-align: center; position: relative; z-index: 1; white-space: nowrap; }
+.nextDropLabel { font-family: var(--font-body); font-size: clamp(14px, 4vw, 18px); text-align: center; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.9); position: relative; z-index: 1; }
 
 /* Download App */
 .downloadAppSection { background: var(--uo-white); border: 1px solid var(--uo-black); padding: 48px; position: relative; }
@@ -91,10 +93,10 @@
 
 /* Sections */
 .sectionHeader { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-.sectionTitle { font-family: var(--font-display); font-size: 48px; font-weight: normal; text-transform: uppercase; }
-.eventsGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-.competitionsGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-.rewardsLockerGrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+.sectionTitle { font-family: var(--font-display); font-size: clamp(32px, 9vw, 48px); font-weight: normal; text-transform: uppercase; }
+.eventsGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: 20px; }
+.competitionsGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: 20px; }
+.rewardsLockerGrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(250px, 100%), 1fr)); gap: 20px; }
 .rewardsLockerSection { margin-bottom: 48px; }
 .competitionsSection { margin-bottom: 48px; }
 .rewardsBenefitsSection { margin-bottom: 32px; }
@@ -151,4 +153,38 @@
   background-image: url('/images/5-voucher.png'); background-size: contain;
   background-position: center; background-repeat: no-repeat;
   z-index: 3; pointer-events: none;
+}
+
+/* ---- Responsive ---- */
+
+/* Offer + countdown sit side by side only while both stay legible */
+@media (max-width: 900px) {
+  .mainGrid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  .welcomeHero { padding: 28px 20px; margin-bottom: 24px; }
+  .welcomeContent { flex-direction: column; gap: 28px; }
+  .qrCodeSection { align-self: center; }
+
+  .stampProgress { gap: 16px; margin: 20px 0; }
+  .stampsContainer { gap: 10px; }
+  .stampMessage { padding: 14px 16px; font-size: 14px; }
+
+  .card,
+  .offerCard,
+  .stepsCard,
+  .downloadAppSection,
+  .priorityPassSection { padding: 24px 20px; }
+
+  .rewardPreview { padding: 20px 24px; min-width: 0; }
+
+  .sectionHeader { margin-bottom: 16px; }
+  .eventsGrid,
+  .competitionsGrid,
+  .rewardsLockerGrid { gap: 16px; }
+  .rewardsLockerSection,
+  .competitionsSection { margin-bottom: 32px; }
+
+  .annotation { font-size: 15px; left: 16px; }
 }

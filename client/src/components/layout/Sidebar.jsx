@@ -21,7 +21,7 @@ export default function Sidebar() {
               <NavLink
                 to={item.path}
                 className={({ isActive }) =>
-                  `${styles.sidebarMenuLink} ${isActive ? styles.active : ''}`
+                  `${styles.sidebarMenuLink} ${isActive ? styles.sidebarMenuLinkActive : ''}`
                 }
               >
                 {item.label}

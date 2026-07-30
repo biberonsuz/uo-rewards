@@ -47,3 +47,17 @@
   text-transform: uppercase; letter-spacing: 1px; background: none; border: none;
   cursor: pointer; padding: 0; font-family: var(--font-body);
 }
+
+@media (max-width: 768px) {
+  .eventImage, .competitionImage { height: 200px; }
+  .eventContent, .competitionContent { padding: 16px; }
+  /* Title and CTA stop competing for the same line */
+  .eventFooter, .competitionFooter { flex-wrap: wrap; gap: 12px; }
+  .enterBtn { padding: 12px 20px; }
+  .rewardItem { padding: 20px; }
+}
+
+/* Lift-on-hover sticks after a tap on touch devices */
+@media (hover: none) {
+  .eventCard:hover, .competitionCard:hover { transform: none; }
+}

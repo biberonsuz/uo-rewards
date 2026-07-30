@@ -6,7 +6,10 @@ export default function Header({ variant = 'dashboard' }) {
 
   return (
     <header className={styles.header}>
-      <img src="/images/header.png" alt="Urban Outfitters Header" className={styles.headerImg} />
+      <picture>
+        <source media="(max-width: 768px)" srcSet="/images/header-mobile.png" />
+        <img src="/images/header.png" alt="Urban Outfitters Header" className={styles.headerImg} />
+      </picture>
       {variant === 'dashboard' && (
         <button className={styles.logoutBtn} onClick={logout}>Sign Out</button>
       )}

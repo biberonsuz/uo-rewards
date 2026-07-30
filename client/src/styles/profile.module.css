@@ -42,7 +42,7 @@
 .qrCodeId { font-family: var(--font-body); font-size: 14px; font-weight: 600; text-align: center; color: var(--uo-black); text-transform: uppercase; margin: 0 auto; padding-top: 12px; }
 
 /* Addresses */
-.addressesList { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 24px; }
+.addressesList { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(250px, 100%), 1fr)); gap: 24px; }
 .addressCard { background: var(--uo-white); border: 1px solid var(--uo-black); border-radius: 0; padding: 24px; }
 .addressName { font-family: var(--font-body); font-size: 18px; font-weight: 600; color: var(--uo-black); margin-bottom: 4px; }
 .addressType { font-family: var(--font-body); font-size: 12px; color: var(--uo-black); opacity: 0.6; text-transform: uppercase; margin-bottom: 16px; }
@@ -50,4 +50,19 @@
 .noAddresses { font-family: var(--font-body); font-size: 16px; color: var(--uo-black); opacity: 0.6; text-align: center; padding: 48px 24px; }
 
 @media (max-width: 1024px) { .profileSection { grid-template-columns: 1fr; } }
-@media (max-width: 768px) { .formGroupRow { grid-template-columns: 1fr; } .profileTitle { font-size: 36px; } }
+@media (max-width: 768px) {
+  .formGroupRow { grid-template-columns: 1fr; }
+  .profileTitle { font-size: 20px; }
+  .profileSection { gap: 20px; margin-bottom: 24px; }
+  .profileRightColumn { gap: 20px; }
+  .personalInfoSection,
+  .emailPreferencesSection,
+  .qrCodeSectionProfile { padding: 24px 20px; }
+  .profileHeader { margin-bottom: 24px; }
+  .profileForm { gap: 20px; }
+  .profileActions { flex-wrap: wrap; }
+  .btnPrimary { flex: 1 1 auto; }
+  .addressesList { gap: 16px; }
+  .addressCard { padding: 20px; }
+  .noAddresses { padding: 32px 20px; }
+}

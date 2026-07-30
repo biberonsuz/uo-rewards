@@ -23,7 +23,7 @@
 /* Modal Header */
 .modalHeader { text-align: center; margin-bottom: 32px; }
 .modalHeader h2 {
-  font-family: var(--font-display); font-size: 56px; font-weight: normal;
+  font-family: var(--font-display); font-size: clamp(36px, 11vw, 56px); font-weight: normal;
   margin-bottom: 8px; text-transform: uppercase;
 }
 .modalHeader p { font-size: 14px; color: #666; }
@@ -71,9 +71,10 @@
 /* Verification Code Input */
 .verificationInput { display: flex; gap: 12px; justify-content: center; margin-bottom: 24px; }
 .verificationInput input {
-  width: 60px; height: 60px; text-align: center;
+  flex: 1 1 0; width: 60px; max-width: 60px; min-width: 0;
+  aspect-ratio: 1; text-align: center;
   border: 1px solid var(--uo-black); border-radius: 0;
-  font-family: var(--font-display); font-size: 36px; font-weight: normal;
+  font-family: var(--font-display); font-size: clamp(24px, 8vw, 36px); font-weight: normal;
   background: var(--uo-white); padding: 0;
 }
 .verificationInput input:focus { outline: none; border-color: var(--uo-lime); }
@@ -89,4 +90,13 @@
   font-size: 24px; letter-spacing: 4px; text-align: center;
   background: var(--uo-white); padding: 12px; border-radius: 8px;
   border: 1px solid var(--uo-black);
+}
+
+@media (max-width: 600px) {
+  /* Anchor to the top so an open keyboard can't push the fields off-screen */
+  .modalOverlay { align-items: flex-start; padding: 16px; overflow-y: auto; }
+  .modal { padding: 32px 20px; width: 100%; max-height: none; }
+  .modalHeader { margin-bottom: 24px; }
+  .modalClose { top: 12px; right: 12px; width: 44px; height: 44px; }
+  .verificationInput { gap: 8px; }
 }

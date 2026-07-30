@@ -9,8 +9,9 @@
   text-align: center; cursor: pointer; transition: all 0.3s ease;
 }
 .joinBanner:hover { background: var(--uo-white); transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
-.joinBanner h1 { font-family: var(--font-display); font-size: 128px; font-weight: normal; margin-bottom: 16px; text-transform: uppercase; }
-.joinBanner p { font-size: 18px; margin-bottom: 32px; color: #333; }
+@media (hover: none) { .joinBanner:hover { background: var(--uo-lime); transform: none; box-shadow: none; } }
+.joinBanner h1 { font-family: var(--font-display); font-size: clamp(56px, 13vw, 128px); font-weight: normal; margin-bottom: 16px; text-transform: uppercase; line-height: 1.05; }
+.joinBanner p { font-size: clamp(15px, 4vw, 18px); margin-bottom: 32px; color: #333; }
 .joinBtn {
   display: inline-block; padding: 16px 48px; background: var(--uo-black); color: var(--uo-white);
   font-family: var(--font-body); font-size: 16px; font-weight: 700; text-transform: uppercase;
@@ -21,7 +22,7 @@
 
 /* Member Perks */
 .memberPerksSection { width: 100%; max-width: 1200px; margin: 0 auto; }
-.memberPerksGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.memberPerksGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: 24px; }
 .perkItem { display: flex; align-items: flex-start; gap: 16px; padding: 24px; }
 .perkIcon { width: 48px; height: 48px; flex-shrink: 0; object-fit: contain; display: block; }
 .perkTitle { font-family: var(--font-body); font-size: 16px; font-weight: 700; margin-bottom: 8px; color: var(--uo-black); }
@@ -30,5 +31,15 @@
 /* Member Exclusives */
 .landingEventsSection { width: 100%; max-width: 1200px; margin: 0 auto; }
 .sectionHeader { margin-bottom: 24px; }
-.sectionTitle { font-family: var(--font-display); font-size: 48px; font-weight: normal; text-align: center; text-transform: uppercase; }
-.eventsGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+.sectionTitle { font-family: var(--font-display); font-size: clamp(32px, 9vw, 48px); font-weight: normal; text-align: center; text-transform: uppercase; }
+.eventsGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap: 20px; }
+
+@media (max-width: 768px) {
+  .landingMain { padding: 32px 16px; }
+  .landingContent { gap: 48px; }
+  .joinBanner { padding: 40px 20px; }
+  .joinBanner p { margin-bottom: 24px; }
+  .joinBtn { padding: 16px 32px; width: 100%; }
+  .perkItem { padding: 16px 0; gap: 14px; }
+  .eventsGrid { gap: 16px; }
+}

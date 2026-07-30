@@ -1,3 +1,9 @@
 node_modules
+.env
 .env.local
 .env*.local
+
+# Not part of the frontend deploy — server/ also holds .env and the SQLite file
+server
+legacy
+assets

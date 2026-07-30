@@ -1,5 +1,6 @@
 /* Header */
 .header { width: 100%; margin: 0; padding: 0; position: sticky; top: 0; z-index: 1000; }
+.header picture, .footer picture { display: block; }
 .headerImg { width: 100%; height: auto; display: block; }
 .logoutBtn {
   position: absolute; top: 5px; right: 20px; background: rgb(245,245,245);
@@ -10,7 +11,7 @@
 .logoutBtn:hover { background: var(--uo-lime); color: var(--uo-black); }
 
 /* Dashboard Layout */
-.dashboard { display: flex; gap: 40px; max-width: 1400px; margin: 0 auto; padding: 40px 0; }
+.dashboard { display: flex; gap: 40px; max-width: 1400px; margin: 0 auto; padding: 40px 20px; }
 .dashboardContent { flex: 1; min-width: 0; }
 
 /* Sidebar */
@@ -26,14 +27,34 @@
 .sidebarMenuLinkActive { background: var(--uo-cream); border-left-color: var(--uo-black); font-weight: 600; }
 
 /* Footer */
-.footer { width: 100vw; margin-left: calc(50% - 50vw); margin-top: 60px; padding: 0; }
+.footer { width: 100%; margin-top: 60px; padding: 0; }
 .footerImg { width: 100%; height: auto; display: block; }
 
 @media (max-width: 1024px) {
   .dashboard { flex-direction: column; }
   .sidebar { width: 100%; position: relative; top: 0; }
-  .sidebarMenu { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 16px; }
+  .sidebarMenu { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; }
   .sidebarMenuItem { flex: 1; min-width: 120px; }
   .sidebarMenuLink { border-left: none; border-bottom: 3px solid transparent; text-align: center; border-radius: 8px; }
   .sidebarMenuLinkActive { border-left: none; border-bottom-color: var(--uo-black); }
+}
+
+@media (max-width: 768px) {
+  .dashboard { gap: 24px; padding: 24px 16px; }
+  .footer { margin-top: 40px; }
+
+  /* Nav becomes a single-row scroll strip so it costs one line, not three */
+  .sidebarMenu {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    margin: 0 -16px;
+    padding: 0 16px;
+    scroll-snap-type: x proximity;
+  }
+  .sidebarMenu::-webkit-scrollbar { display: none; }
+  .sidebarMenuItem { flex: 0 0 auto; min-width: 0; scroll-snap-align: start; }
+  .sidebarMenuLink { white-space: nowrap; padding: 12px 14px; border-radius: 0; }
+
+  .logoutBtn { top: 4px; right: 8px; padding: 6px 10px; font-size: 10px; letter-spacing: 0.5px; }
 }
